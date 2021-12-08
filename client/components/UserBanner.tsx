@@ -4,7 +4,7 @@ import { apiClient } from '@/utils/apiClient'
 import type { UserInfo } from '$/types'
 import type { ChangeEvent } from 'react'
 
-const UserBanner = () => {
+export const UserBanner = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState('')
   const [userInfo, setUserInfo] = useState({} as UserInfo)
@@ -65,5 +65,3 @@ const UserBanner = () => {
     </div>
   )
 }
-
-export default UserBanner
