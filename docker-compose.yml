@@ -9,7 +9,7 @@ services:
     # データの保管&同期
     volumes:
       # ホストとコンテナのファイル同期
-      - ./db/postgres:/var/lib/postgresql/data
+      - ./.db/postgres:/var/lib/postgresql/data
       # docker-entrypoint-initdb.dはコンテナ作成時にSQLなどを実行できる
       # - ./initdb:/docker-entrypoint-initdb.d
 
@@ -27,36 +27,3 @@ services:
 
     # 再起動の設定
     restart: always
-
-  # api:
-  #   # Dockerfileをもとにコンテナ作成
-  #   build:
-  #     # このファイルから見てDockerfileがどこにあるか
-  #     context: .
-  #     dockerfile: Dockerfile
-
-  #   # コンテナ作成時の名前
-  #   container_name: whopay-api
-
-  #   volumes:
-  #     # ホストとコンテナのファイル同期
-  #     - .:/app
-
-  #   # 起動順を制御
-  #   depends_on:
-  #     # postgresが起動してからこのコンテナを起動
-  #     - mysql
-
-  #   # ポートの番号紐付け
-  #   ports:
-  #     - 4000:4000
-
-  #   # 環境変数
-  #   environment:
-  #     NODE_ENV: development
-  #     PORT: 4000
-  #     DATABASE_SYNC: 'true'
-  #     DATABASE_URL: mysql://root:password@mysql:3306/whopay_database
-
-  #   # 再起動の設定
-  #   restart: always
