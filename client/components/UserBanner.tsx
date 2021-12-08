@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import styles from '~/styles/UserBanner.module.css'
-import { apiClient } from '~/utils/apiClient'
+import { apiClient } from '@/utils/apiClient'
 import type { UserInfo } from '$/types'
 import type { ChangeEvent } from 'react'
 
