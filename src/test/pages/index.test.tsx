@@ -5,12 +5,13 @@ import Fastify, { FastifyInstance } from 'fastify'
 import cors from 'fastify-cors'
 import aspida from '@aspida/axios'
 import api from '$/api/$api'
-import Home from '@/pages/index'
+import Home from '~/pages/index'
 import { render, fireEvent } from '../testUtils'
 
 dotenv.config({ path: 'server/.env' })
 
 const apiClient = api(aspida(undefined, { baseURL: process.env.API_BASE_PATH }))
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const res = function <T extends () => any>(
   data: ReturnType<T> extends Promise<infer S> ? S : never
 ) {
