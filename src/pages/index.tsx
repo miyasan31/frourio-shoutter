@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useCallback, useState } from 'react'
 import useAspidaSWR from '@aspida/swr'
-import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
 import { UserBanner } from '~/components'
 import type { Task } from '$prisma/client'
@@ -41,27 +40,27 @@ const Home = () => {
   if (!tasks) return <div>loading...</div>
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>frourio-todo-app</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <UserBanner />
 
-        <h1 className={styles.title}>
+        <h1>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <p className={styles.description}>frourio-todo-app</p>
+        <p>frourio-todo-app</p>
 
         <div>
           <form style={{ textAlign: 'center' }} onSubmit={createTask}>
             <input value={label} type="text" onChange={inputLabel} />
             <input type="submit" value="ADD" />
           </form>
-          <ul className={styles.tasks}>
+          <ul>
             {tasks.map((task) => (
               <li key={task.id}>
                 <label>
@@ -84,14 +83,13 @@ const Home = () => {
         </div>
       </main>
 
-      <footer className={styles.footer}>
+      <footer>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          Powered by <img src="/vercel.svg" alt="Vercel Logo" />
         </a>
       </footer>
     </div>
