@@ -12,3 +12,66 @@ model Task {
   label String
   done  Boolean @default(false)
 }
+
+model User {
+  id        String    @id
+  name      String    @db.Text
+  profile   String    @db.Text
+  createdAt DateTime  @default(now())
+  // token     String    @unique
+  tweet     Tweet[]
+  like      Like[]
+  reply     Reply[]
+  retweet   Retweet[]
+  following Follow[]  @relation("Following")
+  follower  Follow[]  @relation("Follower")
+
+}
+
+model Tweet {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  tweet     String    @db.Text
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id])
+  like      Like[]
+  retweet   Retweet[]
+  reply     Reply[]
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  tweetId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+}
+
+model Retweet {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  tweetId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+}
+
+model Follow {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  followerId String
+  createdAt  DateTime @default(now())
+  following  User     @relation("Following", fields: [followerId], references: [id])
+  follower   User     @relation("Follower", fields: [userId], references: [id])
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  reply     String   @db.Text
+  userId    String
+  tweetId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+}
