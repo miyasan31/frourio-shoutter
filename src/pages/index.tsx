@@ -5,10 +5,13 @@ import { apiClient } from '~/utils/apiClient'
 import { UserBanner } from '~/components'
 import type { Task } from '$prisma/client'
 import type { FormEvent, ChangeEvent } from 'react'
+import styled from '@emotion/styled'
 
 const Home = () => {
   const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks)
+
   const [label, setLabel] = useState('')
+
   const inputLabel = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setLabel(e.target.value),
     []
@@ -46,54 +49,76 @@ const Home = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <main>
+      <Main>
         <UserBanner />
 
-        <h1>
+        <H1>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        </H1>
 
-        <p>frourio-todo-app</p>
+        <form style={{ textAlign: 'center' }} onSubmit={createTask}>
+          <FromInput value={label} type="text" onChange={inputLabel} />
+          <Button>Add</Button>
+        </form>
 
-        <div>
-          <form style={{ textAlign: 'center' }} onSubmit={createTask}>
-            <input value={label} type="text" onChange={inputLabel} />
-            <input type="submit" value="ADD" />
-          </form>
-          <ul>
-            {tasks.map((task) => (
-              <li key={task.id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={task.done}
-                    onChange={() => toggleDone(task)}
-                  />
-                  <span>{task.label}</span>
-                </label>
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <label>
                 <input
-                  type="button"
-                  value="DELETE"
-                  style={{ float: 'right' }}
-                  onClick={() => deleteTask(task)}
+                  type="checkbox"
+                  checked={task.done}
+                  onChange={() => toggleDone(task)}
                 />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-        </a>
-      </footer>
+                <span>{task.label}</span>
+              </label>
+              <input
+                type="button"
+                value="DELETE"
+                style={{ float: 'right' }}
+                onClick={() => deleteTask(task)}
+              />
+            </li>
+          ))}
+        </ul>
+      </Main>
     </div>
   )
 }
 
 export default Home
+
+const H1 = styled.h1`
+  text-align: center;
+  font-size: 2.5rem;
+`
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+const FromInput = styled.input`
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fafafa;
+`
+
+const Button = styled.button`
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #71aaff;
+  hover: {
+    background-color: #5f9ee0;
+  }
+`
