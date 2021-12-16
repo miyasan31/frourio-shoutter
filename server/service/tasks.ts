@@ -6,17 +6,23 @@ const prisma = new PrismaClient()
 
 export const getTasks = depend(
   { prisma: prisma as { task: { findMany(): Promise<Task[]> } } },
-  async ({ prisma }, limit?: number) =>
-    (await prisma.task.findMany()).slice(0, limit)
+
+  async ({ prisma }, limit?: number) => {
+    const result = await prisma.task.findMany()
+    return result.slice(0, limit)
+  }
 )
 
-export const createTask = (label: Task['label']) =>
-  prisma.task.create({ data: { label } })
+export const createTask = async (label: Task['label']) => {
+  return await prisma.task.create({ data: { label } })
+}
 
-export const updateTask = (
+export const updateTask = async (
   id: Task['id'],
   partialTask: Prisma.TaskUpdateInput
-) => prisma.task.update({ where: { id }, data: partialTask })
-
-export const deleteTask = (id: Task['id']) =>
-  prisma.task.delete({ where: { id } })
+) => {
+  return await prisma.task.update({ where: { id }, data: partialTask })
+}
+export const deleteTask = async (id: Task['id']) => {
+  return await prisma.task.delete({ where: { id } })
+}
