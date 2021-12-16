@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run migrate:dev && run-p dev:*",
+    "dev": "docker-compose up -d && npm run migrate:dev && run-p dev:*",
     "dev:client": "next dev -p 8000",
     "dev:server": "npm run dev --prefix server",
     "dev:aspida": "aspida --watch",
