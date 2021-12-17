@@ -9,30 +9,3 @@ export type GetTweet =
       }
     })
   | null
-
-export type GetAllTweetQuery = {
-  include: {
-    _count: {
-      select: {
-        replies: true
-        retweets: true
-        likes: true
-      }
-    }
-  }
-}
-
-export type GetTweetQuery = {
-  where: {
-    id: Tweet['id']
-  }
-  include: {
-    _count: {
-      select: {
-        replies: true
-        retweets: true
-        likes: true
-      }
-    }
-  }
-}
