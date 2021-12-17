@@ -1,16 +1,40 @@
+import { depend } from 'velona'
 import { PrismaClient } from '@prisma/client'
 import type { Like, Prisma } from '$prisma/client'
 
 const prisma = new PrismaClient()
 
-export const createLike = async (createLike: Prisma.LikeCreateInput) => {
-  const result = await prisma.like.create({ data: createLike })
+export const createLike = depend(
+  {
+    prisma: prisma as unknown as {
+      like: {
+        create(query: Prisma.LikeCreateArgs): Promise<Like>
+      }
+    }
+  },
+  async ({ prisma }, createLike: Prisma.LikeCreateInput) => {
+    const result = await prisma.like.create({
+      data: createLike
+    })
+    return result
+  }
+)
 
-  return result
-}
+export const deleteLike = depend(
+  {
+    prisma: prisma as unknown as {
+      like: {
+        delete(query: Prisma.LikeDeleteArgs): Promise<Like>
+      }
+    }
+  },
+  async ({ prisma }, id: Like['id']) => {
+    const result = await prisma.like.delete({
+      where: {
+        id: id
+      }
+    })
 
-export const deleteLike = async (id: Like['id']) => {
-  const result = await prisma.like.delete({ where: { id } })
-
-  return result
-}
+    return result
+  }
+)
