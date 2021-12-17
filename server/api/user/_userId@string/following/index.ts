@@ -7,5 +7,6 @@ export type Methods = {
         follower: User
       })[]
     })[]
+    status: 200
   }
 }
