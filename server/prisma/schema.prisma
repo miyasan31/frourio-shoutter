@@ -32,7 +32,7 @@ model Tweet {
   userId    String
   tweet     String    @db.Text
   createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   likes     Like[]
   retweets  Retweet[]
   replies   Reply[]
@@ -44,8 +44,8 @@ model Reply {
   userId    String
   tweetId   Int
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 }
 
 model Like {
@@ -53,8 +53,8 @@ model Like {
   userId    String
   tweetId   Int
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 
   @@unique([userId, tweetId])
 }
@@ -64,8 +64,8 @@ model Retweet {
   userId    String
   tweetId   Int
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 
   @@unique([userId, tweetId])
 }
@@ -75,8 +75,8 @@ model Follow {
   userId      String
   followingId String
   createdAt   DateTime @default(now())
-  follower    User     @relation("Follower", fields: [userId], references: [id])
-  following   User     @relation("Following", fields: [followingId], references: [id])
+  follower    User     @relation("Follower", fields: [userId], references: [id], onDelete: Cascade)
+  following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([userId, followingId])
 }
