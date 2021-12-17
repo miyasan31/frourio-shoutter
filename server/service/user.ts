@@ -1,3 +1,4 @@
+import { depend } from 'velona'
 import fs from 'fs'
 import path from 'path'
 import { Multipart } from 'fastify-multipart'
@@ -7,183 +8,255 @@ import {
   API_USER_PASS,
   API_UPLOAD_DIR
 } from './envValues'
-import { depend } from 'velona'
-
 import { PrismaClient } from '@prisma/client'
 import type { Prisma, User } from '$prisma/client'
+import {
+  GetAllUser,
+  GetUser,
+  GetTweetList,
+  GetReplyList,
+  GetLikeList,
+  GetRetweetList,
+  GetFollowerList,
+  GetFollowingList
+} from '$/types/user'
 
 const prisma = new PrismaClient()
 
-export const getUserList = async () => {
-  const result = await prisma.user.findMany({
-    include: {
-      _count: {
-        select: {
-          followers: true,
-          followings: true
+export const getUserList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetAllUser> }
+    }
+  },
+  async ({ prisma }) => {
+    const result = await prisma.user.findMany({
+      include: {
+        _count: {
+          select: {
+            followers: true,
+            followings: true
+          }
         }
       }
-    }
-  })
+    })
+    return result
+  }
+)
 
-  return result
-}
-
-export const getUser = async (id: User['id']) => {
-  const result = await prisma.user.findUnique({
-    where: {
-      id: id
-    },
-    include: {
-      _count: {
-        select: {
-          followers: true,
-          followings: true
-        }
+export const getUser = depend(
+  {
+    prisma: prisma as unknown as {
+      user: {
+        findUnique(query: Prisma.UserFindUniqueArgs): Promise<GetUser>
       }
     }
-  })
-
-  return result
-}
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        _count: {
+          select: {
+            followers: true,
+            followings: true
+          }
+        }
+      }
+    })
+    return result
+  }
+)
 
 // [userId]/index.page.tsx
-export const getUserTweetList = async (id: User['id']) => {
-  const result = await prisma.user.findMany({
-    where: {
-      id: id
-    },
-    include: {
-      tweets: {
-        include: {
-          _count: {
-            select: {
-              replies: true,
-              retweets: true,
-              likes: true
+export const getUserTweetList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetTweetList> }
+    }
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findMany({
+      where: {
+        id: id
+      },
+      include: {
+        tweets: {
+          include: {
+            _count: {
+              select: {
+                replies: true,
+                retweets: true,
+                likes: true
+              }
             }
           }
         }
       }
-    }
-  })
-
-  return result
-}
+    })
+    return result
+  }
+)
 
 // [userId]/reply.page.tsx
-export const getUserReplyList = async (id: User['id']) => {
-  const result = await prisma.user.findMany({
-    where: {
-      id: id
-    },
-    include: {
-      replies: true
+export const getUserReplyList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetReplyList> }
     }
-  })
-
-  return result
-}
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findMany({
+      where: {
+        id: id
+      },
+      include: {
+        replies: true
+      }
+    })
+    return result
+  }
+)
 
 // [userId]/like.page.tsx
-export const getUserLikeList = async (id: User['id']) => {
-  const result = await prisma.user.findMany({
-    where: {
-      id: id
-    },
-    include: {
-      likes: {
-        include: {
-          tweet: {
-            include: {
-              user: true,
-              _count: {
-                select: {
-                  replies: true,
-                  retweets: true,
-                  likes: true
+export const getUserLikeList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetLikeList> }
+    }
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findMany({
+      where: {
+        id: id
+      },
+      include: {
+        likes: {
+          include: {
+            tweet: {
+              include: {
+                user: true,
+                _count: {
+                  select: {
+                    replies: true,
+                    retweets: true,
+                    likes: true
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  })
-
-  return result
-}
+    })
+    return result
+  }
+)
 
 // [userId]/retweet.page.tsx
-export const getUserRetweetList = async (id: User['id']) => {
-  const result = await prisma.user.findMany({
-    where: {
-      id: id
-    },
-    include: {
-      retweets: {
-        include: {
-          tweet: {
-            include: {
-              user: true,
-              _count: {
-                select: {
-                  replies: true,
-                  retweets: true,
-                  likes: true
+export const getUserRetweetList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: {
+        findMany(query: Prisma.UserFindManyArgs): Promise<GetRetweetList>
+      }
+    }
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findMany({
+      where: {
+        id: id
+      },
+      include: {
+        retweets: {
+          include: {
+            tweet: {
+              include: {
+                user: true,
+                _count: {
+                  select: {
+                    replies: true,
+                    retweets: true,
+                    likes: true
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  })
-
-  return result
-}
+    })
+    return result
+  }
+)
 
 // [userId]/follower.page.tsx
-export const getUserFollowerList = async (id: User['id']) => {
-  const result = await prisma.user.findMany({
-    where: {
-      id: id
-    },
-    include: {
-      followers: {
-        include: {
-          following: true
-        }
+export const getUserFollowerList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: {
+        findMany(query: Prisma.UserFindManyArgs): Promise<GetFollowerList>
       }
     }
-  })
-
-  return result
-}
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findMany({
+      where: {
+        id: id
+      },
+      include: {
+        followers: {
+          include: {
+            following: true
+          }
+        }
+      }
+    })
+    return result
+  }
+)
 
 // [userId]/following.page.tsx
-export const getUserFollowingList = async (id: User['id']) => {
-  const result = await prisma.user.findMany({
-    where: {
-      id: id
-    },
-    include: {
-      followings: {
-        include: {
-          follower: true
-        }
+export const getUserFollowingList = depend(
+  {
+    prisma: prisma as unknown as {
+      user: {
+        findMany(query: Prisma.UserFindManyArgs): Promise<GetFollowingList>
       }
     }
-  })
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.findMany({
+      where: {
+        id: id
+      },
+      include: {
+        followings: {
+          include: {
+            follower: true
+          }
+        }
+      }
+    })
+    return result
+  }
+)
 
-  return result
-}
-
-export const createUser = async (createUser: Prisma.UserCreateInput) => {
-  const result = await prisma.user.create({ data: createUser })
-
-  return result
-}
+export const createUser = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { create(query: Prisma.UserCreateArgs): Promise<User> }
+    }
+  },
+  async ({ prisma }, createUser: Prisma.UserCreateInput) => {
+    const result = await prisma.user.create({
+      data: createUser
+    })
+    return result
+  }
+)
 
 // const iconsDir = API_UPLOAD_DIR && path.resolve(API_UPLOAD_DIR, 'icons')
 
