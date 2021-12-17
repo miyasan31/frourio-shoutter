@@ -1,5 +1,5 @@
 import type { Tweet, Prisma } from '$prisma/client'
-import type { GetTweet } from '$/types/tweet.query'
+import type { GetTweet } from '$/types/tweet'
 
 export type Methods = {
   get: {
