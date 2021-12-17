@@ -1,16 +1,9 @@
-import type { Tweet, Prisma } from '$prisma/client'
+import type { Prisma } from '$prisma/client'
+import type { GetTweet } from '$/types/tweet.query'
 
 export type Methods = {
   get: {
-    resBody:
-      | (Tweet & {
-          _count: {
-            replies: number
-            retweets: number
-            likes: number
-          }
-        })
-      | null
+    resBody: GetTweet
     status: 200
   }
 

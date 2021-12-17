@@ -1,14 +1,15 @@
 import type { Tweet, Prisma } from '$prisma/client'
+import type { GetTweet } from '$/types/tweet.query'
 
 export type Methods = {
   get: {
-    resBody: Tweet[]
+    resBody: GetTweet[]
     status: 200
   }
 
   post: {
     reqBody: Prisma.TweetCreateInput
     resBody: Tweet
-    status: 204
+    status: 201
   }
 }
