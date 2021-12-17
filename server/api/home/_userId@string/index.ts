@@ -1,16 +1,8 @@
-import type { Follow, User, Retweet, Tweet, Reply } from '$prisma/client'
+import { GetHome } from '$/types/home'
 
 export type Methods = {
   get: {
-    resBody: (Follow & {
-      following: User & {
-        tweets: Tweet[]
-        replies: Reply[]
-        retweets: (Retweet & {
-          tweet: Tweet
-        })[]
-      }
-    })[]
+    resBody: GetHome
     status: 200
   }
 }
