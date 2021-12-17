@@ -21,6 +21,7 @@ export type GetAllTweetQuery = {
     }
   }
 }
+
 export type GetTweetQuery = {
   where: {
     id: Tweet['id']
