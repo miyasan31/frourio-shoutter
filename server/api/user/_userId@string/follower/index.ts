@@ -7,5 +7,6 @@ export type Methods = {
         following: User
       })[]
     })[]
+    status: 200
   }
 }
