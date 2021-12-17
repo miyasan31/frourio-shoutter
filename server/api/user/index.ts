@@ -8,11 +8,13 @@ export type Methods = {
         followings: number
       }
     })[]
+    status: 200
   }
 
   post: {
     reqBody: Prisma.UserCreateInput
     resBody: User
+    status: 201
   }
 }
 

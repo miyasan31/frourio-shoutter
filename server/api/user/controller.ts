@@ -1,23 +1,26 @@
 import { defineController } from './$relay'
 import { createUser, getUserList } from '$/service/user'
 
-export default defineController(() => ({
-  get: async () => {
-    const userList = await getUserList()
-
-    if (userList.length === 0) {
-      return { status: 400 }
-    }
-
-    return { status: 201, body: userList }
+export default defineController(
+  {
+    getUserList,
+    createUser
   },
-  post: async ({ body }) => {
-    const user = await createUser(body)
+  ({ getUserList, createUser }) => ({
+    get: async () => {
+      const userList = await getUserList()
+      if (userList.length === 0) {
+        return { status: 400 }
+      }
+      return { status: 200, body: userList }
+    },
 
-    if (!user) {
-      return { status: 400 }
+    post: async ({ body }) => {
+      const user = await createUser(body)
+      if (!user) {
+        return { status: 400 }
+      }
+      return { status: 201, body: user }
     }
-
-    return { status: 201, body: user }
-  }
-}))
+  })
+)
