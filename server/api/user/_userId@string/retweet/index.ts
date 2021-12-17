@@ -9,5 +9,6 @@ export type Methods = {
         }
       })[]
     })[]
+    status: 200
   }
 }
