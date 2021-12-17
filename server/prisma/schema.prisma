@@ -14,18 +14,17 @@ model Task {
 }
 
 model User {
-  id        String    @id
-  name      String    @db.Text
-  profile   String    @db.Text
-  createdAt DateTime  @default(now())
+  id         String    @id
+  name       String    @db.Text
+  profile    String    @db.Text
+  createdAt  DateTime  @default(now())
   // token     String    @unique
-  tweet     Tweet[]
-  like      Like[]
-  reply     Reply[]
-  retweet   Retweet[]
-  following Follow[]  @relation("Following")
-  follower  Follow[]  @relation("Follower")
-
+  tweets     Tweet[]
+  likes      Like[]
+  replies    Reply[]
+  retweets   Retweet[]
+  followings Follow[]  @relation("Following")
+  followers  Follow[]  @relation("Follower")
 }
 
 model Tweet {
@@ -34,36 +33,9 @@ model Tweet {
   tweet     String    @db.Text
   createdAt DateTime  @default(now())
   user      User      @relation(fields: [userId], references: [id])
-  like      Like[]
-  retweet   Retweet[]
-  reply     Reply[]
-}
-
-model Like {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  tweetId   Int
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
-}
-
-model Retweet {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  tweetId   Int
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  tweet     Tweet    @relation(fields: [tweetId], references: [id])
-}
-
-model Follow {
-  id         Int      @id @default(autoincrement())
-  userId     String
-  followerId String
-  createdAt  DateTime @default(now())
-  following  User     @relation("Following", fields: [followerId], references: [id])
-  follower   User     @relation("Follower", fields: [userId], references: [id])
+  likes     Like[]
+  retweets  Retweet[]
+  replies   Reply[]
 }
 
 model Reply {
@@ -74,4 +46,37 @@ model Reply {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  tweetId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+
+  @@unique([userId, tweetId])
+}
+
+model Retweet {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  tweetId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+
+  @@unique([userId, tweetId])
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  followingId String
+  createdAt   DateTime @default(now())
+  follower    User     @relation("Follower", fields: [userId], references: [id])
+  following   User     @relation("Following", fields: [followingId], references: [id])
+
+  @@unique([userId, followingId])
 }
