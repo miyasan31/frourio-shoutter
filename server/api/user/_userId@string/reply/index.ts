@@ -5,5 +5,6 @@ export type Methods = {
     resBody: (User & {
       replies: Reply[]
     })[]
+    status: 200
   }
 }
