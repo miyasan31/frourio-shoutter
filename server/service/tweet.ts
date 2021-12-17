@@ -63,7 +63,9 @@ export const createTweet = depend(
     }
   },
   async ({ prisma }, createTweet: Prisma.TweetCreateInput) => {
-    const result = await prisma.tweet.create({ data: createTweet })
+    const result = await prisma.tweet.create({
+      data: createTweet
+    })
     return result
   }
 )

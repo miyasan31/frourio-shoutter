@@ -41,7 +41,9 @@ export const createReply = depend(
     }
   },
   async ({ prisma }, createReply: Prisma.ReplyCreateInput) => {
-    const result = await prisma.reply.create({ data: createReply })
+    const result = await prisma.reply.create({
+      data: createReply
+    })
     return result
   }
 )
