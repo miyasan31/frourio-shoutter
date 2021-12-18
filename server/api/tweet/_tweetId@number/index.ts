@@ -1,9 +1,9 @@
 import type { Prisma } from '$prisma/client'
-import type { GetTweet } from '$/types/tweet'
+import type { GetTweetDetail } from '$/types/tweet'
 
 export type Methods = {
   get: {
-    resBody: GetTweet
+    resBody: GetTweetDetail
     status: 200
   }
 

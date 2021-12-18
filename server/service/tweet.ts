@@ -1,7 +1,7 @@
 import { depend } from 'velona'
 import { PrismaClient } from '@prisma/client'
 import type { Tweet, Prisma } from '$prisma/client'
-import type { GetTweet } from '$/types/tweet'
+import type { GetTweet, GetTweetDetail } from '$/types/tweet'
 
 const prisma = new PrismaClient()
 
@@ -36,7 +36,7 @@ export const getTweet = depend(
   {
     prisma: prisma as unknown as {
       tweet: {
-        findUnique(query: Prisma.TweetFindUniqueArgs): Promise<GetTweet>
+        findUnique(query: Prisma.TweetFindUniqueArgs): Promise<GetTweetDetail>
       }
     }
   },
@@ -46,6 +46,14 @@ export const getTweet = depend(
         id: id
       },
       include: {
+        replies: {
+          orderBy: {
+            createdAt: 'desc'
+          },
+          include: {
+            user: true
+          }
+        },
         _count: {
           select: {
             replies: true,
