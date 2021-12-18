@@ -42,7 +42,7 @@ const TweetPage: NextPage = () => {
 
   if (error) return <div>error</div>
   if (!tweetAndReplies) return <div>loading</div>
-  const { replies, ...tweet } = tweetAndReplies
+  const { replies: replyList, ...tweet } = tweetAndReplies
 
   return (
     <Box w="100%" p="1rem">
@@ -76,7 +76,7 @@ const TweetPage: NextPage = () => {
       </Box>
 
       <List spacing="1rem" mt="1rem">
-        {replies.map((r) => (
+        {replyList.map((r) => (
           <ListItem key={r.id} border="1px" borderColor="gray.200" p="1rem">
             <Box>{r.reply}</Box>
             <Box>{r.userId}</Box>
