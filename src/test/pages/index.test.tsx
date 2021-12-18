@@ -5,7 +5,7 @@ import Fastify, { FastifyInstance } from 'fastify'
 import cors from 'fastify-cors'
 import aspida from '@aspida/axios'
 import api from '$/api/$api'
-import Home from '~/pages/index'
+import Home from '@/src/pages/index'
 import { render, fireEvent } from '../testUtils'
 
 dotenv.config({ path: 'server/.env' })

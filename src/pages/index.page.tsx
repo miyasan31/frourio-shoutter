@@ -22,6 +22,14 @@ const Home = () => {
       e.preventDefault()
       if (!label) return
 
+      // await await apiClient.reply.post({
+      //   body: {
+      //     reply: 'aaaaa',
+      //     user: { connect: { id: 'miyasan_0301' } },
+      //     tweet: { connect: { id: 6 } }
+      //   }
+      // })
+
       await apiClient.tasks.post({ body: { label } })
       setLabel('')
       revalidate()
