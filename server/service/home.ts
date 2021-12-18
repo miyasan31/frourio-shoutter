@@ -1,6 +1,6 @@
 import { depend } from 'velona'
 import { PrismaClient } from '@prisma/client'
-import type { Tweet, Prisma } from '$prisma/client'
+import type { User, Prisma } from '$prisma/client'
 import { GetHome } from '$/types/home'
 
 const prisma = new PrismaClient()
@@ -13,52 +13,85 @@ export const getFollowingUserTweetList = depend(
       }
     }
   },
-  async ({ prisma }, userId: Tweet['userId']) => {
+  async ({ prisma }, id: User['id']) => {
     const result = await prisma.follow.findMany({
       where: {
         // is following user
-        userId: userId
+        userId: id
       },
       include: {
         // following -> user
         following: {
           include: {
+            // following(user) is followed
+            followers: {
+              where: { userId: id },
+              select: { id: true }
+            },
+            // countings on user follow
+            _count: {
+              select: { followers: true, followings: true }
+            },
             // user -> tweets
             tweets: {
-              orderBy: {
-                createdAt: 'desc'
-              },
+              // sotr by createdAt desc
+              orderBy: { createdAt: 'desc' },
               include: {
+                // user is liked
+                likes: {
+                  where: { userId: id },
+                  select: { id: true }
+                },
+                // user is retweeted
+                retweets: {
+                  where: { userId: id },
+                  select: { id: true }
+                },
+                // countings on tweet
                 _count: {
-                  select: {
-                    replies: true,
-                    retweets: true,
-                    likes: true
-                  }
+                  select: { replies: true, retweets: true, likes: true }
                 }
               }
             },
             // user -> replies
             replies: {
-              orderBy: {
-                createdAt: 'desc'
-              }
+              orderBy: { createdAt: 'desc' }
             },
             // user -> retweets
             retweets: {
-              orderBy: {
-                createdAt: 'desc'
-              },
+              // sotr by createdAt desc
+              orderBy: { createdAt: 'desc' },
               include: {
                 // retweets -> tweet
                 tweet: {
                   include: {
-                    _count: {
-                      select: {
-                        replies: true,
-                        retweets: true,
-                        likes: true
+                    // tweet -> user
+                    user: {
+                      include: {
+                        // user is followed
+                        followers: {
+                          where: { userId: id },
+                          select: { id: true }
+                        },
+                        // countings on user follow
+                        _count: {
+                          select: { followers: true, followings: true }
+                        }
                       }
+                    },
+                    // user is liked
+                    likes: {
+                      where: { userId: id },
+                      select: { id: true }
+                    },
+                    // user is retweeted
+                    retweets: {
+                      where: { userId: id },
+                      select: { id: true }
+                    },
+                    // countings on tweet
+                    _count: {
+                      select: { replies: true, retweets: true, likes: true }
                     }
                   }
                 }

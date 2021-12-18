@@ -4,6 +4,8 @@ import type { Reply, Prisma } from '$prisma/client'
 
 const prisma = new PrismaClient()
 
+const testUserId = 'miyasan_0301'
+
 // not used
 export const getReplyList = depend(
   { prisma: prisma as { reply: { findMany(): Promise<Reply[]> } } },
@@ -26,6 +28,22 @@ export const getReply = depend(
     const result = await prisma.reply.findUnique({
       where: {
         id: id
+      },
+      include: {
+        // reply -> user
+        user: {
+          include: {
+            // user is followed
+            followers: {
+              where: { userId: testUserId },
+              select: { id: true }
+            },
+            // countings on user follow
+            _count: {
+              select: { followers: true, followings: true }
+            }
+          }
+        }
       }
     })
     return result

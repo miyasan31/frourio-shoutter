@@ -5,6 +5,8 @@ import type { GetTweet, GetTweetDetail } from '$/types/tweet'
 
 const prisma = new PrismaClient()
 
+const testUserId = 'miyasan_0301'
+
 // not used
 export const getTweetList = depend(
   {
@@ -14,17 +16,31 @@ export const getTweetList = depend(
   },
   async ({ prisma }) => {
     const result = await prisma.tweet.findMany({
+      orderBy: { createdAt: 'desc' },
       include: {
-        _count: {
-          select: {
-            replies: true,
-            retweets: true,
-            likes: true
+        // user is liked
+        likes: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // user is retweeted
+        retweets: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // tweet -> replies
+        replies: {
+          // sotr by createdAt asc
+          orderBy: { createdAt: 'asc' },
+          include: {
+            // replies -> user
+            user: true
           }
+        },
+        // countings on tweet
+        _count: {
+          select: { replies: true, retweets: true, likes: true }
         }
-      },
-      orderBy: {
-        createdAt: 'desc'
       }
     })
     return result
@@ -46,20 +62,40 @@ export const getTweet = depend(
         id: id
       },
       include: {
+        // user is liked
+        likes: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // user is retweeted
+        retweets: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // tweet -> replies
         replies: {
-          orderBy: {
-            createdAt: 'asc'
-          },
+          // sotr by createdAt asc
+          orderBy: { createdAt: 'asc' },
           include: {
-            user: true
+            // replies -> user
+            user: {
+              include: {
+                // user is followed
+                followers: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // countings on user follow
+                _count: {
+                  select: { followers: true, followings: true }
+                }
+              }
+            }
           }
         },
+        // countings on tweet
         _count: {
-          select: {
-            replies: true,
-            retweets: true,
-            likes: true
-          }
+          select: { replies: true, retweets: true, likes: true }
         }
       }
     })

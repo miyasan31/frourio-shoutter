@@ -23,6 +23,9 @@ import {
 
 const prisma = new PrismaClient()
 
+const testUserId = 'miyasan_0301'
+
+// not used
 export const getUserList = depend(
   {
     prisma: prisma as unknown as {
@@ -32,11 +35,9 @@ export const getUserList = depend(
   async ({ prisma }) => {
     const result = await prisma.user.findMany({
       include: {
+        // countings on user follow
         _count: {
-          select: {
-            followers: true,
-            followings: true
-          }
+          select: { followers: true, followings: true }
         }
       }
     })
@@ -44,6 +45,7 @@ export const getUserList = depend(
   }
 )
 
+// not used
 export const getUser = depend(
   {
     prisma: prisma as unknown as {
@@ -58,11 +60,9 @@ export const getUser = depend(
         id: id
       },
       include: {
+        // countings on user follow
         _count: {
-          select: {
-            followers: true,
-            followings: true
-          }
+          select: { followers: true, followings: true }
         }
       }
     })
@@ -83,19 +83,35 @@ export const getUserTweetList = depend(
         id: id
       },
       include: {
+        // user -> tweets
         tweets: {
-          orderBy: {
-            createdAt: 'desc'
-          },
+          // sotr by createdAt desc
+          orderBy: { createdAt: 'desc' },
           include: {
+            // user is liked
+            likes: {
+              where: { userId: testUserId },
+              select: { id: true }
+            },
+            // user is retweeted
+            retweets: {
+              where: { userId: testUserId },
+              select: { id: true }
+            },
+            // countings on tweet
             _count: {
-              select: {
-                replies: true,
-                retweets: true,
-                likes: true
-              }
+              select: { replies: true, retweets: true, likes: true }
             }
           }
+        },
+        // user is followed
+        followers: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
         }
       }
     })
@@ -115,11 +131,20 @@ export const getUserReplyList = depend(
       where: {
         id: id
       },
+      // sotr by createdAt desc
+      orderBy: { createdAt: 'desc' },
       include: {
-        replies: true
-      },
-      orderBy: {
-        createdAt: 'desc'
+        // user -> replies
+        replies: true,
+        // user is followed
+        followers: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
+        }
       }
     })
     return result
@@ -139,24 +164,54 @@ export const getUserLikeList = depend(
         id: id
       },
       include: {
+        // user -> likes
         likes: {
-          orderBy: {
-            createdAt: 'desc'
-          },
+          // sotr by createdAt desc
+          orderBy: { createdAt: 'desc' },
           include: {
+            // likes -> tweet
             tweet: {
               include: {
-                user: true,
-                _count: {
-                  select: {
-                    replies: true,
-                    retweets: true,
-                    likes: true
+                // tweet -> user
+                user: {
+                  include: {
+                    // user is followed
+                    followers: {
+                      where: { userId: testUserId },
+                      select: { id: true }
+                    },
+                    // countings on user follow
+                    _count: {
+                      select: { followers: true, followings: true }
+                    }
                   }
+                },
+                // user is liked
+                likes: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // user is retweeted
+                retweets: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // countings on tweet
+                _count: {
+                  select: { replies: true, retweets: true, likes: true }
                 }
               }
             }
           }
+        },
+        // user is followed
+        followers: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
         }
       }
     })
@@ -179,24 +234,54 @@ export const getUserRetweetList = depend(
         id: id
       },
       include: {
+        // tweet -> retweets
         retweets: {
-          orderBy: {
-            createdAt: 'desc'
-          },
+          // sotr by createdAt desc
+          orderBy: { createdAt: 'desc' },
           include: {
+            // retweets -> tweet
             tweet: {
               include: {
-                user: true,
-                _count: {
-                  select: {
-                    replies: true,
-                    retweets: true,
-                    likes: true
+                // tweet -> user
+                user: {
+                  include: {
+                    // user is followed
+                    followers: {
+                      where: { userId: testUserId },
+                      select: { id: true }
+                    },
+                    // countings on user follow
+                    _count: {
+                      select: { followers: true, followings: true }
+                    }
                   }
+                },
+                // user is liked
+                likes: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // user is retweeted
+                retweets: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // countings on tweet
+                _count: {
+                  select: { replies: true, retweets: true, likes: true }
                 }
               }
             }
           }
+        },
+        // user is followed
+        followers: {
+          where: { userId: testUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
         }
       }
     })
@@ -219,12 +304,25 @@ export const getUserFollowerList = depend(
         id: id
       },
       include: {
+        // user -> followers
         followers: {
-          orderBy: {
-            createdAt: 'desc'
-          },
+          // sotr by createdAt desc
+          orderBy: { createdAt: 'desc' },
           include: {
-            following: true
+            // followers -> following(user)
+            following: {
+              include: {
+                // following(user) is followed
+                followers: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // countings on user follow
+                _count: {
+                  select: { followers: true, followings: true }
+                }
+              }
+            }
           }
         }
       }
@@ -248,12 +346,20 @@ export const getUserFollowingList = depend(
         id: id
       },
       include: {
+        // user -> followings
         followings: {
-          orderBy: {
-            createdAt: 'desc'
-          },
+          // sotr by createdAt desc
+          orderBy: { createdAt: 'desc' },
           include: {
-            follower: true
+            // followings -> follower(user)
+            follower: {
+              include: {
+                // countings on user follow
+                _count: {
+                  select: { followers: true, followings: true }
+                }
+              }
+            }
           }
         }
       }
