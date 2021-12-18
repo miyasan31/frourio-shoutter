@@ -1,5 +1,5 @@
 export type Methods = {
   get: {
-    resBody: string
+    status: 404
   }
 }
