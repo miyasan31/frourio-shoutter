@@ -25,6 +25,9 @@ export const getFollowingUserTweetList = depend(
           include: {
             // user -> tweets
             tweets: {
+              orderBy: {
+                createdAt: 'desc'
+              },
               include: {
                 _count: {
                   select: {
@@ -36,9 +39,16 @@ export const getFollowingUserTweetList = depend(
               }
             },
             // user -> replies
-            replies: true,
+            replies: {
+              orderBy: {
+                createdAt: 'desc'
+              }
+            },
             // user -> retweets
             retweets: {
+              orderBy: {
+                createdAt: 'desc'
+              },
               include: {
                 // retweets -> tweet
                 tweet: {

@@ -84,6 +84,9 @@ export const getUserTweetList = depend(
       },
       include: {
         tweets: {
+          orderBy: {
+            createdAt: 'desc'
+          },
           include: {
             _count: {
               select: {
@@ -114,6 +117,9 @@ export const getUserReplyList = depend(
       },
       include: {
         replies: true
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
     return result
@@ -134,6 +140,9 @@ export const getUserLikeList = depend(
       },
       include: {
         likes: {
+          orderBy: {
+            createdAt: 'desc'
+          },
           include: {
             tweet: {
               include: {
@@ -171,6 +180,9 @@ export const getUserRetweetList = depend(
       },
       include: {
         retweets: {
+          orderBy: {
+            createdAt: 'desc'
+          },
           include: {
             tweet: {
               include: {
@@ -208,6 +220,9 @@ export const getUserFollowerList = depend(
       },
       include: {
         followers: {
+          orderBy: {
+            createdAt: 'desc'
+          },
           include: {
             following: true
           }
@@ -234,6 +249,9 @@ export const getUserFollowingList = depend(
       },
       include: {
         followings: {
+          orderBy: {
+            createdAt: 'desc'
+          },
           include: {
             follower: true
           }

@@ -22,6 +22,9 @@ export const getTweetList = depend(
             likes: true
           }
         }
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
     return result

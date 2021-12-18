@@ -8,12 +8,10 @@ export type GetAllTweet = (Tweet & {
   }
 })[]
 
-export type GetTweet =
-  | (Tweet & {
-      _count: {
-        replies: number
-        retweets: number
-        likes: number
-      }
-    })
-  | null
+export type GetTweet = Tweet & {
+  _count: {
+    replies: number
+    retweets: number
+    likes: number
+  }
+}
