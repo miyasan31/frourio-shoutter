@@ -250,7 +250,12 @@ export const createUser = depend(
       user: { create(query: Prisma.UserCreateArgs): Promise<User> }
     }
   },
-  async ({ prisma }, createUser: Prisma.UserCreateInput) => {
+  async (
+    { prisma },
+    // miyasan31:key1
+    // createUser: Prisma.UserCreateInput
+    createUser: Prisma.UserUncheckedCreateInput
+  ) => {
     const result = await prisma.user.create({
       data: createUser
     })

@@ -12,6 +12,8 @@ export type Methods = {
   }
 
   post: {
+    // miyasan31:key1
+    // reqBody: Prisma.UserUncheckedCreateInput
     reqBody: Prisma.UserCreateInput
     resBody: User
     status: 201

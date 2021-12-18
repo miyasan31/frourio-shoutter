@@ -12,7 +12,12 @@ export const createFollow = depend(
       }
     }
   },
-  async ({ prisma }, createFollow: Prisma.FollowCreateInput) => {
+  async (
+    { prisma },
+    // miyasan31:key1
+    // createFollow: Prisma.FollowUncheckedCreateInput
+    createFollow: Prisma.FollowCreateInput
+  ) => {
     const result = await prisma.follow.create({
       data: createFollow
     })

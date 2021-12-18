@@ -8,6 +8,8 @@ export type Methods = {
   }
 
   post: {
+    // miyasan31:key1
+    // reqBody: Prisma.TweetUncheckedCreateInput
     reqBody: Prisma.TweetCreateInput
     resBody: Tweet
     status: 201

@@ -40,7 +40,12 @@ export const createReply = depend(
       }
     }
   },
-  async ({ prisma }, createReply: Prisma.ReplyCreateInput) => {
+  async (
+    { prisma },
+    // miyasan31:key1
+    // createReply: Prisma.ReplyUncheckedCreateInput
+    createReply: Prisma.ReplyCreateInput
+  ) => {
     const result = await prisma.reply.create({
       data: createReply
     })
@@ -56,7 +61,13 @@ export const updateReply = depend(
       }
     }
   },
-  async ({ prisma }, id: Reply['id'], updateReply: Prisma.ReplyUpdateInput) => {
+  async (
+    { prisma },
+    id: Reply['id'],
+    // miyasan31:key1
+    // updateReply: Prisma.ReplyUncheckedUpdateInput
+    updateReply: Prisma.ReplyUpdateInput
+  ) => {
     const result = await prisma.reply.update({
       where: {
         id: id

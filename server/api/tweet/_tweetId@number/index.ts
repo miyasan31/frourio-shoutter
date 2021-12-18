@@ -8,6 +8,8 @@ export type Methods = {
   }
 
   patch: {
+    // miyasan31:key1
+    // reqBody: Prisma.TweetUncheckedUpdateInput
     reqBody: Prisma.TweetUpdateInput
     status: 204
   }

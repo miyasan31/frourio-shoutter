@@ -7,6 +7,8 @@ export type Methods = {
   }
 
   patch: {
+    // miyasan31:key1
+    // reqBody: Prisma.ReplyUncheckedUpdateInput
     reqBody: Prisma.ReplyUpdateInput
     status: 204
   }

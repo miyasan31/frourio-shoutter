@@ -12,7 +12,12 @@ export const createLike = depend(
       }
     }
   },
-  async ({ prisma }, createLike: Prisma.LikeCreateInput) => {
+  async (
+    { prisma },
+    // miyasan31:key1
+    // createLike: Prisma.LikeUncheckedCreateInput
+    createLike: Prisma.LikeCreateInput
+  ) => {
     const result = await prisma.like.create({
       data: createLike
     })

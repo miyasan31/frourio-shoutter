@@ -62,7 +62,12 @@ export const createTweet = depend(
       tweet: { create(query: Prisma.TweetCreateArgs): Promise<Tweet> }
     }
   },
-  async ({ prisma }, createTweet: Prisma.TweetCreateInput) => {
+  async (
+    { prisma },
+    // miyasan31:key1
+    // createTweet: Prisma.TweetUncheckedCreateInput
+    createTweet: Prisma.TweetCreateInput
+  ) => {
     const result = await prisma.tweet.create({
       data: createTweet
     })
@@ -78,7 +83,13 @@ export const updateTweet = depend(
       }
     }
   },
-  async ({ prisma }, id: Tweet['id'], updateTweet: Prisma.TweetUpdateInput) => {
+  async (
+    { prisma },
+    id: Tweet['id'],
+    // miyasan31:key1
+    // updateTweet: Prisma.TweetUncheckedUpdateInput
+    updateTweet: Prisma.TweetUpdateInput
+  ) => {
     const result = await prisma.tweet.update({
       where: {
         id: id

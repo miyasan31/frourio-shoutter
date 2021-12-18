@@ -12,7 +12,12 @@ export const createRetweet = depend(
       }
     }
   },
-  async ({ prisma }, createRetweet: Prisma.RetweetCreateInput) => {
+  async (
+    { prisma },
+    // miyasan31:key1
+    // createRetweet: Prisma.RetweetUncheckedCreateInput
+    createRetweet: Prisma.RetweetCreateInput
+  ) => {
     const result = await prisma.retweet.create({
       data: createRetweet
     })

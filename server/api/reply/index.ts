@@ -7,6 +7,8 @@ export type Methods = {
   }
 
   post: {
+    // miyasan31:key1
+    // reqBody: Prisma.ReplyUncheckedCreateInput
     reqBody: Prisma.ReplyCreateInput
     status: 204
   }
