@@ -48,7 +48,7 @@ export const getTweet = depend(
       include: {
         replies: {
           orderBy: {
-            createdAt: 'desc'
+            createdAt: 'asc'
           },
           include: {
             user: true
