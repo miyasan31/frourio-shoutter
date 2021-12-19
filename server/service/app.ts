@@ -3,11 +3,13 @@ import Fastify, { FastifyServerFactory } from 'fastify'
 import helmet from 'fastify-helmet'
 import cors from 'fastify-cors'
 import fastifyStatic from 'fastify-static'
-import fastifyJwt from 'fastify-jwt'
+import fastifyAuth0Verify from 'fastify-auth0-verify'
 import {
-  API_JWT_SECRET,
   API_BASE_PATH,
-  API_UPLOAD_DIR
+  API_UPLOAD_DIR,
+  FASTIFY_AUTH0_DOMAIN,
+  FASTIFY_AUTH0_SECRET,
+  FASTIFY_AUTH0_AUDIENCE
 } from '$/service/envValues'
 import server from '$/$server'
 
@@ -15,10 +17,7 @@ export const init = (serverFactory?: FastifyServerFactory) => {
   const app = Fastify({ serverFactory })
   app.register(helmet)
   app.register(cors)
-  app.register(fastifyStatic, {
-    root: path.join(__dirname, 'static'),
-    prefix: '/static/'
-  })
+
   if (API_UPLOAD_DIR) {
     app.after(() => {
       app.register(fastifyStatic, {
@@ -28,7 +27,22 @@ export const init = (serverFactory?: FastifyServerFactory) => {
       })
     })
   }
-  app.register(fastifyJwt, { secret: API_JWT_SECRET })
+
+  app.register(fastifyAuth0Verify, {
+    domain: FASTIFY_AUTH0_DOMAIN,
+    secret: FASTIFY_AUTH0_SECRET,
+    audience: FASTIFY_AUTH0_AUDIENCE
+  })
+
+  app.addHook('onRequest', async (request, reply) => {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
+
   server(app, { basePath: API_BASE_PATH })
+
   return app
 }
