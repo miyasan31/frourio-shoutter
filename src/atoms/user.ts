@@ -6,6 +6,7 @@ export const user = atom({
     id: '',
     name: '',
     profile: '',
+    icon: '',
     createdAt: new Date(),
     isSignin: false
   }
