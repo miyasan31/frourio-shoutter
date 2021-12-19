@@ -76,9 +76,23 @@ const HomePage: NextPage = () => {
     [userInfo]
   )
 
-  if (error) return <div>error</div>
+  if (error)
+    return (
+      <div>
+        <Box w="100%" py="1rem">
+          <Button onClick={handleSignout}>サインアウト</Button>
+        </Box>
+      </div>
+    )
 
-  if (!tweetList) return <div>no data</div>
+  if (!tweetList)
+    return (
+      <div>
+        <Box w="100%" py="1rem">
+          <Button onClick={handleSignout}>サインアウト</Button>
+        </Box>
+      </div>
+    )
 
   return (
     <Box w="100%" p="1rem">

@@ -1,38 +1,31 @@
-import React, { FC, useEffect } from 'react'
-// import useAspidaSWR from '@aspida/swr'
-// import { apiClient } from '~/utils/apiClient'
-// import { useRecoilState } from 'recoil'
-// import { user } from '~/atoms'
-// import { useGetAccessToken } from '~/hooks/useGetAccessToken'
-// import { auth0 } from '~/constants/auth0'
+import { useRouter } from 'next/router'
+import React, { FC, useCallback, useEffect } from 'react'
+import { auth0 } from '~/constants/auth0'
+
+const differentAudienceOptions = {
+  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''
+}
 
 type Props = {
   children: React.ReactNode
 }
 
 export const AuthProvider: FC<Props> = (props) => {
-  // const [userInfo, setUserInfo] = useRecoilState(user)
-  // const { token } = useGetAccessToken()
+  const router = useRouter()
 
-  // const { data: authUser } = useAspidaSWR(
-  //   apiClient.user._userId('miyasan_0301'),
-  //   {
-  //     headers: { authorization: `Bearer ${token}` },
-  //     enabled: !!token
-  //   }
-  // )
+  const listenAuthState = useCallback(async () => {
+    try {
+      const result = await auth0.getTokenSilently(differentAudienceOptions)
+      if (!result) router.push('/signin')
+      else router.push('/')
+    } catch (error) {
+      router.push('/signin')
+    }
+  }, [])
 
-  // useEffect(() => {
-  //   if (authUser) {
-  //     setUserInfo({
-  //       id: authUser.id,
-  //       name: authUser.name,
-  //       profile: authUser.profile,
-  //       createdAt: authUser.createdAt,
-  //       isSignin: true
-  //     })
-  //   }
-  // }, [authUser])
+  useEffect(() => {
+    listenAuthState()
+  }, [])
 
   return <>{props.children}</>
 }

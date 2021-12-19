@@ -1,15 +1,14 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect, useCallback } from 'react'
 import { auth0 } from '~/constants/auth0'
-import { AUTH0_AUDIENCE_URL, NEXT_CLIENT_BASE_URL } from '~/constants/envValue'
 
 const differentAudienceOptions = {
-  audience: AUTH0_AUDIENCE_URL
+  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''
 }
 
 const loginWithRedirectOprions = {
-  audience: AUTH0_AUDIENCE_URL,
-  redirect_uri: NEXT_CLIENT_BASE_URL
+  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || '',
+  redirect_uri: process.env.NEXT_PUBLIC_CLIENT_BASE_URL || ''
 }
 
 export const useGetAccessToken = () => {
@@ -56,7 +55,7 @@ export const handleSignin = async () => {
 // ログアウト処理
 export const handleSignout = async () => {
   auth0.logout({
-    returnTo: `${NEXT_CLIENT_BASE_URL}/signin`
+    returnTo: `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL || ''}/signin`
   })
 }
 
