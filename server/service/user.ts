@@ -377,11 +377,50 @@ export const createUser = depend(
   async (
     { prisma },
     // miyasan31:key1
-    // createUser: Prisma.UserCreateInput
-    createUser: Prisma.UserUncheckedCreateInput
+    // createUser: Prisma.UserUncheckedCreateInput
+    createUser: Prisma.UserCreateInput
   ) => {
     const result = await prisma.user.create({
       data: createUser
+    })
+    return result
+  }
+)
+
+export const updateUser = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { update(query: Prisma.UserUpdateArgs): Promise<User> }
+    }
+  },
+  async (
+    { prisma },
+    id: User['id'],
+    // miyasan31:key1
+    // updateUser: Prisma.UserUncheckedCreateInput
+    updateUser: Prisma.UserUpdateInput
+  ) => {
+    const result = await prisma.user.update({
+      where: {
+        id: id
+      },
+      data: updateUser
+    })
+    return result
+  }
+)
+
+export const deleteUser = depend(
+  {
+    prisma: prisma as unknown as {
+      user: { update(query: Prisma.UserDeleteArgs): Promise<User> }
+    }
+  },
+  async ({ prisma }, id: User['id']) => {
+    const result = await prisma.user.update({
+      where: {
+        id: id
+      }
     })
     return result
   }
