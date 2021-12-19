@@ -45,7 +45,7 @@ const HomePage: NextPage = () => {
       })
       revalidate()
     },
-    [userInfo]
+    [userInfo, token]
   )
 
   const handllePostLike = useCallback(
@@ -59,7 +59,7 @@ const HomePage: NextPage = () => {
       })
       revalidate()
     },
-    [userInfo]
+    [userInfo, token]
   )
 
   const handllePostRetweet = useCallback(
@@ -73,7 +73,7 @@ const HomePage: NextPage = () => {
       })
       revalidate()
     },
-    [userInfo]
+    [userInfo, token]
   )
 
   if (error)

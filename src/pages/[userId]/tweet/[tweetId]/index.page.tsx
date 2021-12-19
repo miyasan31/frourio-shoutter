@@ -42,7 +42,7 @@ const TweetPage: NextPage = () => {
       })
       revalidate()
     },
-    [userInfo, tweetId]
+    [userInfo, tweetId, token]
   )
 
   if (error) return <div>error</div>
