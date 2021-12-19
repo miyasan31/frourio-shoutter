@@ -7,18 +7,22 @@ import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
 import { useForm } from 'react-hook-form'
 import { Box, Button, ListItem, List, Textarea } from '@chakra-ui/react'
+import { useGetAccessToken } from '~/hooks/useGetAccessToken'
 
 const TweetPage: NextPage = () => {
+  const userInfo = useRecoilValue(user)
   const router = useRouter()
   const { tweetId } = router.query
+  const { token } = useGetAccessToken()
 
   const {
     data: tweetAndReplies,
     error,
     revalidate
-  } = useAspidaSWR(apiClient.tweet._tweetId(Number(tweetId)))
-
-  const userInfo = useRecoilValue(user)
+  } = useAspidaSWR(apiClient.tweet._tweetId(Number(tweetId)), {
+    headers: { authorization: `Bearer ${token}` },
+    enabled: !!token && !!tweetId
+  })
 
   const {
     register,
@@ -29,6 +33,7 @@ const TweetPage: NextPage = () => {
   const handlePostTweet = useCallback(
     async (data) => {
       await apiClient.reply.post({
+        headers: { authorization: `Bearer ${token}` },
         body: {
           reply: data.reply,
           tweet: { connect: { id: Number(tweetId) } },

@@ -14,10 +14,20 @@ import {
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
 import { useForm } from 'react-hook-form'
+import { useGetAccessToken, handleSignout } from '~/hooks/useGetAccessToken'
 
 const HomePage: NextPage = () => {
-  const { data: tweetList, error, revalidate } = useAspidaSWR(apiClient.tweet)
   const userInfo = useRecoilValue(user)
+  const { token } = useGetAccessToken()
+  const {
+    data: tweetList,
+    error,
+    revalidate
+  } = useAspidaSWR(apiClient.tweet, {
+    headers: { authorization: `Bearer ${token}` },
+    enabled: !!token
+  })
+
   const {
     register,
     handleSubmit,
@@ -27,6 +37,7 @@ const HomePage: NextPage = () => {
   const handlePostTweet = useCallback(
     async (data) => {
       await apiClient.tweet.post({
+        headers: { authorization: `Bearer ${token}` },
         body: {
           tweet: data.tweet,
           user: { connect: { id: userInfo.id } }
@@ -40,6 +51,7 @@ const HomePage: NextPage = () => {
   const handllePostLike = useCallback(
     (id) => {
       apiClient.like.post({
+        headers: { authorization: `Bearer ${token}` },
         body: {
           tweet: { connect: { id } },
           user: { connect: { id: userInfo.id } }
@@ -53,6 +65,7 @@ const HomePage: NextPage = () => {
   const handllePostRetweet = useCallback(
     (id) => {
       apiClient.retweet.post({
+        headers: { authorization: `Bearer ${token}` },
         body: {
           tweet: { connect: { id } },
           user: { connect: { id: userInfo.id } }
@@ -63,10 +76,16 @@ const HomePage: NextPage = () => {
     [userInfo]
   )
 
-  if (error) return <div>failed to load</div>
+  if (error) return <div>error</div>
+
   if (!tweetList) return <div>no data</div>
+
   return (
     <Box w="100%" p="1rem">
+      <Box w="100%" py="1rem">
+        <Button onClick={handleSignout}>サインアウト</Button>
+      </Box>
+
       <Box bg="blue.100" p="1rem">
         <form onSubmit={handleSubmit(handlePostTweet)}>
           <Textarea
