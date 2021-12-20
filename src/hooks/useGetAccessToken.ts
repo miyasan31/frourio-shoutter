@@ -6,11 +6,6 @@ const differentAudienceOptions = {
   audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''
 }
 
-const loginWithRedirectOprions = {
-  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || '',
-  redirect_uri: process.env.NEXT_PUBLIC_CLIENT_BASE_URL || ''
-}
-
 export const useGetAccessToken = () => {
   const router = useRouter()
   const [token, setToken] = useState('')
@@ -45,6 +40,11 @@ export const useGetAccessToken = () => {
   }, [])
 
   return { token }
+}
+
+const loginWithRedirectOprions = {
+  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || '',
+  redirect_uri: `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL || ''}`
 }
 
 // ログイン処理
