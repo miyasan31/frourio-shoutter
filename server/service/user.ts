@@ -45,8 +45,7 @@ export const getUserList = depend(
   }
 )
 
-// not used
-export const getUser = depend(
+export const getSignUpUserCheck = depend(
   {
     prisma: prisma as unknown as {
       user: {
@@ -54,16 +53,10 @@ export const getUser = depend(
       }
     }
   },
-  async ({ prisma }, id: User['id']) => {
+  async ({ prisma }, email: User['email']) => {
     const result = await prisma.user.findUnique({
       where: {
-        id: id
-      },
-      include: {
-        // countings on user follow
-        _count: {
-          select: { followers: true, followings: true }
-        }
+        email: email
       }
     })
     return result

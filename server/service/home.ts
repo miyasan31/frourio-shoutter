@@ -37,6 +37,15 @@ export const getFollowingUserTweetList = depend(
               // sotr by createdAt desc
               orderBy: { createdAt: 'desc' },
               include: {
+                // tweet -> user
+                user: {
+                  include: {
+                    // countings on user follow
+                    _count: {
+                      select: { followers: true, followings: true }
+                    }
+                  }
+                },
                 // user is liked
                 likes: {
                   where: { userId: id },
@@ -55,7 +64,18 @@ export const getFollowingUserTweetList = depend(
             },
             // user -> replies
             replies: {
-              orderBy: { createdAt: 'desc' }
+              orderBy: { createdAt: 'desc' },
+              include: {
+                // user is liked
+                user: {
+                  include: {
+                    // countings on user follow
+                    _count: {
+                      select: { followers: true, followings: true }
+                    }
+                  }
+                }
+              }
             },
             // user -> retweets
             retweets: {
