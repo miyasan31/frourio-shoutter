@@ -7,6 +7,7 @@ export const user = atom({
     name: '',
     profile: '',
     icon: '',
+    email: '',
     createdAt: new Date(),
     isSignin: false
   }
