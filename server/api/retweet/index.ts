@@ -6,8 +6,8 @@ export type Methods = {
     reqHeaders: AuthHeader
     // miyasan31:key1
     // reqBody: Prisma.RetweetUncheckedCreateInput
-
     reqBody: Prisma.RetweetCreateInput
+
     status: 201
   }
 }
