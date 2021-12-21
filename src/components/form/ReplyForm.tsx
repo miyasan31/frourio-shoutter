@@ -37,7 +37,7 @@ export const ReplyForm: FC<Props> = (props) => {
   );
 
   return (
-    <Form type="reply" handlePost={handlePostTweet}>
+    <Form type="reply" onPost={handlePostTweet}>
       <SentUserIdWrap>
         返信先{':'}
         <SentUserId>

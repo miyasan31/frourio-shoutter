@@ -43,9 +43,9 @@ export const RetweetCard: FC<Props> = (props) => {
     handlePostLike,
     handleDeleteLike,
     handlePostRetweet,
-    handleDeleteRetweet,
-    handlePostFollow,
-    handleDeleteFollow
+    handleDeleteRetweet
+    // handlePostFollow,
+    // handleDeleteFollow
   } = useTweetAction();
 
   return (

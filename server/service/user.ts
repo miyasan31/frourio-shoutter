@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { Multipart } from 'fastify-multipart';
-import fs from 'fs';
-import path from 'path';
+// import { Multipart } from 'fastify-multipart';
+// import fs from 'fs';
+// import path from 'path';
 import { depend } from 'velona';
 
 import {
@@ -17,8 +17,8 @@ import {
 import type { Prisma, User } from '$prisma/client';
 
 import {
-  API_ORIGIN,
-  API_UPLOAD_DIR,
+  // API_ORIGIN,
+  // API_UPLOAD_DIR,
   API_USER_ID,
   API_USER_PASS
 } from './envValues';

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import { IconButton } from '~/components';
-import { useTweetAction } from '~/hooks';
+// import { useTweetAction } from '~/hooks';
 import type { Reply, Tweet, User } from '$prisma/client';
 
 const ICON_PHOTO_SIZE = 48;
@@ -24,7 +24,7 @@ type Props = Reply & {
 };
 
 export const ReplyCard: FC<Props> = (props) => {
-  const { handlePostFollow, handleDeleteFollow } = useTweetAction();
+  // const { handlePostFollow, handleDeleteFollow } = useTweetAction();
 
   return (
     <Link href={`${props.tweet?.userId}/tweet/${props.tweet?.id}`}>

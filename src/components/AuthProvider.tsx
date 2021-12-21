@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { user } from '~/atoms';
@@ -8,7 +8,7 @@ import { auth0, differentAudienceOptions } from '~/constants';
 import { apiClient } from '~/utils';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const AuthProvider: FC<Props> = (props) => {

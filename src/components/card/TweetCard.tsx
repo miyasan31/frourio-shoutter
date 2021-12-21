@@ -40,9 +40,9 @@ export const TweetCard: FC<Props> = (props) => {
     handlePostLike,
     handleDeleteLike,
     handlePostRetweet,
-    handleDeleteRetweet,
-    handlePostFollow,
-    handleDeleteFollow
+    handleDeleteRetweet
+    // handlePostFollow,
+    // handleDeleteFollow
   } = useTweetAction();
 
   console.info(props);

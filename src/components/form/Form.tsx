@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { FC, useMemo } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { FC, ReactNode, useMemo } from 'react';
+import { FieldValues, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 
 import { user } from '~/atoms';
@@ -12,8 +12,8 @@ const ICON_PHOTO_SIZE = 48;
 
 type Props = {
   type: 'tweet' | 'reply';
-  children?: React.ReactNode;
-  handlePost: any;
+  children?: ReactNode;
+  onPost: SubmitHandler<FieldValues>;
 };
 
 export const Form: FC<Props> = (props) => {
@@ -52,7 +52,7 @@ export const Form: FC<Props> = (props) => {
         </IconPhotoWrap>
 
         <FromWrap>
-          <form onSubmit={handleSubmit(props.handlePost)}>
+          <form onSubmit={handleSubmit(props.onPost)}>
             <TweetInput
               {...register(props.type)}
               placeholder={label[1]}

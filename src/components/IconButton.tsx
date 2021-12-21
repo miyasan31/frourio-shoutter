@@ -1,9 +1,9 @@
 import { IconButton as Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, ReactElement } from 'react';
 
 type Props = {
-  icon: JSX.Element;
+  icon: ReactElement;
   count?: number;
   isCount?: boolean;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;

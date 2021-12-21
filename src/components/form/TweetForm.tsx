@@ -29,5 +29,5 @@ export const TweetForm: FC<Props> = (props) => {
     [userInfo]
   );
 
-  return <Form type="tweet" handlePost={handlePostTweet} />;
+  return <Form type="tweet" onPost={handlePostTweet} />;
 };

@@ -2,7 +2,7 @@ import { createTask, getTasks } from '$/service/tasks';
 
 import { defineController } from './$relay';
 
-const print = (text: string) => console.log(text);
+const print = (text: string) => console.info(text);
 
 export default defineController({ getTasks, print }, ({ getTasks, print }) => ({
   get: async ({ query }) => {
