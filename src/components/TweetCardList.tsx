@@ -37,7 +37,7 @@ export const TweetCardList: VFC = () => {
   const allTweetList = sortTweetList(homeTweetList)
 
   return (
-    <div>
+    <>
       {allTweetList.map((t, i) => {
         return (
           <div key={`${t.userId}.${i}`}>
@@ -51,6 +51,6 @@ export const TweetCardList: VFC = () => {
           </div>
         )
       })}
-    </div>
+    </>
   )
 }
