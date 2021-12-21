@@ -1,14 +1,14 @@
 import { NextPage } from 'next'
 import React from 'react'
 import useAspidaSWR from '@aspida/swr'
-import { apiClient } from '~/utils/apiClient'
+import { apiClient } from '~/utils'
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
-import { useGetAccessToken } from '~/hooks/useGetAccessToken'
-import { Progress } from '~/components/Progress'
+import { useGetAccessToken } from '~/hooks'
+import { Progress } from '~/components'
 import { Button } from '@chakra-ui/react'
 import Link from 'next/link'
-import { useTweetAction } from '~/hooks/useTweetAction'
+import { useTweetAction } from '~/hooks'
 
 const FollowPage: NextPage = () => {
   const { handlePostFollow } = useTweetAction()
@@ -34,7 +34,9 @@ const FollowPage: NextPage = () => {
         return (
           <div key={t.id}>
             <p>{t.name}</p>
-            <Button onClick={() => handlePostFollow(t.id)}>フォローする</Button>
+            <Button onClick={(e) => handlePostFollow(e, t.id)}>
+              フォローする
+            </Button>
           </div>
         )
       })}

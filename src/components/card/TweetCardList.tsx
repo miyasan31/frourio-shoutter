@@ -1,14 +1,14 @@
 import React, { VFC } from 'react'
 import useAspidaSWR from '@aspida/swr'
-import { apiClient } from '~/utils/apiClient'
+import { apiClient } from '~/utils'
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
-import { useGetAccessToken } from '~/hooks/useGetAccessToken'
+import { useGetAccessToken } from '~/hooks'
 import { TweetCard } from './TweetCard'
 import { RetweetCard } from './RetweetCard'
 import { ReplyCard } from './ReplyCard'
-import { sortTweetList } from '~/functions/sortTweetList'
-import { Progress } from './Progress'
+import { sortTweetList } from '~/functions'
+import { Progress } from '~/components'
 import Link from 'next/link'
 
 export const TweetCardList: VFC = () => {

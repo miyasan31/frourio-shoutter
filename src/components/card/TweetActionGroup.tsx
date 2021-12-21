@@ -1,6 +1,6 @@
 import { Lottie } from '@crello/react-lottie'
 import type { FC, MouseEvent } from 'react'
-import animationData from './19898-star.json'
+import animationData from '~/assets/19898-star.json'
 import {
   ChatBubbleIcon,
   LoopIcon,
@@ -8,7 +8,7 @@ import {
   StarIcon
 } from '@radix-ui/react-icons'
 import styled from '@emotion/styled'
-import { IconButton } from './IconButton'
+import { IconButton } from '~/components'
 
 const animationConfig = {
   animationData: animationData,

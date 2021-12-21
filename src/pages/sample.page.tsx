@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useCallback, useState } from 'react'
 import useAspidaSWR from '@aspida/swr'
 import { apiClient } from '~/utils/apiClient'
-import { UserBanner } from '~/components'
 import type { Task } from '$prisma/client'
 import type { FormEvent, ChangeEvent } from 'react'
 import styled from '@emotion/styled'
@@ -58,8 +57,6 @@ const Home = () => {
       </Head>
 
       <Main>
-        <UserBanner />
-
         <H1>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </H1>

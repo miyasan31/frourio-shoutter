@@ -2,12 +2,11 @@ import React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import useAspidaSWR from '@aspida/swr'
-import { apiClient } from '~/utils/apiClient'
-import { useGetAccessToken } from '~/hooks/useGetAccessToken'
-import { Progress } from '@/src/components/Progress'
-import { TweetCard } from '~/components/TweetCard'
-import { ReplyCard } from '~/components/ReplyCard'
-import { ReplyForm } from '~/components/ReplyForm'
+import { apiClient } from '~/utils'
+import { useGetAccessToken } from '~/hooks'
+import { Progress } from '~/components'
+import { TweetCard, ReplyCard } from '~/components/card'
+import { ReplyForm } from '~/components/form'
 
 const TweetPage: NextPage = () => {
   const router = useRouter()

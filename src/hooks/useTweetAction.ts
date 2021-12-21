@@ -1,17 +1,16 @@
 import { useCallback } from 'react'
-import { apiClient } from '~/utils/apiClient'
+import { apiClient } from '~/utils'
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
-import { useGetAccessToken } from '~/hooks/useGetAccessToken'
+import { getToken } from '~/functions'
 
 export const useTweetAction = () => {
   const userInfo = useRecoilValue(user)
 
-  const { token } = useGetAccessToken()
-
   const handlePostLike = useCallback(
-    (e, id) => {
+    async (e, id) => {
       e.preventDefault()
+      const token = await getToken()
       apiClient.like.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -20,22 +19,24 @@ export const useTweetAction = () => {
         }
       })
     },
-    [userInfo, token]
+    [userInfo]
   )
 
   const handleDeleteLike = useCallback(
-    (e, id) => {
+    async (e, id) => {
       e.preventDefault()
+      const token = await getToken()
       apiClient.like._likeId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       })
     },
-    [userInfo, token]
+    [userInfo]
   )
 
   const handlePostRetweet = useCallback(
-    (e, id) => {
+    async (e, id) => {
       e.preventDefault()
+      const token = await getToken()
       apiClient.retweet.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -44,22 +45,24 @@ export const useTweetAction = () => {
         }
       })
     },
-    [userInfo, token]
+    [userInfo]
   )
 
   const handleDeleteRetweet = useCallback(
-    (e, id) => {
+    async (e, id) => {
       e.preventDefault()
+      const token = await getToken()
       apiClient.retweet._retweetId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       })
     },
-    [userInfo, token]
+    [userInfo]
   )
 
   const handlePostFollow = useCallback(
-    (e, id) => {
+    async (e, id) => {
       e.preventDefault()
+      const token = await getToken()
       apiClient.follow.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -68,17 +71,18 @@ export const useTweetAction = () => {
         }
       })
     },
-    [userInfo, token]
+    [userInfo]
   )
 
   const handleDeleteFollow = useCallback(
-    (e, id) => {
+    async (e, id) => {
       e.preventDefault()
+      const token = await getToken()
       apiClient.follow._followId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       })
     },
-    [userInfo, token]
+    [userInfo]
   )
 
   return {

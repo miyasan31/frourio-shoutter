@@ -1,7 +1,7 @@
 import { Box, Button } from '@chakra-ui/react'
 import { NextPage } from 'next'
 import React from 'react'
-import { handleSignin } from '~/hooks/useGetAccessToken'
+import { handleSignin } from '~/functions'
 
 const SigninPage: NextPage = () => {
   return (

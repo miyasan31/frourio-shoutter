@@ -1,10 +1,10 @@
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { apiClient } from '~/utils/apiClient'
+import { apiClient } from '~/utils'
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
-import { getToken } from '~/hooks/useGetAccessToken'
+import { getToken } from '~/functions'
 import styled from '@emotion/styled'
 import { Form } from './Form'
 

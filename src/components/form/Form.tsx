@@ -5,7 +5,7 @@ import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
 import { useForm, useWatch } from 'react-hook-form'
 import styled from '@emotion/styled'
-import { calcTextAreaHeight } from '~/functions/calcTextAreaHeight'
+import { calcTextAreaHeight } from '~/functions'
 
 const ICON_PHOTO_SIZE = 48
 

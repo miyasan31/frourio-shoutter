@@ -1,8 +1,8 @@
 import React, { FC, useCallback } from 'react'
-import { apiClient } from '~/utils/apiClient'
+import { apiClient } from '~/utils'
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
-import { getToken } from '~/hooks/useGetAccessToken'
+import { getToken } from '~/functions'
 import { Form } from './Form'
 
 type Props = {

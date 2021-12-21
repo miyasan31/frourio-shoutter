@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import React from 'react'
 import { Box, Button } from '@chakra-ui/react'
-import { handleSignout } from '~/hooks/useGetAccessToken'
-import { TweetCardList } from '~/components/TweetCardList'
-import { TweetForm } from '~/components/TweetForm'
+import { handleSignout } from '~/functions'
+import { TweetCardList } from '~/components/card'
+import { TweetForm } from '~/components/form'
 
 const HomePage: NextPage = () => {
   return (

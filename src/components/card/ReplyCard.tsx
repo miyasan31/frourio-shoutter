@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import type { User, Reply, Tweet } from '$prisma/client'
-import { useTweetAction } from '~/hooks/useTweetAction'
+import { useTweetAction } from '~/hooks'
 import styled from '@emotion/styled'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { IconButton } from './IconButton'
+import { IconButton } from '~/components'
 
 const ICON_PHOTO_SIZE = 48
 

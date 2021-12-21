@@ -1,14 +1,10 @@
 import { useRouter } from 'next/router'
 import React, { FC, useCallback, useEffect, useState } from 'react'
-import { auth0 } from '~/constants/auth0'
-import { apiClient } from '~/utils/apiClient'
+import { auth0, differentAudienceOptions } from '~/constants'
+import { apiClient } from '~/utils'
 import { useSetRecoilState } from 'recoil'
 import { user } from '~/atoms'
-import { Progress } from '@/src/components/Progress'
-
-const differentAudienceOptions = {
-  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''
-}
+import { Progress } from '~/components/Progress'
 
 type Props = {
   children: React.ReactNode
