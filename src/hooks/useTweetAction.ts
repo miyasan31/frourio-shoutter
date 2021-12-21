@@ -10,7 +10,8 @@ export const useTweetAction = () => {
   const { token } = useGetAccessToken()
 
   const handlePostLike = useCallback(
-    (id) => {
+    (e, id) => {
+      e.preventDefault()
       apiClient.like.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -23,7 +24,8 @@ export const useTweetAction = () => {
   )
 
   const handleDeleteLike = useCallback(
-    (id) => {
+    (e, id) => {
+      e.preventDefault()
       apiClient.like._likeId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       })
@@ -32,7 +34,8 @@ export const useTweetAction = () => {
   )
 
   const handlePostRetweet = useCallback(
-    (id) => {
+    (e, id) => {
+      e.preventDefault()
       apiClient.retweet.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -45,7 +48,8 @@ export const useTweetAction = () => {
   )
 
   const handleDeleteRetweet = useCallback(
-    (id) => {
+    (e, id) => {
+      e.preventDefault()
       apiClient.retweet._retweetId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       })
@@ -54,7 +58,8 @@ export const useTweetAction = () => {
   )
 
   const handlePostFollow = useCallback(
-    (id) => {
+    (e, id) => {
+      e.preventDefault()
       apiClient.follow.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -67,7 +72,8 @@ export const useTweetAction = () => {
   )
 
   const handleDeleteFollow = useCallback(
-    (id) => {
+    (e, id) => {
+      e.preventDefault()
       apiClient.follow._followId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       })
