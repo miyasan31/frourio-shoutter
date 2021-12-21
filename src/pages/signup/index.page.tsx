@@ -1,6 +1,6 @@
 import { Box, Button, Textarea } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 

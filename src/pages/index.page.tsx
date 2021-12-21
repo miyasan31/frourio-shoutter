@@ -1,6 +1,5 @@
 import { Box, Button } from '@chakra-ui/react';
 import type { NextPage } from 'next';
-import React from 'react';
 
 import { TweetCardList } from '~/components/card';
 import { TweetForm } from '~/components/form';

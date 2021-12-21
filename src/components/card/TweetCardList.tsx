@@ -1,6 +1,6 @@
 import useAspidaSWR from '@aspida/swr';
 import Link from 'next/link';
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { user } from '~/atoms';

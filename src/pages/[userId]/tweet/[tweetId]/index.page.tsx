@@ -1,7 +1,6 @@
 import useAspidaSWR from '@aspida/swr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 import { Progress } from '~/components';
 import { ReplyCard, TweetCard } from '~/components/card';

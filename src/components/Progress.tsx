@@ -1,5 +1,5 @@
 import { Center, Spinner } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 type Props = {
   h: '200px' | '100px';

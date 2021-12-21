@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { user } from '~/atoms';

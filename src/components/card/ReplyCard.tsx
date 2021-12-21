@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { IconButton } from '~/components';
 import { useTweetAction } from '~/hooks';

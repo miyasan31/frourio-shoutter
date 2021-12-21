@@ -1,6 +1,5 @@
 import { Box, Button } from '@chakra-ui/react';
 import { NextPage } from 'next';
-import React from 'react';
 
 import { handleSignin } from '~/functions';
 

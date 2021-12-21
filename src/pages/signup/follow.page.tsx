@@ -2,7 +2,6 @@ import useAspidaSWR from '@aspida/swr';
 import { Button } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { user } from '~/atoms';

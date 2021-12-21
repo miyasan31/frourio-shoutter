@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { user } from '~/atoms';

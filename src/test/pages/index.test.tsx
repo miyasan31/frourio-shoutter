@@ -2,7 +2,7 @@
 // import dotenv from 'dotenv';
 // import Fastify, { FastifyInstance } from 'fastify';
 // import cors from 'fastify-cors';
-// import React from 'react';
+//
 // import { cache } from 'swr';
 
 // // import Home from '@/src/pages/index'

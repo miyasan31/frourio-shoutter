@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 
