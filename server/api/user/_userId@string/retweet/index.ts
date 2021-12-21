@@ -1,17 +1,17 @@
-import type { Tweet, User, Retweet } from '$prisma/client'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { Retweet, Tweet, User } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
     resBody: (User & {
       retweets: (Retweet & {
         tweet: Tweet & {
-          user: User
-        }
-      })[]
-    })[]
-    status: 200
-  }
-}
+          user: User;
+        };
+      })[];
+    })[];
+    status: 200;
+  };
+};

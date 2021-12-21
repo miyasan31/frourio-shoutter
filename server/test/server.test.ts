@@ -1,8 +1,9 @@
-import fastify from 'fastify'
-import controller from '$/api/tasks/controller'
+import fastify from 'fastify';
+
+import controller from '$/api/tasks/controller';
 
 test('dependency injection into controller', async () => {
-  let printedMessage = ''
+  let printedMessage = '';
 
   const injectedController = controller.inject((deps) => ({
     getTasks: deps.getTasks.inject({
@@ -20,16 +21,16 @@ test('dependency injection into controller', async () => {
       }
     }),
     print: (text: string) => {
-      printedMessage = text
+      printedMessage = text;
     }
-  }))(fastify())
+  }))(fastify());
 
-  const limit = 3
-  const message = 'test message'
+  const limit = 3;
+  const message = 'test message';
   const res = await injectedController.get({
     query: { limit, message }
-  })
+  });
 
-  expect(res.body).toHaveLength(limit)
-  expect(printedMessage).toBe(message)
-})
+  expect(res.body).toHaveLength(limit);
+  expect(printedMessage).toBe(message);
+});

@@ -1,5 +1,6 @@
-import { defineController } from './$relay'
-import { updateUser, deleteUser } from '$/service/user'
+import { deleteUser, updateUser } from '$/service/user';
+
+import { defineController } from './$relay';
 
 export default defineController(
   {
@@ -8,19 +9,19 @@ export default defineController(
   },
   ({ updateUser, deleteUser }) => ({
     patch: async ({ body, params }) => {
-      const user = await updateUser(params.userId, body)
+      const user = await updateUser(params.userId, body);
       if (!user) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     },
 
     delete: async ({ params }) => {
-      const user = await deleteUser(params.userId)
+      const user = await deleteUser(params.userId);
       if (!user) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     }
   })
-)
+);

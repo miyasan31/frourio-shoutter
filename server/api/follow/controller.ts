@@ -1,5 +1,6 @@
-import { defineController } from './$relay'
-import { createFollow } from '$/service/follow'
+import { createFollow } from '$/service/follow';
+
+import { defineController } from './$relay';
 
 export default defineController(
   {
@@ -7,11 +8,11 @@ export default defineController(
   },
   ({ createFollow }) => ({
     post: async ({ body }) => {
-      const follow = await createFollow(body)
+      const follow = await createFollow(body);
       if (!follow) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 201, body: follow }
+      return { status: 201, body: follow };
     }
   })
-)
+);

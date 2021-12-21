@@ -1,5 +1,6 @@
-import { defineController } from './$relay'
-import { deleteLike } from '$/service/like'
+import { deleteLike } from '$/service/like';
+
+import { defineController } from './$relay';
 
 export default defineController(
   {
@@ -7,11 +8,11 @@ export default defineController(
   },
   ({ deleteLike }) => ({
     delete: async ({ params }) => {
-      const like = await deleteLike(params.likeId)
+      const like = await deleteLike(params.likeId);
       if (!like) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     }
   })
-)
+);

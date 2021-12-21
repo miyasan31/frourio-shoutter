@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const FollowerPage = () => {
   return (
     <div>
       <div>FollowerPage</div>
     </div>
-  )
-}
+  );
+};
 
-export default FollowerPage
+export default FollowerPage;

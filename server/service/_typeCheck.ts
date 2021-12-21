@@ -1,7 +1,8 @@
-import { PrismaClient } from '@prisma/client'
-import type { User } from '$prisma/client'
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+import type { User } from '$prisma/client';
+
+const prisma = new PrismaClient();
 
 export const responseTypeCheck = async (id: User['id']) => {
   const result = await prisma.follow.findMany({
@@ -125,6 +126,6 @@ export const responseTypeCheck = async (id: User['id']) => {
         }
       }
     }
-  })
-  return result
-}
+  });
+  return result;
+};

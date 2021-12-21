@@ -1,26 +1,26 @@
-import type { Reply, Prisma } from '$prisma/client'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { Prisma, Reply } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    resBody: Reply | null
-    status: 200
-  }
+    resBody: Reply | null;
+    status: 200;
+  };
 
   patch: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
     // miyasan31:key1
     // reqBody: Prisma.ReplyUncheckedUpdateInput
-    reqBody: Prisma.ReplyUpdateInput
+    reqBody: Prisma.ReplyUpdateInput;
 
-    status: 204
-  }
+    status: 204;
+  };
 
   delete: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    status: 204
-  }
-}
+    status: 204;
+  };
+};

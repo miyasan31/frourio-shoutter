@@ -1,26 +1,26 @@
-import useAspidaSWR from '@aspida/swr'
-import styled from '@emotion/styled'
-import Head from 'next/head'
-import type { ChangeEvent, FormEvent } from 'react'
-import { useCallback, useState } from 'react'
+import useAspidaSWR from '@aspida/swr';
+import styled from '@emotion/styled';
+import Head from 'next/head';
+import type { ChangeEvent, FormEvent } from 'react';
+import { useCallback, useState } from 'react';
 
-import { apiClient } from '~/utils/apiClient'
-import type { Task } from '$prisma/client'
+import { apiClient } from '~/utils/apiClient';
+import type { Task } from '$prisma/client';
 
 const Home = () => {
-  const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks)
+  const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks);
 
-  const [label, setLabel] = useState('')
+  const [label, setLabel] = useState('');
 
   const inputLabel = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setLabel(e.target.value),
     []
-  )
+  );
 
   const createTask = useCallback(
     async (e: FormEvent) => {
-      e.preventDefault()
-      if (!label) return
+      e.preventDefault();
+      if (!label) return;
 
       // await await apiClient.reply.post({
       //   body: {
@@ -30,25 +30,27 @@ const Home = () => {
       //   }
       // })
 
-      await apiClient.tasks.post({ body: { label } })
-      setLabel('')
-      revalidate()
+      await apiClient.tasks.post({ body: { label } });
+      setLabel('');
+      revalidate();
     },
     [label]
-  )
+  );
 
   const toggleDone = useCallback(async (task: Task) => {
-    await apiClient.tasks._taskId(task.id).patch({ body: { done: !task.done } })
-    revalidate()
-  }, [])
+    await apiClient.tasks
+      ._taskId(task.id)
+      .patch({ body: { done: !task.done } });
+    revalidate();
+  }, []);
 
   const deleteTask = useCallback(async (task: Task) => {
-    await apiClient.tasks._taskId(task.id).delete()
-    revalidate()
-  }, [])
+    await apiClient.tasks._taskId(task.id).delete();
+    revalidate();
+  }, []);
 
-  if (error) return <div>failed to load</div>
-  if (!tasks) return <div>loading...</div>
+  if (error) return <div>failed to load</div>;
+  if (!tasks) return <div>loading...</div>;
 
   return (
     <div>
@@ -89,22 +91,22 @@ const Home = () => {
         </ul>
       </Main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const H1 = styled.h1`
   text-align: center;
   font-size: 2.5rem;
-`
+`;
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const FromInput = styled.input`
   display: block;
@@ -114,7 +116,7 @@ const FromInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fafafa;
-`
+`;
 
 const Button = styled.button`
   display: block;
@@ -127,4 +129,4 @@ const Button = styled.button`
   hover: {
     background-color: #5f9ee0;
   }
-`
+`;

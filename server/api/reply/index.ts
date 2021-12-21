@@ -1,20 +1,20 @@
-import type { Prisma, Reply } from '$prisma/client'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { Prisma, Reply } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    resBody: Reply[]
-    status: 200
-  }
+    resBody: Reply[];
+    status: 200;
+  };
 
   post: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
     // miyasan31:key1
     // reqBody: Prisma.ReplyUncheckedCreateInput
-    reqBody: Prisma.ReplyCreateInput
+    reqBody: Prisma.ReplyCreateInput;
 
-    status: 204
-  }
-}
+    status: 204;
+  };
+};

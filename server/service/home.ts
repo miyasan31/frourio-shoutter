@@ -1,16 +1,17 @@
-import { depend } from 'velona'
-import { PrismaClient } from '@prisma/client'
-import type { User, Prisma } from '$prisma/client'
-import { GetHome } from '$/types/home'
+import { PrismaClient } from '@prisma/client';
+import { depend } from 'velona';
 
-const prisma = new PrismaClient()
+import { GetHome } from '$/types/home';
+import type { Prisma, User } from '$prisma/client';
+
+const prisma = new PrismaClient();
 
 export const getFollowingUserTweetList = depend(
   {
     prisma: prisma as unknown as {
       follow: {
-        findMany(query: Prisma.FollowFindManyArgs): Promise<GetHome>
-      }
+        findMany(query: Prisma.FollowFindManyArgs): Promise<GetHome>;
+      };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -137,7 +138,7 @@ export const getFollowingUserTweetList = depend(
           }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);

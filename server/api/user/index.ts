@@ -1,26 +1,26 @@
-import type { User, Prisma } from '$prisma/client'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { Prisma, User } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
     resBody: (User & {
       _count: {
-        followers: number
-        followings: number
-      }
-    })[]
-    status: 200
-  }
+        followers: number;
+        followings: number;
+      };
+    })[];
+    status: 200;
+  };
 
   post: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
     // miyasan31:key1
     // reqBody: Prisma.UserUncheckedCreateInput
-    reqBody: Prisma.UserCreateInput
+    reqBody: Prisma.UserCreateInput;
 
-    resBody: User
-    status: 201
-  }
-}
+    resBody: User;
+    status: 201;
+  };
+};

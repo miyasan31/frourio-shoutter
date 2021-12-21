@@ -1,39 +1,39 @@
-import styled from '@emotion/styled'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import styled from '@emotion/styled';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-import { IconButton } from '~/components'
-import { useTweetAction } from '~/hooks'
-import type { Tweet, User } from '$prisma/client'
+import { IconButton } from '~/components';
+import { useTweetAction } from '~/hooks';
+import type { Tweet, User } from '$prisma/client';
 
-import { TweetActionGroup } from './TweetActionGroup'
+import { TweetActionGroup } from './TweetActionGroup';
 
-const ICON_PHOTO_SIZE = 48
+const ICON_PHOTO_SIZE = 48;
 
 type Props = Tweet & {
   retweets: {
-    id: number
-  }[]
+    id: number;
+  }[];
   likes: {
-    id: number
-  }[]
+    id: number;
+  }[];
   _count: {
-    likes: number
-    retweets: number
-    replies: number
-  }
+    likes: number;
+    retweets: number;
+    replies: number;
+  };
   user: User & {
     followers: {
-      id: number
-    }[]
+      id: number;
+    }[];
     _count: {
-      followers: number
-      followings: number
-    }
-  }
-}
+      followers: number;
+      followings: number;
+    };
+  };
+};
 
 export const TweetCard: FC<Props> = (props) => {
   const {
@@ -43,9 +43,9 @@ export const TweetCard: FC<Props> = (props) => {
     handleDeleteRetweet,
     handlePostFollow,
     handleDeleteFollow
-  } = useTweetAction()
+  } = useTweetAction();
 
-  console.info(props)
+  console.info(props);
 
   return (
     <Link href={`${props.userId}/tweet/${props.id}`}>
@@ -87,12 +87,12 @@ export const TweetCard: FC<Props> = (props) => {
               handleToggleRetweet={(e) => {
                 props.retweets.length == 0
                   ? handlePostRetweet(e, props.id)
-                  : handleDeleteRetweet(e, props.retweets[0].id)
+                  : handleDeleteRetweet(e, props.retweets[0].id);
               }}
               handleToggleLike={(e) => {
                 props.likes.length == 0
                   ? handlePostLike(e, props.id)
-                  : handleDeleteLike(e, props.likes[0].id)
+                  : handleDeleteLike(e, props.likes[0].id);
               }}
             />
           </TweetInfoWrap>
@@ -103,8 +103,8 @@ export const TweetCard: FC<Props> = (props) => {
         </TweetWrap>
       </a>
     </Link>
-  )
-}
+  );
+};
 
 const Anker = styled.a`
   display: block;
@@ -112,7 +112,7 @@ const Anker = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 const TweetWrap = styled.div`
   position: relative;
@@ -126,28 +126,28 @@ const TweetWrap = styled.div`
   &:hover: {
     background-color: #ccc;
   }
-`
+`;
 
 const UserIcon = styled(Image)`
   border-radius: 9999px;
-`
+`;
 
 const IconPhotoWrap = styled.div`
   min-width: fit-content;
-`
+`;
 
 const TweetInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 0.25rem;
   width: 100%;
-`
+`;
 
 const UserInfoWrap = styled.div`
   display: flex;
   padding-left: 0.5rem;
   color: #797979;
-`
+`;
 
 const UserName = styled.span`
   padding-right: 0.5rem;
@@ -156,32 +156,32 @@ const UserName = styled.span`
   &:hover: {
     text-decoration: underline;
   }
-`
+`;
 
 const UserId = styled.span`
   text-decoration: none;
-`
+`;
 
 const Dot = styled.span`
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-`
+`;
 
 const CreatedAt = styled.span`
   &:hover: {
     text-decoration: underline;
   }
-`
+`;
 
 const TweetBody = styled.div`
   padding-left: 0.5rem;
   white-space: pre-wrap;
   word-wrap: break-word;
-`
+`;
 
 const EditButtonWrap = styled.span`
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   cursor: pointer;
-`
+`;

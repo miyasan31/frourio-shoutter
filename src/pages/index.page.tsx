@@ -1,10 +1,10 @@
-import { Box, Button } from '@chakra-ui/react'
-import type { NextPage } from 'next'
-import React from 'react'
+import { Box, Button } from '@chakra-ui/react';
+import type { NextPage } from 'next';
+import React from 'react';
 
-import { TweetCardList } from '~/components/card'
-import { TweetForm } from '~/components/form'
-import { handleSignout } from '~/functions'
+import { TweetCardList } from '~/components/card';
+import { TweetForm } from '~/components/form';
+import { handleSignout } from '~/functions';
 
 const HomePage: NextPage = () => {
   return (
@@ -14,7 +14,7 @@ const HomePage: NextPage = () => {
       <TweetForm />
       <TweetCardList />
     </Box>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

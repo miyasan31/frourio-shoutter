@@ -1,30 +1,30 @@
-import styled from '@emotion/styled'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import styled from '@emotion/styled';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-import { IconButton } from '~/components'
-import { useTweetAction } from '~/hooks'
-import type { Reply, Tweet, User } from '$prisma/client'
+import { IconButton } from '~/components';
+import { useTweetAction } from '~/hooks';
+import type { Reply, Tweet, User } from '$prisma/client';
 
-const ICON_PHOTO_SIZE = 48
+const ICON_PHOTO_SIZE = 48;
 
 type Props = Reply & {
-  tweet?: Tweet
+  tweet?: Tweet;
   user: User & {
     followers: {
-      id: number
-    }[]
+      id: number;
+    }[];
     _count: {
-      followers: number
-      followings: number
-    }
-  }
-}
+      followers: number;
+      followings: number;
+    };
+  };
+};
 
 export const ReplyCard: FC<Props> = (props) => {
-  const { handlePostFollow, handleDeleteFollow } = useTweetAction()
+  const { handlePostFollow, handleDeleteFollow } = useTweetAction();
 
   return (
     <Link href={`${props.tweet?.userId}/tweet/${props.tweet?.id}`}>
@@ -64,8 +64,8 @@ export const ReplyCard: FC<Props> = (props) => {
         </TweetWrap>
       </a>
     </Link>
-  )
-}
+  );
+};
 
 const Anker = styled.a`
   display: block;
@@ -73,7 +73,7 @@ const Anker = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 const TweetWrap = styled.div`
   position: relative;
@@ -88,28 +88,28 @@ const TweetWrap = styled.div`
   &:hover: {
     background-color: #ccc;
   }
-`
+`;
 
 const UserIcon = styled(Image)`
   border-radius: 9999px;
-`
+`;
 
 const IconPhotoWrap = styled.div`
   min-width: fit-content;
-`
+`;
 
 const TweetInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 0.25rem;
   width: 100%;
-`
+`;
 
 const UserInfoWrap = styled.div`
   display: flex;
   padding-left: 0.5rem;
   color: #797979;
-`
+`;
 
 const UserName = styled.span`
   padding-right: 0.5rem;
@@ -118,32 +118,32 @@ const UserName = styled.span`
   &:hover: {
     text-decoration: underline;
   }
-`
+`;
 
 const UserId = styled.span`
   text-decoration: none;
-`
+`;
 
 const Dot = styled.span`
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-`
+`;
 
 const CreatedAt = styled.span`
   &:hover: {
     text-decoration: underline;
   }
-`
+`;
 
 const TweetBody = styled.div`
   padding-left: 0.5rem;
   white-space: pre-wrap;
   word-wrap: break-word;
-`
+`;
 
 const EditButtonWrap = styled.span`
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   cursor: pointer;
-`
+`;

@@ -1,44 +1,44 @@
-import type { Tweet, Reply, User } from '$prisma/client'
+import type { Reply, Tweet, User } from '$prisma/client';
 
 export type GetTweet = Tweet & {
   _count: {
-    replies: number
-    retweets: number
-    likes: number
-  }
-}
+    replies: number;
+    retweets: number;
+    likes: number;
+  };
+};
 
 export type GetTweetDetail = Tweet & {
   user: User & {
     followers: {
-      id: number
-    }[]
+      id: number;
+    }[];
     _count: {
-      followers: number
-      followings: number
-    }
-  }
+      followers: number;
+      followings: number;
+    };
+  };
   retweets: {
-    id: number
-  }[]
+    id: number;
+  }[];
   likes: {
-    id: number
-  }[]
+    id: number;
+  }[];
   _count: {
-    likes: number
-    retweets: number
-    replies: number
-  }
+    likes: number;
+    retweets: number;
+    replies: number;
+  };
 
   replies: (Reply & {
     user: User & {
       followers: {
-        id: number
-      }[]
+        id: number;
+      }[];
       _count: {
-        followers: number
-        followings: number
-      }
-    }
-  })[]
-}
+        followers: number;
+        followings: number;
+      };
+    };
+  })[];
+};

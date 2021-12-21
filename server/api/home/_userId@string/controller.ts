@@ -1,5 +1,6 @@
-import { getFollowingUserTweetList } from '$/service/home'
-import { defineController } from './$relay'
+import { getFollowingUserTweetList } from '$/service/home';
+
+import { defineController } from './$relay';
 
 export default defineController(
   {
@@ -7,11 +8,11 @@ export default defineController(
   },
   ({ getFollowingUserTweetList }) => ({
     get: async ({ params }) => {
-      const tweetlist = await getFollowingUserTweetList(params.userId)
+      const tweetlist = await getFollowingUserTweetList(params.userId);
       if (tweetlist.length === 0) {
-        return { status: 404 }
+        return { status: 404 };
       }
-      return { status: 200, body: tweetlist }
+      return { status: 200, body: tweetlist };
     }
   })
-)
+);

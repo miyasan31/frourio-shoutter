@@ -1,5 +1,5 @@
-import aspida from '@aspida/axios'
+import aspida from '@aspida/axios';
 
-import api from '$/api/$api'
+import api from '$/api/$api';
 
-export const apiClient = api(aspida())
+export const apiClient = api(aspida());

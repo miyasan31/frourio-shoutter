@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const LikePage = () => {
   return (
     <div>
       <div>LikePage</div>
     </div>
-  )
-}
+  );
+};
 
-export default LikePage
+export default LikePage;

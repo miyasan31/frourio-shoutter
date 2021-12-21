@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
 
-import { auth0, differentAudienceOptions } from '~/constants'
+import { auth0, differentAudienceOptions } from '~/constants';
 
 export const useGetAccessToken = () => {
-  const router = useRouter()
-  const [token, setToken] = useState('')
+  const router = useRouter();
+  const [token, setToken] = useState('');
 
   const listenAuthState = useCallback(async () => {
     try {
@@ -13,9 +13,9 @@ export const useGetAccessToken = () => {
       if (router.pathname !== '/signin') {
         const accessToken = await auth0.getTokenSilently(
           differentAudienceOptions
-        )
+        );
         // console.log('accessToken', accessToken)
-        setToken(accessToken)
+        setToken(accessToken);
 
         // ユーザー情報
         // const user = await auth0.getUser(differentAudienceOptions)
@@ -28,13 +28,13 @@ export const useGetAccessToken = () => {
         // console.log(',claims?.__raw', claims?.__raw)
       }
     } catch (error) {
-      router.push('/signin')
+      router.push('/signin');
     }
-  }, [router])
+  }, [router]);
 
   useEffect(() => {
-    listenAuthState()
-  }, [])
+    listenAuthState();
+  }, []);
 
-  return { token }
-}
+  return { token };
+};

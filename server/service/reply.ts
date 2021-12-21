@@ -1,27 +1,28 @@
-import { depend } from 'velona'
-import { PrismaClient } from '@prisma/client'
-import type { Reply, Prisma } from '$prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { depend } from 'velona';
 
-const prisma = new PrismaClient()
+import type { Prisma, Reply } from '$prisma/client';
 
-const testUserId = 'miyasan_0301'
+const prisma = new PrismaClient();
+
+const testUserId = 'miyasan_0301';
 
 // not used
 export const getReplyList = depend(
   { prisma: prisma as { reply: { findMany(): Promise<Reply[]> } } },
   async ({ prisma }) => {
-    const result = await prisma.reply.findMany()
-    return result
+    const result = await prisma.reply.findMany();
+    return result;
   }
-)
+);
 
 // [userId]/reply/[tweetId].page.tsx
 export const getReply = depend(
   {
     prisma: prisma as unknown as {
       reply: {
-        findUnique(query: Prisma.ReplyFindUniqueArgs): Promise<Reply>
-      }
+        findUnique(query: Prisma.ReplyFindUniqueArgs): Promise<Reply>;
+      };
     }
   },
   async ({ prisma }, id: Reply['id']) => {
@@ -45,17 +46,17 @@ export const getReply = depend(
           }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const createReply = depend(
   {
     prisma: prisma as unknown as {
       reply: {
-        create(query: Prisma.ReplyCreateArgs): Promise<Reply>
-      }
+        create(query: Prisma.ReplyCreateArgs): Promise<Reply>;
+      };
     }
   },
   async (
@@ -66,17 +67,17 @@ export const createReply = depend(
   ) => {
     const result = await prisma.reply.create({
       data: createReply
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const updateReply = depend(
   {
     prisma: prisma as unknown as {
       reply: {
-        update(query: Prisma.ReplyUpdateArgs): Promise<Reply>
-      }
+        update(query: Prisma.ReplyUpdateArgs): Promise<Reply>;
+      };
     }
   },
   async (
@@ -91,17 +92,17 @@ export const updateReply = depend(
         id: id
       },
       data: updateReply
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const deleteReply = depend(
   {
     prisma: prisma as unknown as {
       reply: {
-        delete(query: Prisma.ReplyDeleteArgs): Promise<Reply>
-      }
+        delete(query: Prisma.ReplyDeleteArgs): Promise<Reply>;
+      };
     }
   },
   async ({ prisma }, id: Reply['id']) => {
@@ -109,8 +110,8 @@ export const deleteReply = depend(
       where: {
         id: id
       }
-    })
+    });
 
-    return result
+    return result;
   }
-)
+);

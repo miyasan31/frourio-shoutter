@@ -1,15 +1,16 @@
-import { depend } from 'velona'
-import { PrismaClient } from '@prisma/client'
-import type { Retweet, Prisma } from '$prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { depend } from 'velona';
 
-const prisma = new PrismaClient()
+import type { Prisma, Retweet } from '$prisma/client';
+
+const prisma = new PrismaClient();
 
 export const createRetweet = depend(
   {
     prisma: prisma as unknown as {
       retweet: {
-        create(query: Prisma.RetweetCreateArgs): Promise<Retweet>
-      }
+        create(query: Prisma.RetweetCreateArgs): Promise<Retweet>;
+      };
     }
   },
   async (
@@ -20,17 +21,17 @@ export const createRetweet = depend(
   ) => {
     const result = await prisma.retweet.create({
       data: createRetweet
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const deleteRetweet = depend(
   {
     prisma: prisma as unknown as {
       retweet: {
-        delete(query: Prisma.RetweetDeleteArgs): Promise<Retweet>
-      }
+        delete(query: Prisma.RetweetDeleteArgs): Promise<Retweet>;
+      };
     }
   },
   async ({ prisma }, id: Retweet['id']) => {
@@ -38,7 +39,7 @@ export const deleteRetweet = depend(
       where: {
         id: id
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);

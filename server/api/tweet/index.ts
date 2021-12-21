@@ -1,22 +1,22 @@
-import type { Tweet, Prisma } from '$prisma/client'
-import type { GetTweet } from '$/types/tweet'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { GetTweet } from '$/types/tweet';
+import type { Prisma, Tweet } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    resBody: GetTweet[]
-    status: 200
-  }
+    resBody: GetTweet[];
+    status: 200;
+  };
 
   post: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
     // miyasan31:key1
     // reqBody: Prisma.TweetUncheckedCreateInput
-    reqBody: Prisma.TweetCreateInput
+    reqBody: Prisma.TweetCreateInput;
 
-    resBody: Tweet
-    status: 201
-  }
-}
+    resBody: Tweet;
+    status: 201;
+  };
+};

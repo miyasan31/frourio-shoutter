@@ -1,6 +1,7 @@
-import { pathsToModuleNameMapper } from 'ts-jest/utils'
-import type { Config } from '@jest/types'
-import { compilerOptions } from './tsconfig.json'
+import type { Config } from '@jest/types';
+import { pathsToModuleNameMapper } from 'ts-jest/utils';
+
+import { compilerOptions } from './tsconfig.json';
 
 const config: { projects: Config.InitialOptions[] } = {
   projects: [
@@ -27,6 +28,6 @@ const config: { projects: Config.InitialOptions[] } = {
       })
     }
   ]
-}
+};
 
-export default config
+export default config;

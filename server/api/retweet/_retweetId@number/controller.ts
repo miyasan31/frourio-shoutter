@@ -1,5 +1,6 @@
-import { defineController } from './$relay'
-import { deleteRetweet } from '$/service/retweet'
+import { deleteRetweet } from '$/service/retweet';
+
+import { defineController } from './$relay';
 
 export default defineController(
   {
@@ -7,11 +8,11 @@ export default defineController(
   },
   ({ deleteRetweet }) => ({
     delete: async ({ params }) => {
-      const retweet = await deleteRetweet(params.retweetId)
+      const retweet = await deleteRetweet(params.retweetId);
       if (!retweet) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     }
   })
-)
+);

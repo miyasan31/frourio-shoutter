@@ -1,11 +1,11 @@
-import { GetHome } from '$/types/home'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import { GetHome } from '$/types/home';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    resBody: GetHome
-    status: 200
-  }
-}
+    resBody: GetHome;
+    status: 200;
+  };
+};

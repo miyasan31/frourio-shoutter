@@ -1,33 +1,33 @@
-import { Box, Button, Textarea } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import React, { useCallback } from 'react'
-import { useForm } from 'react-hook-form'
-import { useSetRecoilState } from 'recoil'
+import { Box, Button, Textarea } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 
-import { user } from '~/atoms'
-import { auth0 } from '~/constants'
-import { apiClient } from '~/utils'
+import { user } from '~/atoms';
+import { auth0 } from '~/constants';
+import { apiClient } from '~/utils';
 
 const differentAudienceOptions = {
   audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''
-}
+};
 
 const SignupPage = () => {
-  const router = useRouter()
-  const setUserInfo = useSetRecoilState(user)
+  const router = useRouter();
+  const setUserInfo = useSetRecoilState(user);
 
   const {
     register,
     handleSubmit,
     formState: { isSubmitting }
-  } = useForm()
+  } = useForm();
 
   const handlePostTweet = useCallback(async (data) => {
     try {
       // 認証ユーザー情報を取得
-      const user = await auth0.getUser(differentAudienceOptions)
+      const user = await auth0.getUser(differentAudienceOptions);
       // トークンを取得
-      const token = await auth0.getTokenSilently(differentAudienceOptions)
+      const token = await auth0.getTokenSilently(differentAudienceOptions);
 
       const result = await apiClient.user.post({
         headers: { authorization: `Bearer ${token}` },
@@ -36,18 +36,18 @@ const SignupPage = () => {
           email: user?.email || '',
           icon: user?.picture || ''
         }
-      })
+      });
 
       setUserInfo({
         ...result.body,
         isSignin: true
-      })
+      });
 
-      router.push('/signup/follow')
+      router.push('/signup/follow');
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }, [])
+  }, []);
 
   return (
     <Box bg="blue.100" p="1rem">
@@ -81,7 +81,7 @@ const SignupPage = () => {
         </Button>
       </form>
     </Box>
-  )
-}
+  );
+};
 
-export default SignupPage
+export default SignupPage;

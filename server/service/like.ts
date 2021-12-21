@@ -1,15 +1,16 @@
-import { depend } from 'velona'
-import { PrismaClient } from '@prisma/client'
-import type { Like, Prisma } from '$prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { depend } from 'velona';
 
-const prisma = new PrismaClient()
+import type { Like, Prisma } from '$prisma/client';
+
+const prisma = new PrismaClient();
 
 export const createLike = depend(
   {
     prisma: prisma as unknown as {
       like: {
-        create(query: Prisma.LikeCreateArgs): Promise<Like>
-      }
+        create(query: Prisma.LikeCreateArgs): Promise<Like>;
+      };
     }
   },
   async (
@@ -20,17 +21,17 @@ export const createLike = depend(
   ) => {
     const result = await prisma.like.create({
       data: createLike
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const deleteLike = depend(
   {
     prisma: prisma as unknown as {
       like: {
-        delete(query: Prisma.LikeDeleteArgs): Promise<Like>
-      }
+        delete(query: Prisma.LikeDeleteArgs): Promise<Like>;
+      };
     }
   },
   async ({ prisma }, id: Like['id']) => {
@@ -38,8 +39,8 @@ export const deleteLike = depend(
       where: {
         id: id
       }
-    })
+    });
 
-    return result
+    return result;
   }
-)
+);

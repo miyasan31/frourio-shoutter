@@ -1,9 +1,9 @@
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
 
 export type Methods = {
   delete: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    status: 204
-  }
-}
+    status: 204;
+  };
+};

@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { atom } from 'recoil';
 
 export const user = atom({
   key: 'user',
@@ -11,4 +11,4 @@ export const user = atom({
     createdAt: new Date(),
     isSignin: false
   }
-})
+});

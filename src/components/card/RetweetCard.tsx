@@ -1,42 +1,42 @@
-import styled from '@emotion/styled'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import styled from '@emotion/styled';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-import { IconButton } from '~/components'
-import { useTweetAction } from '~/hooks'
-import type { Retweet, Tweet, User } from '$prisma/client'
+import { IconButton } from '~/components';
+import { useTweetAction } from '~/hooks';
+import type { Retweet, Tweet, User } from '$prisma/client';
 
-import { TweetActionGroup } from './TweetActionGroup'
+import { TweetActionGroup } from './TweetActionGroup';
 
-const ICON_PHOTO_SIZE = 48
+const ICON_PHOTO_SIZE = 48;
 
 type Props = Retweet & {
-  user: User
+  user: User;
   tweet: Tweet & {
     retweets: {
-      id: number
-    }[]
+      id: number;
+    }[];
     likes: {
-      id: number
-    }[]
+      id: number;
+    }[];
     _count: {
-      likes: number
-      retweets: number
-      replies: number
-    }
+      likes: number;
+      retweets: number;
+      replies: number;
+    };
     user: User & {
       followers: {
-        id: number
-      }[]
+        id: number;
+      }[];
       _count: {
-        followers: number
-        followings: number
-      }
-    }
-  }
-}
+        followers: number;
+        followings: number;
+      };
+    };
+  };
+};
 
 export const RetweetCard: FC<Props> = (props) => {
   const {
@@ -46,7 +46,7 @@ export const RetweetCard: FC<Props> = (props) => {
     handleDeleteRetweet,
     handlePostFollow,
     handleDeleteFollow
-  } = useTweetAction()
+  } = useTweetAction();
 
   return (
     <Link href={`${props.tweet.userId}/tweet/${props.tweet.id}`}>
@@ -89,12 +89,12 @@ export const RetweetCard: FC<Props> = (props) => {
               handleToggleRetweet={(e) => {
                 props.tweet.retweets.length == 0
                   ? handlePostRetweet(e, props.tweet.id)
-                  : handleDeleteRetweet(e, props.tweet.retweets[0].id)
+                  : handleDeleteRetweet(e, props.tweet.retweets[0].id);
               }}
               handleToggleLike={(e) => {
                 props.tweet.likes.length == 0
                   ? handlePostLike(e, props.tweet.id)
-                  : handleDeleteLike(e, props.tweet.likes[0].id)
+                  : handleDeleteLike(e, props.tweet.likes[0].id);
               }}
             />
           </TweetInfoWrap>
@@ -105,14 +105,14 @@ export const RetweetCard: FC<Props> = (props) => {
         </TweetWrap>
       </a>
     </Link>
-  )
-}
+  );
+};
 
 const RetweetLabel = styled.div`
   padding-top: 0.75rem;
   margin-left: 5rem;
   font-size: 0.75rem;
-`
+`;
 
 const Anker = styled.a`
   display: block;
@@ -120,7 +120,7 @@ const Anker = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 const TweetWrap = styled.div`
   position: relative;
@@ -133,28 +133,28 @@ const TweetWrap = styled.div`
   &:hover: {
     background-color: #ccc;
   }
-`
+`;
 
 const UserIcon = styled(Image)`
   border-radius: 9999px;
-`
+`;
 
 const IconPhotoWrap = styled.div`
   min-width: fit-content;
-`
+`;
 
 const TweetInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 0.25rem;
   width: 100%;
-`
+`;
 
 const UserInfoWrap = styled.div`
   display: flex;
   padding-left: 0.5rem;
   color: #797979;
-`
+`;
 
 const UserName = styled.span`
   padding-right: 0.5rem;
@@ -163,32 +163,32 @@ const UserName = styled.span`
   &:hover: {
     text-decoration: underline;
   }
-`
+`;
 
 const UserId = styled.span`
   text-decoration: none;
-`
+`;
 
 const Dot = styled.span`
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-`
+`;
 
 const CreatedAt = styled.span`
   &:hover: {
     text-decoration: underline;
   }
-`
+`;
 
 const TweetBody = styled.div`
   padding-left: 0.5rem;
   white-space: pre-wrap;
   word-wrap: break-word;
-`
+`;
 
 const EditButtonWrap = styled.span`
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   cursor: pointer;
-`
+`;

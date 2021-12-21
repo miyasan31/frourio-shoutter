@@ -1,19 +1,19 @@
-import type { Prisma } from '$prisma/client'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { Prisma } from '$prisma/client';
 
 export type Methods = {
   patch: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
     // miyasan31:key1
     // reqBody: Prisma.UserUncheckedUpdateInput
-    reqBody: Prisma.UserUpdateInput
+    reqBody: Prisma.UserUpdateInput;
 
-    status: 204
-  }
+    status: 204;
+  };
 
   delete: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    status: 204
-  }
-}
+    status: 204;
+  };
+};

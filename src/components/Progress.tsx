@@ -1,9 +1,9 @@
-import { Center, Spinner } from '@chakra-ui/react'
-import React, { FC } from 'react'
+import { Center, Spinner } from '@chakra-ui/react';
+import React, { FC } from 'react';
 
 type Props = {
-  h: '200px' | '100px'
-}
+  h: '200px' | '100px';
+};
 export const Progress: FC<Props> = (props) => {
   return (
     <Center h={props.h} w="100vw" color="white">
@@ -15,5 +15,5 @@ export const Progress: FC<Props> = (props) => {
         size="xl"
       />
     </Center>
-  )
-}
+  );
+};

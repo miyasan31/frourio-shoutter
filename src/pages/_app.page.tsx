@@ -1,12 +1,12 @@
-import '~/styles/globals.css'
+import '~/styles/globals.css';
 
-import { ChakraProvider } from '@chakra-ui/react'
-import type { AppProps } from 'next/app'
-import { memo } from 'react'
-import { RecoilRoot } from 'recoil'
+import { ChakraProvider } from '@chakra-ui/react';
+import type { AppProps } from 'next/app';
+import { memo } from 'react';
+import { RecoilRoot } from 'recoil';
 
-import { AuthProvider } from '~/components'
-import { theme } from '~/utils'
+import { AuthProvider } from '~/components';
+import { theme } from '~/utils';
 
 const MyApp = (props: AppProps) => {
   return (
@@ -17,7 +17,7 @@ const MyApp = (props: AppProps) => {
         </AuthProvider>
       </RecoilRoot>
     </ChakraProvider>
-  )
-}
+  );
+};
 
-export default memo(MyApp)
+export default memo(MyApp);

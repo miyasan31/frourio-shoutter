@@ -1,27 +1,27 @@
-import type { Prisma } from '$prisma/client'
-import type { GetTweetDetail } from '$/types/tweet'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { GetTweetDetail } from '$/types/tweet';
+import type { Prisma } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    resBody: GetTweetDetail
-    status: 200
-  }
+    resBody: GetTweetDetail;
+    status: 200;
+  };
 
   patch: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
     // miyasan31:key1
     // reqBody: Prisma.TweetUncheckedUpdateInput
-    reqBody: Prisma.TweetUpdateInput
+    reqBody: Prisma.TweetUpdateInput;
 
-    status: 204
-  }
+    status: 204;
+  };
 
   delete: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
-    status: 204
-  }
-}
+    status: 204;
+  };
+};

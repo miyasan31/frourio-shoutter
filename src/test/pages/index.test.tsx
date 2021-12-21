@@ -1,63 +1,65 @@
-import aspida from '@aspida/axios'
-import dotenv from 'dotenv'
-import Fastify, { FastifyInstance } from 'fastify'
-import cors from 'fastify-cors'
-import React from 'react'
-import { cache } from 'swr'
+// import aspida from '@aspida/axios';
+// import dotenv from 'dotenv';
+// import Fastify, { FastifyInstance } from 'fastify';
+// import cors from 'fastify-cors';
+// import React from 'react';
+// import { cache } from 'swr';
 
-// import Home from '@/src/pages/index'
-import api from '$/api/$api'
+// // import Home from '@/src/pages/index'
+// import api from '$/api/$api';
 
-import { fireEvent, render } from '../testUtils'
+// import { fireEvent, render } from '../testUtils';
 
-dotenv.config({ path: 'server/.env' })
+// dotenv.config({ path: 'server/.env' });
 
-const apiClient = api(aspida(undefined, { baseURL: process.env.API_BASE_PATH }))
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const res = function <T extends () => any>(
-  data: ReturnType<T> extends Promise<infer S> ? S : never
-) {
-  return data
-}
+// const apiClient = api(
+//   aspida(undefined, { baseURL: process.env.API_BASE_PATH })
+// );
+// // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// const res = function <T extends () => any>(
+//   data: ReturnType<T> extends Promise<infer S> ? S : never
+// ) {
+//   return data;
+// };
 
-let fastify: FastifyInstance
+// let fastify: FastifyInstance;
 
-beforeAll(() => {
-  fastify = Fastify()
-  fastify.register(cors)
-  fastify.get(apiClient.tasks.$path(), (_, reply) => {
-    reply.send(
-      res<typeof apiClient.tasks.$get>([
-        { id: 1, label: 'foo task', done: false },
-        { id: 2, label: 'bar task', done: true }
-      ])
-    )
-  })
+// beforeAll(() => {
+//   fastify = Fastify();
+//   fastify.register(cors);
+//   fastify.get(apiClient.tasks.$path(), (_, reply) => {
+//     reply.send(
+//       res<typeof apiClient.tasks.$get>([
+//         { id: 1, label: 'foo task', done: false },
+//         { id: 2, label: 'bar task', done: true }
+//       ])
+//     );
+//   });
 
-  return fastify.listen(process.env.API_SERVER_PORT ?? 8080)
-})
+//   return fastify.listen(process.env.API_SERVER_PORT ?? 8080);
+// });
 
-afterEach(() => cache.clear())
-afterAll(() => fastify.close())
+// afterEach(() => cache.clear());
+// afterAll(() => fastify.close());
 
-describe('Home page', () => {
-  it('matches snapshot', async () => {
-    const { asFragment, findByText } = render(<Home />, {})
+// describe('Home page', () => {
+//   it('matches snapshot', async () => {
+//     const { asFragment, findByText } = render(<Home />, {});
 
-    await findByText('foo task')
-    expect(asFragment()).toMatchSnapshot()
-  })
+//     await findByText('foo task');
+//     expect(asFragment()).toMatchSnapshot();
+//   });
 
-  it('clicking button triggers prompt', async () => {
-    const { findByText } = render(<Home />, {})
+//   it('clicking button triggers prompt', async () => {
+//     const { findByText } = render(<Home />, {});
 
-    window.prompt = jest.fn()
-    window.alert = jest.fn()
+//     window.prompt = jest.fn();
+//     window.alert = jest.fn();
 
-    fireEvent.click(await findByText('LOGIN'))
-    expect(window.prompt).toHaveBeenCalledWith(
-      'Enter the user id (See server/.env)'
-    )
-    expect(window.alert).toHaveBeenCalledWith('Login failed')
-  })
-})
+//     fireEvent.click(await findByText('LOGIN'));
+//     expect(window.prompt).toHaveBeenCalledWith(
+//       'Enter the user id (See server/.env)'
+//     );
+//     expect(window.alert).toHaveBeenCalledWith('Login failed');
+//   });
+// });

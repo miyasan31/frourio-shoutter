@@ -1,35 +1,37 @@
-import { depend } from 'velona'
-import fs from 'fs'
-import path from 'path'
-import { Multipart } from 'fastify-multipart'
-import {
-  API_ORIGIN,
-  API_USER_ID,
-  API_USER_PASS,
-  API_UPLOAD_DIR
-} from './envValues'
-import { PrismaClient } from '@prisma/client'
-import type { Prisma, User } from '$prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { Multipart } from 'fastify-multipart';
+import fs from 'fs';
+import path from 'path';
+import { depend } from 'velona';
+
 import {
   GetAllUser,
-  GetUser,
-  GetTweetList,
-  GetReplyList,
-  GetLikeList,
-  GetRetweetList,
   GetFollowerList,
-  GetFollowingList
-} from '$/types/user'
+  GetFollowingList,
+  GetLikeList,
+  GetReplyList,
+  GetRetweetList,
+  GetTweetList,
+  GetUser
+} from '$/types/user';
+import type { Prisma, User } from '$prisma/client';
 
-const prisma = new PrismaClient()
+import {
+  API_ORIGIN,
+  API_UPLOAD_DIR,
+  API_USER_ID,
+  API_USER_PASS
+} from './envValues';
 
-const testUserId = 'miyasan_0301'
+const prisma = new PrismaClient();
+
+const testUserId = 'miyasan_0301';
 
 // not used
 export const getUserList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetAllUser> }
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetAllUser> };
     }
   },
   async ({ prisma }) => {
@@ -40,17 +42,17 @@ export const getUserList = depend(
           select: { followers: true, followings: true }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const getSignUpUserCheck = depend(
   {
     prisma: prisma as unknown as {
       user: {
-        findUnique(query: Prisma.UserFindUniqueArgs): Promise<GetUser>
-      }
+        findUnique(query: Prisma.UserFindUniqueArgs): Promise<GetUser>;
+      };
     }
   },
   async ({ prisma }, email: User['email']) => {
@@ -58,16 +60,16 @@ export const getSignUpUserCheck = depend(
       where: {
         email: email
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // [userId]/index.page.tsx
 export const getUserTweetList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetTweetList> }
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetTweetList> };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -107,16 +109,16 @@ export const getUserTweetList = depend(
           select: { followers: true, followings: true }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // [userId]/reply.page.tsx
 export const getUserReplyList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetReplyList> }
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetReplyList> };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -139,16 +141,16 @@ export const getUserReplyList = depend(
           select: { followers: true, followings: true }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // [userId]/like.page.tsx
 export const getUserLikeList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetLikeList> }
+      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetLikeList> };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -207,18 +209,18 @@ export const getUserLikeList = depend(
           select: { followers: true, followings: true }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // [userId]/retweet.page.tsx
 export const getUserRetweetList = depend(
   {
     prisma: prisma as unknown as {
       user: {
-        findMany(query: Prisma.UserFindManyArgs): Promise<GetRetweetList>
-      }
+        findMany(query: Prisma.UserFindManyArgs): Promise<GetRetweetList>;
+      };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -277,18 +279,18 @@ export const getUserRetweetList = depend(
           select: { followers: true, followings: true }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // [userId]/follower.page.tsx
 export const getUserFollowerList = depend(
   {
     prisma: prisma as unknown as {
       user: {
-        findMany(query: Prisma.UserFindManyArgs): Promise<GetFollowerList>
-      }
+        findMany(query: Prisma.UserFindManyArgs): Promise<GetFollowerList>;
+      };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -319,18 +321,18 @@ export const getUserFollowerList = depend(
           }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // [userId]/following.page.tsx
 export const getUserFollowingList = depend(
   {
     prisma: prisma as unknown as {
       user: {
-        findMany(query: Prisma.UserFindManyArgs): Promise<GetFollowingList>
-      }
+        findMany(query: Prisma.UserFindManyArgs): Promise<GetFollowingList>;
+      };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -356,15 +358,15 @@ export const getUserFollowingList = depend(
           }
         }
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const createUser = depend(
   {
     prisma: prisma as unknown as {
-      user: { create(query: Prisma.UserCreateArgs): Promise<User> }
+      user: { create(query: Prisma.UserCreateArgs): Promise<User> };
     }
   },
   async (
@@ -375,15 +377,15 @@ export const createUser = depend(
   ) => {
     const result = await prisma.user.create({
       data: createUser
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const updateUser = depend(
   {
     prisma: prisma as unknown as {
-      user: { update(query: Prisma.UserUpdateArgs): Promise<User> }
+      user: { update(query: Prisma.UserUpdateArgs): Promise<User> };
     }
   },
   async (
@@ -398,15 +400,15 @@ export const updateUser = depend(
         id: id
       },
       data: updateUser
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 export const deleteUser = depend(
   {
     prisma: prisma as unknown as {
-      user: { update(query: Prisma.UserDeleteArgs): Promise<User> }
+      user: { update(query: Prisma.UserDeleteArgs): Promise<User> };
     }
   },
   async ({ prisma }, id: User['id']) => {
@@ -414,10 +416,10 @@ export const deleteUser = depend(
       where: {
         id: id
       }
-    })
-    return result
+    });
+    return result;
   }
-)
+);
 
 // const iconsDir = API_UPLOAD_DIR && path.resolve(API_UPLOAD_DIR, 'icons')
 
@@ -442,8 +444,8 @@ export const deleteUser = depend(
 // }
 
 export const validateUser = (id: string, pass: string) => {
-  return id === API_USER_ID && pass === API_USER_PASS
-}
+  return id === API_USER_ID && pass === API_USER_PASS;
+};
 
 // export const getUserInfoById = (id: string) => {
 //   return { id, ...getUserInfo(id) }

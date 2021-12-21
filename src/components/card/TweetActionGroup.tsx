@@ -1,31 +1,31 @@
-import { Lottie } from '@crello/react-lottie'
-import styled from '@emotion/styled'
+import { Lottie } from '@crello/react-lottie';
+import styled from '@emotion/styled';
 import {
   ChatBubbleIcon,
   LoopIcon,
   Share1Icon,
   StarIcon
-} from '@radix-ui/react-icons'
-import type { FC, MouseEvent } from 'react'
+} from '@radix-ui/react-icons';
+import type { FC, MouseEvent } from 'react';
 
-import animationData from '~/assets/19898-star.json'
-import { IconButton } from '~/components'
+import animationData from '~/assets/19898-star.json';
+import { IconButton } from '~/components';
 
 const animationConfig = {
   animationData: animationData,
   loop: false,
   autoplay: true
-}
+};
 
 type Props = {
-  isRetweet: boolean
-  isLike: boolean
-  retweetCount: number
-  likeCount: number
-  commentCount: number
-  handleToggleLike: (event: MouseEvent<HTMLButtonElement>) => void
-  handleToggleRetweet: (event: MouseEvent<HTMLButtonElement>) => void
-}
+  isRetweet: boolean;
+  isLike: boolean;
+  retweetCount: number;
+  likeCount: number;
+  commentCount: number;
+  handleToggleLike: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleToggleRetweet: (event: MouseEvent<HTMLButtonElement>) => void;
+};
 
 export const TweetActionGroup: FC<Props> = (props) => {
   return (
@@ -57,8 +57,8 @@ export const TweetActionGroup: FC<Props> = (props) => {
 
       <IconButton icon={<Share1Icon />} isCount={false} />
     </IconGroupWrap>
-  )
-}
+  );
+};
 
 const IconGroupWrap = styled.div`
   display: flex;
@@ -67,4 +67,4 @@ const IconGroupWrap = styled.div`
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   margin-right: 2rem;
-`
+`;

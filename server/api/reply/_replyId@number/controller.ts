@@ -1,5 +1,6 @@
-import { defineController } from './$relay'
-import { getReply, updateReply, deleteReply } from '$/service/reply'
+import { deleteReply, getReply, updateReply } from '$/service/reply';
+
+import { defineController } from './$relay';
 
 // @/api/reoly/:id
 export default defineController(
@@ -10,27 +11,27 @@ export default defineController(
   },
   ({ getReply, updateReply, deleteReply }) => ({
     get: async ({ params }) => {
-      const reoly = await getReply(params.replyId)
+      const reoly = await getReply(params.replyId);
       if (!reoly) {
-        return { status: 404 }
+        return { status: 404 };
       }
-      return { status: 200, body: reoly }
+      return { status: 200, body: reoly };
     },
 
     patch: async ({ body, params }) => {
-      const reoly = await updateReply(params.replyId, body)
+      const reoly = await updateReply(params.replyId, body);
       if (!reoly) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     },
 
     delete: async ({ params }) => {
-      const reoly = await deleteReply(params.replyId)
+      const reoly = await deleteReply(params.replyId);
       if (!reoly) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     }
   })
-)
+);

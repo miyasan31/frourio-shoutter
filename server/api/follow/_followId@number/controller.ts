@@ -1,5 +1,6 @@
-import { defineController } from './$relay'
-import { deleteFollow } from '$/service/follow'
+import { deleteFollow } from '$/service/follow';
+
+import { defineController } from './$relay';
 
 export default defineController(
   {
@@ -7,11 +8,11 @@ export default defineController(
   },
   ({ deleteFollow }) => ({
     delete: async ({ params }) => {
-      const follow = await deleteFollow(params.followId)
+      const follow = await deleteFollow(params.followId);
       if (!follow) {
-        return { status: 400 }
+        return { status: 400 };
       }
-      return { status: 204 }
+      return { status: 204 };
     }
   })
-)
+);

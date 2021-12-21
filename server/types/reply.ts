@@ -1,1 +1,1 @@
-import type { Reply } from '$prisma/client'
+import type { Reply } from '$prisma/client';

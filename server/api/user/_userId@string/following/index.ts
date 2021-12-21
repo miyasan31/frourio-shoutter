@@ -1,15 +1,15 @@
-import type { Follow, User } from '$prisma/client'
-import type { AuthHeader } from '$/types'
+import type { AuthHeader } from '$/types';
+import type { Follow, User } from '$prisma/client';
 
 export type Methods = {
   get: {
-    reqHeaders: AuthHeader
+    reqHeaders: AuthHeader;
 
     resBody: (User & {
       followings: (Follow & {
-        follower: User
-      })[]
-    })[]
-    status: 200
-  }
-}
+        follower: User;
+      })[];
+    })[];
+    status: 200;
+  };
+};

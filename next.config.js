@@ -19,5 +19,5 @@ module.exports = {
   images: {
     domains: ['lh3.googleusercontent.com']
   }
-}
+};
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
