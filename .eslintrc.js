@@ -7,7 +7,13 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'prettier'
   ],
-  plugins: ['@typescript-eslint', 'react', 'simple-import-sort', 'jsx-a11y'],
+  plugins: [
+    '@typescript-eslint',
+    'react',
+    'simple-import-sort',
+    'react-hooks',
+    'jsx-a11y'
+  ],
   parser: '@typescript-eslint/parser',
   env: {
     browser: true,
@@ -36,7 +42,19 @@ module.exports = {
       { paths: [{ name: 'react', importNames: ['default'] }] }
     ],
 
+    'react/jsx-handler-names': [
+      'error',
+      {
+        eventHandlerPrefix: 'handle',
+        eventHandlerPropPrefix: 'on',
+        checkLocalVariables: true,
+        checkInlineFunction: true
+      }
+    ],
     'react/react-in-jsx-scope': 'off',
+
+    'react-hooks/rules-of-hooks': 'error',
+
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
