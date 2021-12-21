@@ -34,7 +34,19 @@ export const getTweetList = depend(
           orderBy: { createdAt: 'asc' },
           include: {
             // replies -> user
-            user: true
+            user: {
+              include: {
+                // user is followed
+                followers: {
+                  where: { userId: testUserId },
+                  select: { id: true }
+                },
+                // countings on user follow
+                _count: {
+                  select: { followers: true, followings: true }
+                }
+              }
+            }
           }
         },
         // countings on tweet
@@ -72,6 +84,24 @@ export const getTweet = depend(
           where: { userId: testUserId },
           select: { id: true }
         },
+        // countings on tweet
+        _count: {
+          select: { replies: true, retweets: true, likes: true }
+        },
+        // tweet -> user
+        user: {
+          include: {
+            // user is followed
+            followers: {
+              where: { userId: testUserId },
+              select: { id: true }
+            },
+            // countings on user follow
+            _count: {
+              select: { followers: true, followings: true }
+            }
+          }
+        },
         // tweet -> replies
         replies: {
           // sotr by createdAt asc
@@ -92,10 +122,6 @@ export const getTweet = depend(
               }
             }
           }
-        },
-        // countings on tweet
-        _count: {
-          select: { replies: true, retweets: true, likes: true }
         }
       }
     })

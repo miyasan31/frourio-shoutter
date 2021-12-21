@@ -73,7 +73,9 @@ export const getFollowingUserTweetList = depend(
             replies: {
               orderBy: { createdAt: 'desc' },
               include: {
-                // user is liked
+                // reply -> tweet
+                tweet: true,
+                // reply -> user
                 user: {
                   include: {
                     // user is followed
@@ -95,6 +97,8 @@ export const getFollowingUserTweetList = depend(
               // sotr by createdAt desc
               orderBy: { createdAt: 'desc' },
               include: {
+                // retweet -> user
+                user: true,
                 // retweets -> tweet
                 tweet: {
                   include: {

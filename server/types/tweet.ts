@@ -9,12 +9,36 @@ export type GetTweet = Tweet & {
 }
 
 export type GetTweetDetail = Tweet & {
-  replies: (Reply & {
-    user: User
-  })[]
+  user: User & {
+    followers: {
+      id: number
+    }[]
+    _count: {
+      followers: number
+      followings: number
+    }
+  }
+  retweets: {
+    id: number
+  }[]
+  likes: {
+    id: number
+  }[]
   _count: {
     likes: number
     retweets: number
     replies: number
   }
+
+  replies: (Reply & {
+    user: User & {
+      followers: {
+        id: number
+      }[]
+      _count: {
+        followers: number
+        followings: number
+      }
+    }
+  })[]
 }

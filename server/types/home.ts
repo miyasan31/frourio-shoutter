@@ -34,6 +34,7 @@ export type GetHome = (Follow & {
     })[]
 
     replies: (Reply[] & {
+      tweet: Tweet
       user: User & {
         followers: {
           id: number
@@ -46,6 +47,7 @@ export type GetHome = (Follow & {
     })[]
 
     retweets: (Retweet & {
+      user: User
       tweet: Tweet & {
         retweets: {
           id: number
