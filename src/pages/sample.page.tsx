@@ -1,10 +1,11 @@
-import Head from 'next/head'
-import { useCallback, useState } from 'react'
 import useAspidaSWR from '@aspida/swr'
+import styled from '@emotion/styled'
+import Head from 'next/head'
+import type { ChangeEvent, FormEvent } from 'react'
+import { useCallback, useState } from 'react'
+
 import { apiClient } from '~/utils/apiClient'
 import type { Task } from '$prisma/client'
-import type { FormEvent, ChangeEvent } from 'react'
-import styled from '@emotion/styled'
 
 const Home = () => {
   const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks)

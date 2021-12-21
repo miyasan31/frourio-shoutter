@@ -1,14 +1,15 @@
-import { NextPage } from 'next'
-import React from 'react'
 import useAspidaSWR from '@aspida/swr'
-import { apiClient } from '~/utils'
-import { user } from '~/atoms'
-import { useRecoilValue } from 'recoil'
-import { useGetAccessToken } from '~/hooks'
-import { Progress } from '~/components'
 import { Button } from '@chakra-ui/react'
+import { NextPage } from 'next'
 import Link from 'next/link'
+import React from 'react'
+import { useRecoilValue } from 'recoil'
+
+import { user } from '~/atoms'
+import { Progress } from '~/components'
+import { useGetAccessToken } from '~/hooks'
 import { useTweetAction } from '~/hooks'
+import { apiClient } from '~/utils'
 
 const FollowPage: NextPage = () => {
   const { handlePostFollow } = useTweetAction()

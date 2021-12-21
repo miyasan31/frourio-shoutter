@@ -1,10 +1,11 @@
+import { Button } from '@chakra-ui/react'
+import styled from '@emotion/styled'
 import Image from 'next/image'
 import React, { FC, useMemo } from 'react'
-import { Button } from '@chakra-ui/react'
-import { user } from '~/atoms'
-import { useRecoilValue } from 'recoil'
 import { useForm, useWatch } from 'react-hook-form'
-import styled from '@emotion/styled'
+import { useRecoilValue } from 'recoil'
+
+import { user } from '~/atoms'
 import { calcTextAreaHeight } from '~/functions'
 
 const ICON_PHOTO_SIZE = 48

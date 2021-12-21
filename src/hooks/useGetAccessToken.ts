@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+
 import { auth0, differentAudienceOptions } from '~/constants'
 
 export const useGetAccessToken = () => {

@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
-import { apiClient } from '~/utils'
-import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
+
+import { user } from '~/atoms'
 import { getToken } from '~/functions'
+import { apiClient } from '~/utils'
 
 export const useTweetAction = () => {
   const userInfo = useRecoilValue(user)

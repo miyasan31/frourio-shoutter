@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
 import React, { FC, useCallback, useEffect, useState } from 'react'
-import { auth0, differentAudienceOptions } from '~/constants'
-import { apiClient } from '~/utils'
 import { useSetRecoilState } from 'recoil'
+
 import { user } from '~/atoms'
 import { Progress } from '~/components/Progress'
+import { auth0, differentAudienceOptions } from '~/constants'
+import { apiClient } from '~/utils'
 
 type Props = {
   children: React.ReactNode

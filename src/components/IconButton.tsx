@@ -1,6 +1,6 @@
-import React, { FC, MouseEvent } from 'react'
 import { IconButton as Button } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import React, { FC, MouseEvent } from 'react'
 
 type Props = {
   icon: JSX.Element

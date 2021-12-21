@@ -1,11 +1,12 @@
+import { Box, Button, Textarea } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useCallback } from 'react'
-import { Box, Button, Textarea } from '@chakra-ui/react'
-import { apiClient } from '~/utils'
-import { auth0 } from '~/constants'
 import { useForm } from 'react-hook-form'
 import { useSetRecoilState } from 'recoil'
+
 import { user } from '~/atoms'
+import { auth0 } from '~/constants'
+import { apiClient } from '~/utils'
 
 const differentAudienceOptions = {
   audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''

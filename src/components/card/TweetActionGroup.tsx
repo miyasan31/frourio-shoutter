@@ -1,13 +1,14 @@
 import { Lottie } from '@crello/react-lottie'
-import type { FC, MouseEvent } from 'react'
-import animationData from '~/assets/19898-star.json'
+import styled from '@emotion/styled'
 import {
   ChatBubbleIcon,
   LoopIcon,
   Share1Icon,
   StarIcon
 } from '@radix-ui/react-icons'
-import styled from '@emotion/styled'
+import type { FC, MouseEvent } from 'react'
+
+import animationData from '~/assets/19898-star.json'
 import { IconButton } from '~/components'
 
 const animationConfig = {

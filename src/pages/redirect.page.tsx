@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
-import { auth0 } from '~/constants'
-import { apiClient } from '~/utils'
 import { useSetRecoilState } from 'recoil'
+
 import { user } from '~/atoms'
 import { Progress } from '~/components'
+import { auth0 } from '~/constants'
+import { apiClient } from '~/utils'
 
 const differentAudienceOptions = {
   audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || ''

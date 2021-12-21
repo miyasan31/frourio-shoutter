@@ -1,12 +1,14 @@
-import React from 'react'
-import { cache } from 'swr'
+import aspida from '@aspida/axios'
 import dotenv from 'dotenv'
 import Fastify, { FastifyInstance } from 'fastify'
 import cors from 'fastify-cors'
-import aspida from '@aspida/axios'
+import React from 'react'
+import { cache } from 'swr'
+
+// import Home from '@/src/pages/index'
 import api from '$/api/$api'
-import Home from '@/src/pages/index'
-import { render, fireEvent } from '../testUtils'
+
+import { fireEvent, render } from '../testUtils'
 
 dotenv.config({ path: 'server/.env' })
 
