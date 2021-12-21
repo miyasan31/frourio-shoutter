@@ -7,7 +7,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'prettier'
   ],
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint', 'react', 'simple-import-sort'],
   parser: '@typescript-eslint/parser',
   env: {
     browser: true,
@@ -27,7 +27,9 @@ module.exports = {
   },
   rules: {
     'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
   },
   overrides: [
     {
