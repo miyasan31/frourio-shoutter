@@ -26,6 +26,9 @@ module.exports = {
     }
   },
   rules: {
+    semi: ['error', 'always'],
+    // オブジェクトの最後の要素にカンマをつけるか
+    'comma-dangle': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'simple-import-sort/imports': 'error',
@@ -37,4 +40,4 @@ module.exports = {
       rules: { '@typescript-eslint/no-var-requires': ['off'] }
     }
   ]
-}
+};
