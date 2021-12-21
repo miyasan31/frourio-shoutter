@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, { FC } from 'react'
 import { Box, ButtonGroup, Button } from '@chakra-ui/react'
 import type { Tweet, User, Retweet } from '$prisma/client'
+import { useTweetAction } from '~/hooks/useTweetAction'
 
 type Props = Retweet & {
   tweet: Tweet & {
@@ -29,6 +30,15 @@ type Props = Retweet & {
 }
 
 export const RetweetCard: FC<Props> = (props) => {
+  const {
+    handlePostLike,
+    handleDeleteLike,
+    handlePostRetweet,
+    handleDeleteRetweet,
+    handlePostFollow,
+    handleDeleteFollow
+  } = useTweetAction()
+
   return (
     <Box spacing="1rem" mt="1rem" p="1rem" border="1px">
       <Box fontSize="1.5rem">リツイート</Box>
@@ -57,16 +67,41 @@ export const RetweetCard: FC<Props> = (props) => {
       <Box>いいねしたか:{props.tweet.likes.length == 1 ? 'true' : 'false'}</Box>
 
       <ButtonGroup>
-        <Button>フォロー</Button>
+        <Button
+          onClick={() => {
+            props.tweet.user.followers.length == 1
+              ? handleDeleteFollow(props.tweet.user.followers[0].id)
+              : handlePostFollow(props.tweet.user.id)
+          }}
+        >
+          {props.tweet.user.followers.length == 1
+            ? 'フォロー中'
+            : 'フォローする'}
+        </Button>
+
         <Link href={`${props.tweet.user.id}/tweet/${props.tweet.id}`}>
           <a>
             <Button>返信</Button>
           </a>
         </Link>
-        <Button>
+
+        <Button
+          onClick={() => {
+            props.tweet.likes.length == 1
+              ? handleDeleteLike(props.tweet.likes[0].id)
+              : handlePostLike(props.tweetId)
+          }}
+        >
           {props.tweet.likes.length == 1 ? 'いいね中' : 'いいねする'}
         </Button>
-        <Button>
+
+        <Button
+          onClick={() => {
+            props.tweet.retweets.length == 1
+              ? handleDeleteRetweet(props.tweet.retweets[0].id)
+              : handlePostRetweet(props.tweetId)
+          }}
+        >
           {props.tweet.retweets.length == 1 ? 'リツイート中' : 'リツイートする'}
         </Button>
       </ButtonGroup>

@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import { Box, Button, ButtonGroup } from '@chakra-ui/react'
 import type { User, Tweet } from '$prisma/client'
+import { useTweetAction } from '~/hooks/useTweetAction'
 
 type Props = Tweet & {
   retweets: {
@@ -16,6 +17,9 @@ type Props = Tweet & {
     replies: number
   }
   user: User & {
+    followers: {
+      id: number
+    }[]
     _count: {
       followers: number
       followings: number
@@ -24,6 +28,15 @@ type Props = Tweet & {
 }
 
 export const TweetCard: FC<Props> = (props) => {
+  const {
+    handlePostLike,
+    handleDeleteLike,
+    handlePostRetweet,
+    handleDeleteRetweet,
+    handlePostFollow,
+    handleDeleteFollow
+  } = useTweetAction()
+
   return (
     <Box spacing="1rem" mt="1rem" p="1rem" border="1px">
       <Box fontSize="1.5rem">ツイート</Box>
@@ -45,19 +58,43 @@ export const TweetCard: FC<Props> = (props) => {
       <Box>
         リツイートしたか:{props.retweets.length == 1 ? 'true' : 'false'}
       </Box>
+
       <Box>いいねしたか:{props.likes.length == 1 ? 'true' : 'false'}</Box>
 
       <ButtonGroup>
-        <Button>
-          {props.retweets.length == 1 ? 'フォロー中' : 'フォローする'}
+        <Button
+          onClick={() => {
+            props.user.followers.length == 1
+              ? handleDeleteFollow(props.user.followers[0].id)
+              : handlePostFollow(props.user.id)
+          }}
+        >
+          {props.user.followers.length == 1 ? 'フォロー中' : 'フォローする'}
         </Button>
+
         <Link href={`${props.user.id}/tweet/${props.id}`}>
           <a>
             <Button>返信</Button>
           </a>
         </Link>
-        <Button>{props.likes.length == 1 ? 'いいね中' : 'いいねする'}</Button>
-        <Button>
+
+        <Button
+          onClick={() => {
+            props.likes.length == 1
+              ? handleDeleteLike(props.likes[0].id)
+              : handlePostLike(props.id)
+          }}
+        >
+          {props.likes.length == 1 ? 'いいね中' : 'いいねする'}
+        </Button>
+
+        <Button
+          onClick={() => {
+            props.retweets.length == 1
+              ? handleDeleteRetweet(props.retweets[0].id)
+              : handlePostRetweet(props.id)
+          }}
+        >
           {props.retweets.length == 1 ? 'リツイート中' : 'リツイートする'}
         </Button>
       </ButtonGroup>

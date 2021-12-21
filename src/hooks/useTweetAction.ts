@@ -9,7 +9,7 @@ export const useTweetAction = () => {
 
   const { token } = useGetAccessToken()
 
-  const handllePostLike = useCallback(
+  const handlePostLike = useCallback(
     (id) => {
       apiClient.like.post({
         headers: { authorization: `Bearer ${token}` },
@@ -22,7 +22,7 @@ export const useTweetAction = () => {
     [userInfo, token]
   )
 
-  const handlleDeleteLike = useCallback(
+  const handleDeleteLike = useCallback(
     (id) => {
       apiClient.like._likeId(id).delete({
         headers: { authorization: `Bearer ${token}` }
@@ -31,7 +31,7 @@ export const useTweetAction = () => {
     [userInfo, token]
   )
 
-  const handllePostRetweet = useCallback(
+  const handlePostRetweet = useCallback(
     (id) => {
       apiClient.retweet.post({
         headers: { authorization: `Bearer ${token}` },
@@ -44,7 +44,7 @@ export const useTweetAction = () => {
     [userInfo, token]
   )
 
-  const handlleDeleteRetweet = useCallback(
+  const handleDeleteRetweet = useCallback(
     (id) => {
       apiClient.retweet._retweetId(id).delete({
         headers: { authorization: `Bearer ${token}` }
@@ -53,7 +53,7 @@ export const useTweetAction = () => {
     [userInfo, token]
   )
 
-  const handllePostFollow = useCallback(
+  const handlePostFollow = useCallback(
     (id) => {
       apiClient.follow.post({
         headers: { authorization: `Bearer ${token}` },
@@ -66,7 +66,7 @@ export const useTweetAction = () => {
     [userInfo, token]
   )
 
-  const handkeDeleteFollow = useCallback(
+  const handleDeleteFollow = useCallback(
     (id) => {
       apiClient.follow._followId(id).delete({
         headers: { authorization: `Bearer ${token}` }
@@ -76,11 +76,11 @@ export const useTweetAction = () => {
   )
 
   return {
-    handllePostLike,
-    handlleDeleteLike,
-    handllePostRetweet,
-    handlleDeleteRetweet,
-    handllePostFollow,
-    handkeDeleteFollow
+    handlePostLike,
+    handleDeleteLike,
+    handlePostRetweet,
+    handleDeleteRetweet,
+    handlePostFollow,
+    handleDeleteFollow
   }
 }
