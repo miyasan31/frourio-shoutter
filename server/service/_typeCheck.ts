@@ -22,11 +22,26 @@ export const responseTypeCheck = async (id: User['id']) => {
           _count: {
             select: { followers: true, followings: true }
           },
+
           // user -> tweets
           tweets: {
             // sotr by createdAt desc
             orderBy: { createdAt: 'desc' },
             include: {
+              // tweet -> user
+              user: {
+                include: {
+                  // user is followed
+                  followers: {
+                    where: { userId: id },
+                    select: { id: true }
+                  },
+                  // countings on user follow
+                  _count: {
+                    select: { followers: true, followings: true }
+                  }
+                }
+              },
               // user is liked
               likes: {
                 where: { userId: id },
@@ -43,15 +58,35 @@ export const responseTypeCheck = async (id: User['id']) => {
               }
             }
           },
+
           // user -> replies
           replies: {
-            orderBy: { createdAt: 'desc' }
+            orderBy: { createdAt: 'desc' },
+            include: {
+              // user is liked
+              user: {
+                include: {
+                  // user is followed
+                  followers: {
+                    where: { userId: id },
+                    select: { id: true }
+                  },
+                  // countings on user follow
+                  _count: {
+                    select: { followers: true, followings: true }
+                  }
+                }
+              }
+            }
           },
+
           // user -> retweets
           retweets: {
             // sotr by createdAt desc
             orderBy: { createdAt: 'desc' },
             include: {
+              // retweet -> user
+              user: true,
               // retweets -> tweet
               tweet: {
                 include: {
@@ -91,6 +126,5 @@ export const responseTypeCheck = async (id: User['id']) => {
       }
     }
   })
-
   return result
 }
