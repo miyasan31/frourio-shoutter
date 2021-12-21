@@ -27,8 +27,15 @@ module.exports = {
   },
   rules: {
     semi: ['error', 'always'],
-    // オブジェクトの最後の要素にカンマをつけるか
     'comma-dangle': 'off',
+    'no-undef': 'warn',
+    'no-console': ['warn', { allow: ['warn', 'info', 'error'] }],
+    'func-style': ['error', 'expression'],
+    'no-restricted-imports': [
+      'error',
+      { paths: [{ name: 'react', importNames: ['default'] }] }
+    ],
+
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'simple-import-sort/imports': 'error',
