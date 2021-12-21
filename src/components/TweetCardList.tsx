@@ -8,10 +8,11 @@ import { TweetCard } from './TweetCard'
 import { RetweetCard } from './RetweetCard'
 import { ReplyCard } from './ReplyCard'
 import { sortTweetList } from '~/functions/sortTweetList'
+import { Progress } from './Progress'
+import Link from 'next/link'
 
 export const TweetCardList: VFC = () => {
   const userInfo = useRecoilValue(user)
-
   const { token } = useGetAccessToken()
 
   const { data: homeTweetList, error } = useAspidaSWR(
@@ -23,9 +24,15 @@ export const TweetCardList: VFC = () => {
     }
   )
 
-  if (!homeTweetList) return <div>loading</div>
-  if (error) return <div>error</div>
-  if (homeTweetList.length === 0) return <div>no data</div>
+  if (error) {
+    return (
+      <Link href="/signup/follow">
+        <a>フォローするユーザーを見つける</a>
+      </Link>
+    )
+  }
+
+  if (!homeTweetList) return <Progress h="100px" />
 
   const allTweetList = sortTweetList(homeTweetList)
 

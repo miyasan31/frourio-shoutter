@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { useForm } from 'react-hook-form'
 import { Box, Button, ListItem, List, Textarea } from '@chakra-ui/react'
 import { useGetAccessToken } from '~/hooks/useGetAccessToken'
+import { Progress } from '@/src/components/Progress'
 
 const TweetPage: NextPage = () => {
   const userInfo = useRecoilValue(user)
@@ -46,7 +47,7 @@ const TweetPage: NextPage = () => {
   )
 
   if (error) return <div>error</div>
-  if (!tweetAndReplies) return <div>loading</div>
+  if (!tweetAndReplies) return <Progress h="100px" />
   const { replies: replyList, ...tweet } = tweetAndReplies
 
   return (
@@ -73,7 +74,7 @@ const TweetPage: NextPage = () => {
             colorScheme="blue"
             mt="1rem"
             rounded="full"
-            isLoading={isSubmitting}
+            isProgress={isSubmitting}
           >
             返信
           </Button>
