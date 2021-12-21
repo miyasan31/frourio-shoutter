@@ -58,8 +58,8 @@ export const useTweetAction = () => {
       apiClient.follow.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
-          follower: { connect: { id: id } },
-          following: { connect: { id: userInfo.id } }
+          follower: { connect: { id: userInfo.id } },
+          following: { connect: { id: id } }
         }
       })
     },
