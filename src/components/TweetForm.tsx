@@ -1,23 +1,20 @@
-import React, { useCallback } from 'react'
+import React, { FC, useCallback } from 'react'
 import { apiClient } from '~/utils/apiClient'
-import { Box, Button, Textarea } from '@chakra-ui/react'
 import { user } from '~/atoms'
 import { useRecoilValue } from 'recoil'
-import { useForm } from 'react-hook-form'
-import { useGetAccessToken } from '~/hooks/useGetAccessToken'
+import { getToken } from '~/hooks/useGetAccessToken'
+import { Form } from './Form'
 
-export const TweetForm = () => {
+type Props = {
+  revalidate: () => Promise<boolean>
+}
+
+export const TweetForm: FC<Props> = (props) => {
   const userInfo = useRecoilValue(user)
-  const { token } = useGetAccessToken()
-
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting }
-  } = useForm()
 
   const handlePostTweet = useCallback(
     async (data) => {
+      const token = await getToken()
       await apiClient.tweet.post({
         headers: { authorization: `Bearer ${token}` },
         body: {
@@ -25,29 +22,10 @@ export const TweetForm = () => {
           user: { connect: { id: userInfo.id } }
         }
       })
+      props.revalidate()
     },
-    [userInfo, token]
+    [userInfo]
   )
 
-  return (
-    <Box bg="blue.100" p="1rem">
-      <form onSubmit={handleSubmit(handlePostTweet)}>
-        <Textarea
-          {...register('tweet')}
-          placeholder="ツイートする"
-          size="sm"
-          bg="white"
-        />
-        <Button
-          type="submit"
-          colorScheme="blue"
-          mt="1rem"
-          rounded="full"
-          isLoading={isSubmitting}
-        >
-          ツイート
-        </Button>
-      </form>
-    </Box>
-  )
+  return <Form type="tweet" handlePost={handlePostTweet} />
 }
