@@ -15,6 +15,9 @@ module.exports = {
   // よくわからん
   poweredByHeader: false,
   // pageの拡張し変更
-  pageExtensions: ['page.tsx', 'page.ts']
+  pageExtensions: ['page.tsx', 'page.ts'],
+  images: {
+    domains: ['lh3.googleusercontent.com']
+  }
 }
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
