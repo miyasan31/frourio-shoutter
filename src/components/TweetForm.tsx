@@ -6,7 +6,7 @@ import { getToken } from '~/hooks/useGetAccessToken'
 import { Form } from './Form'
 
 type Props = {
-  revalidate: () => Promise<boolean>
+  revalidate?: () => Promise<boolean>
 }
 
 export const TweetForm: FC<Props> = (props) => {
@@ -22,7 +22,7 @@ export const TweetForm: FC<Props> = (props) => {
           user: { connect: { id: userInfo.id } }
         }
       })
-      props.revalidate()
+      props.revalidate ? props.revalidate() : null
     },
     [userInfo]
   )

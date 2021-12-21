@@ -7,10 +7,8 @@ import { TweetForm } from '~/components/TweetForm'
 
 const HomePage: NextPage = () => {
   return (
-    <Box w="100%" p="1rem">
-      <Box w="100%" py="1rem">
-        <Button onClick={handleSignout}>サインアウト</Button>
-      </Box>
+    <Box w="100%">
+      <Button onClick={handleSignout}>サインアウト</Button>
 
       <TweetForm />
       <TweetCardList />
