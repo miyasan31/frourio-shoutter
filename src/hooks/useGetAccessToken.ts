@@ -44,7 +44,7 @@ export const useGetAccessToken = () => {
 
 const loginWithRedirectOprions = {
   audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE_URL || '',
-  redirect_uri: `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL || ''}`
+  redirect_uri: `${process.env.NEXT_PUBLIC_CLIENT_BASE_URL || ''}/redirect`
 }
 
 // ログイン処理

@@ -42,7 +42,7 @@ const SignupPage = () => {
         isSignin: true
       })
 
-      router.push('/')
+      router.push('/signup/follow')
     } catch (e) {
       console.error(e)
     }
