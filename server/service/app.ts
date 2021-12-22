@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import Fastify, { FastifyServerFactory } from 'fastify';
 import fastifyAuth0Verify from 'fastify-auth0-verify';
 import cors from 'fastify-cors';
@@ -14,10 +15,17 @@ import {
   FASTIFY_AUTH0_SECRET
 } from '$/service/envValues';
 
+declare module 'fastify' {
+  interface FastifyRequest {
+    userInfo: User;
+  }
+}
+
 export const init = (serverFactory?: FastifyServerFactory) => {
   const app = Fastify({ serverFactory });
   app.register(helmet);
   app.register(cors);
+  app.decorateRequest('userInfo', null);
 
   if (API_UPLOAD_DIR) {
     app.after(() => {
@@ -37,7 +45,11 @@ export const init = (serverFactory?: FastifyServerFactory) => {
 
   app.addHook('onRequest', async (request, reply) => {
     try {
-      await request.jwtVerify();
+      const result = await request.jwtVerify();
+      return result;
+      // const token = request?.headers.authorization;
+      // const user = await userInfo<RequestUserInfo>(token).then((res) => res);
+      // request.userInfo = user;
     } catch (err) {
       reply.send(err);
     }

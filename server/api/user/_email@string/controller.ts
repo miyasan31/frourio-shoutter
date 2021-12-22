@@ -1,14 +1,14 @@
-import { getSignUpUserCheck } from '$/service/user';
+import { getSignupUserCheck } from '$/service/user';
 
 import { defineController } from './$relay';
 
 export default defineController(
   {
-    getSignUpUserCheck
+    getSignupUserCheck
   },
-  ({ getSignUpUserCheck }) => ({
+  ({ getSignupUserCheck }) => ({
     get: async ({ params }) => {
-      const user = await getSignUpUserCheck(params.email);
+      const user = await getSignupUserCheck(params.email);
       if (!user) {
         return {
           body: { user: null },

@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import httpsRequest from 'request-promise';
 // import { Multipart } from 'fastify-multipart';
 // import fs from 'fs';
 // import path from 'path';
 import { depend } from 'velona';
 
+import { FASTIFY_AUTH0_DOMAIN } from '$/service/envValues';
 import {
   GetAllUser,
   GetFollowerList,
@@ -47,11 +49,11 @@ export const getUserList = depend(
   }
 );
 
-export const getSignUpUserCheck = depend(
+export const getSignupUserCheck = depend(
   {
     prisma: prisma as unknown as {
       user: {
-        findUnique(query: Prisma.UserFindUniqueArgs): Promise<GetUser>;
+        findUnique(query: Prisma.UserFindUniqueArgs): Promise<User>;
       };
     }
   },
@@ -470,3 +472,25 @@ export const validateUser = (id: string, pass: string) => {
 //     ...getUserInfo(id)
 //   }
 // }
+
+// headerのtokenを使ってAuth0からユーザー情報を取得する
+export const userInfo = async <T>(token?: string): Promise<T> => {
+  const options = {
+    url: `${FASTIFY_AUTH0_DOMAIN}userinfo`,
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      authorization: token
+    },
+    json: true
+  };
+  return await new Promise((resolve, reject) => {
+    httpsRequest(options)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
