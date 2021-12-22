@@ -6,36 +6,15 @@ import { FC } from 'react';
 
 import { IconButton } from '~/components';
 import { useTweetAction } from '~/hooks';
-import type { Retweet, Tweet, User } from '$prisma/client';
+import { HomeRetweet } from '$/types/home';
 
 import { TweetActionGroup } from './TweetActionGroup';
 
 const ICON_PHOTO_SIZE = 48;
 
-type Props = Retweet & {
-  user: User;
-  tweet: Tweet & {
-    retweets: {
-      id: number;
-    }[];
-    likes: {
-      id: number;
-    }[];
-    _count: {
-      likes: number;
-      retweets: number;
-      replies: number;
-    };
-    user: User & {
-      followers: {
-        id: number;
-      }[];
-      _count: {
-        followers: number;
-        followings: number;
-      };
-    };
-  };
+type Props = {
+  data: HomeRetweet;
+  revalidate: () => Promise<boolean>;
 };
 
 export const RetweetCard: FC<Props> = (props) => {
@@ -49,15 +28,17 @@ export const RetweetCard: FC<Props> = (props) => {
   } = useTweetAction();
 
   return (
-    <Link href={`${props.tweet.userId}/tweet/${props.tweet.id}`}>
+    <Link href={`${props.data.tweet.userId}/tweet/${props.data.tweet.id}`}>
       <a>
-        <RetweetLabel>{props.user.name}さんがリツイートしました</RetweetLabel>
+        <RetweetLabel>
+          {props.data.user.name}さんがリツイートしました
+        </RetweetLabel>
         <TweetWrap>
           <IconPhotoWrap>
-            <Link href={`/${props.tweet.user.id}`}>
+            <Link href={`/${props.data.tweet.user.id}`}>
               <a>
                 <UserIcon
-                  src={props.tweet.user.icon}
+                  src={props.data.tweet.user.icon}
                   alt="Picture of the author"
                   width={ICON_PHOTO_SIZE}
                   height={ICON_PHOTO_SIZE}
@@ -68,33 +49,33 @@ export const RetweetCard: FC<Props> = (props) => {
 
           <TweetInfoWrap>
             <UserInfoWrap>
-              <Link href={`/${props.tweet.user.id}`}>
+              <Link href={`/${props.data.tweet.user.id}`}>
                 <Anker>
-                  <UserName>{props.tweet.user.name}</UserName>
-                  <UserId>{`@${props.tweet.user.id}`}</UserId>
+                  <UserName>{props.data.tweet.user.name}</UserName>
+                  <UserId>{`@${props.data.tweet.user.id}`}</UserId>
                 </Anker>
               </Link>
               <Dot>{'･'}</Dot>
-              <CreatedAt>{props.tweet.createdAt}</CreatedAt>
+              <CreatedAt>{props.data.tweet.createdAt}</CreatedAt>
             </UserInfoWrap>
 
-            <TweetBody>{props.tweet.tweet}</TweetBody>
+            <TweetBody>{props.data.tweet.tweet}</TweetBody>
 
             <TweetActionGroup
-              isRetweet={props.tweet.retweets.length == 1}
-              isLike={props.tweet.likes.length == 1}
-              retweetCount={props.tweet._count.retweets}
-              likeCount={props.tweet._count.likes}
-              commentCount={props.tweet._count.replies}
+              isRetweet={props.data.tweet.retweets.length == 1}
+              isLike={props.data.tweet.likes.length == 1}
+              retweetCount={props.data.tweet._count.retweets}
+              likeCount={props.data.tweet._count.likes}
+              commentCount={props.data.tweet._count.replies}
               handleToggleRetweet={(e) => {
-                props.tweet.retweets.length == 0
-                  ? handlePostRetweet(e, props.tweet.id)
-                  : handleDeleteRetweet(e, props.tweet.retweets[0].id);
+                props.data.tweet.retweets.length == 0
+                  ? handlePostRetweet(e, props.data.tweet.id)
+                  : handleDeleteRetweet(e, props.data.tweet.retweets[0].id);
               }}
               handleToggleLike={(e) => {
-                props.tweet.likes.length == 0
-                  ? handlePostLike(e, props.tweet.id)
-                  : handleDeleteLike(e, props.tweet.likes[0].id);
+                props.data.tweet.likes.length == 0
+                  ? handlePostLike(e, props.data.tweet.id)
+                  : handleDeleteLike(e, props.data.tweet.likes[0].id);
               }}
             />
           </TweetInfoWrap>

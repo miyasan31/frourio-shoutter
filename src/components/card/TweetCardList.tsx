@@ -1,5 +1,4 @@
 import useAspidaSWR from '@aspida/swr';
-import Link from 'next/link';
 import { VFC } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -17,22 +16,11 @@ export const TweetCardList: VFC = () => {
   const userInfo = useRecoilValue(user);
   const { token } = useGetAccessToken();
 
-  const { data: homeTweetList, error } = useAspidaSWR(
-    apiClient.home._userId(userInfo.id),
-    {
-      headers: { authorization: `Bearer ${token}` },
-      enabled: !!token && !!userInfo.id,
-      refreshInterval: 1000
-    }
-  );
-
-  if (error) {
-    return (
-      <Link href="/signup/follow">
-        <a>フォローするユーザーを見つける</a>
-      </Link>
-    );
-  }
+  const { data: homeTweetList, revalidate } = useAspidaSWR(apiClient.home, {
+    headers: { authorization: `Bearer ${token}` },
+    enabled: !!token && !!userInfo.id,
+    refreshInterval: 1000
+  });
 
   if (!homeTweetList) return <Progress h="100px" />;
 
@@ -44,11 +32,11 @@ export const TweetCardList: VFC = () => {
         return (
           <div key={`${t.userId}.${i}`}>
             {Object.keys(t).includes('reply') ? (
-              <ReplyCard {...t} />
+              <ReplyCard data={t} revalidate={revalidate} />
             ) : Object.keys(t).includes('_count') ? (
-              <TweetCard {...t} />
+              <TweetCard data={t} revalidate={revalidate} />
             ) : (
-              <RetweetCard {...t} />
+              <RetweetCard data={t} revalidate={revalidate} />
             )}
           </div>
         );

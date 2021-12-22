@@ -6,7 +6,7 @@ type Props = {
 };
 export const Progress: FC<Props> = (props) => {
   return (
-    <Center h={props.h} w="100vw" color="white">
+    <Center h={props.h} w="100%" color="white">
       <Spinner
         thickness="4px"
         speed="0.65s"

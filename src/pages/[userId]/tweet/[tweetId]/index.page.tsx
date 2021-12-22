@@ -29,10 +29,12 @@ const TweetPage: NextPage = () => {
 
   return (
     <>
-      <TweetCard {...tweet} />
+      <TweetCard data={tweet} revalidate={revalidate} />
       <ReplyForm userId={tweet.userId} revalidate={revalidate} />
       {replyList.map((reply) => {
-        return <ReplyCard key={reply.id} {...reply} />;
+        return (
+          <ReplyCard key={reply.id} data={reply} revalidate={revalidate} />
+        );
       })}
     </>
   );

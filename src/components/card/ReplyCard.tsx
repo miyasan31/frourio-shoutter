@@ -5,36 +5,28 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import { IconButton } from '~/components';
+import { HomeReply } from '$/types/home';
 // import { useTweetAction } from '~/hooks';
-import type { Reply, Tweet, User } from '$prisma/client';
 
 const ICON_PHOTO_SIZE = 48;
 
-type Props = Reply & {
-  tweet?: Tweet;
-  user: User & {
-    followers: {
-      id: number;
-    }[];
-    _count: {
-      followers: number;
-      followings: number;
-    };
-  };
+type Props = {
+  data: HomeReply;
+  revalidate: () => Promise<boolean>;
 };
 
 export const ReplyCard: FC<Props> = (props) => {
   // const { handlePostFollow, handleDeleteFollow } = useTweetAction();
 
   return (
-    <Link href={`${props.tweet?.userId}/tweet/${props.tweet?.id}`}>
+    <Link href={`${props.data.tweet?.userId}/tweet/${props.data.tweet?.id}`}>
       <a>
         <TweetWrap>
           <IconPhotoWrap>
-            <Link href={`/${props.user.id}`}>
+            <Link href={`/${props.data.user.id}`}>
               <a>
                 <UserIcon
-                  src={props.user.icon}
+                  src={props.data.user.icon}
                   alt="Picture of the author"
                   width={ICON_PHOTO_SIZE}
                   height={ICON_PHOTO_SIZE}
@@ -45,17 +37,17 @@ export const ReplyCard: FC<Props> = (props) => {
 
           <TweetInfoWrap>
             <UserInfoWrap>
-              <Link href={`/${props.user.id}`}>
+              <Link href={`/${props.data.user.id}`}>
                 <Anker>
-                  <UserName>{props.user.name}</UserName>
-                  <UserId>{`@${props.user.id}`}</UserId>
+                  <UserName>{props.data.user.name}</UserName>
+                  <UserId>{`@${props.data.user.id}`}</UserId>
                 </Anker>
               </Link>
               <Dot>{'･'}</Dot>
-              <CreatedAt>{props.createdAt}</CreatedAt>
+              <CreatedAt>{props.data.createdAt}</CreatedAt>
             </UserInfoWrap>
 
-            <TweetBody>{props.reply}</TweetBody>
+            <TweetBody>{props.data.reply}</TweetBody>
           </TweetInfoWrap>
 
           <EditButtonWrap>

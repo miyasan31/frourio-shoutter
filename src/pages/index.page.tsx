@@ -1,15 +1,12 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
 import { TweetCardList } from '~/components/card';
 import { TweetForm } from '~/components/form';
-import { handleSignout } from '~/functions';
 
 const HomePage: NextPage = () => {
   return (
     <Box w="100%">
-      <Button onClick={handleSignout}>サインアウト</Button>
-
       <TweetForm />
       <TweetCardList />
     </Box>

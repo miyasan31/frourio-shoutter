@@ -6,33 +6,15 @@ import { FC } from 'react';
 
 import { IconButton } from '~/components';
 import { useTweetAction } from '~/hooks';
-import type { Tweet, User } from '$prisma/client';
+import { HomeTweet } from '$/types/home';
 
 import { TweetActionGroup } from './TweetActionGroup';
 
 const ICON_PHOTO_SIZE = 48;
 
-type Props = Tweet & {
-  retweets: {
-    id: number;
-  }[];
-  likes: {
-    id: number;
-  }[];
-  _count: {
-    likes: number;
-    retweets: number;
-    replies: number;
-  };
-  user: User & {
-    followers: {
-      id: number;
-    }[];
-    _count: {
-      followers: number;
-      followings: number;
-    };
-  };
+type Props = {
+  data: HomeTweet;
+  revalidate: () => Promise<boolean>;
 };
 
 export const TweetCard: FC<Props> = (props) => {
@@ -44,18 +26,17 @@ export const TweetCard: FC<Props> = (props) => {
     // handlePostFollow,
     // handleDeleteFollow
   } = useTweetAction();
-
-  console.info(props);
+  console.info(`${props.data.user.id}/tweet/${props.data.id}`);
 
   return (
-    <Link href={`${props.userId}/tweet/${props.id}`}>
+    <Link href={`${props.data.user.id}/tweet/${props.data.id}`}>
       <a>
         <TweetWrap>
           <IconPhotoWrap>
-            <Link href={`/${props.userId}`}>
+            <Link href={`/${props.data.userId}`}>
               <a>
                 <UserIcon
-                  src={props.user.icon}
+                  src={props.data.user.icon}
                   alt="Picture of the author"
                   width={ICON_PHOTO_SIZE}
                   height={ICON_PHOTO_SIZE}
@@ -66,33 +47,33 @@ export const TweetCard: FC<Props> = (props) => {
 
           <TweetInfoWrap>
             <UserInfoWrap>
-              <Link href={`/${props.userId}`}>
+              <Link href={`/${props.data.userId}`}>
                 <Anker>
-                  <UserName>{props.user.name}</UserName>
-                  <UserId>{`@${props.user.id}`}</UserId>
+                  <UserName>{props.data.user.name}</UserName>
+                  <UserId>{`@${props.data.user.id}`}</UserId>
                 </Anker>
               </Link>
               <Dot>{'･'}</Dot>
-              <CreatedAt>{props.createdAt}</CreatedAt>
+              <CreatedAt>{props.data.createdAt}</CreatedAt>
             </UserInfoWrap>
 
-            <TweetBody>{props.tweet}</TweetBody>
+            <TweetBody>{props.data.tweet}</TweetBody>
 
             <TweetActionGroup
-              isRetweet={props.retweets.length == 1}
-              isLike={props.likes.length == 1}
-              retweetCount={props._count.retweets}
-              likeCount={props._count.likes}
-              commentCount={props._count.replies}
+              isRetweet={props.data.retweets.length == 1}
+              isLike={props.data.likes.length == 1}
+              retweetCount={props.data._count.retweets}
+              likeCount={props.data._count.likes}
+              commentCount={props.data._count.replies}
               handleToggleRetweet={(e) => {
-                props.retweets.length == 0
-                  ? handlePostRetweet(e, props.id)
-                  : handleDeleteRetweet(e, props.retweets[0].id);
+                props.data.retweets.length == 0
+                  ? handlePostRetweet(e, props.data.id)
+                  : handleDeleteRetweet(e, props.data.retweets[0].id);
               }}
               handleToggleLike={(e) => {
-                props.likes.length == 0
-                  ? handlePostLike(e, props.id)
-                  : handleDeleteLike(e, props.likes[0].id);
+                props.data.likes.length == 0
+                  ? handlePostLike(e, props.data.id)
+                  : handleDeleteLike(e, props.data.likes[0].id);
               }}
             />
           </TweetInfoWrap>

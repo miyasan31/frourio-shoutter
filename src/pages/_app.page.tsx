@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app';
 import { memo } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import { AuthProvider } from '~/components';
+import { AuthProvider, Layout } from '~/components';
 import { theme } from '~/utils';
 
 const MyApp = (props: AppProps) => {
@@ -13,7 +13,9 @@ const MyApp = (props: AppProps) => {
     <ChakraProvider theme={theme}>
       <RecoilRoot>
         <AuthProvider>
-          <props.Component {...props.pageProps} />
+          <Layout>
+            <props.Component {...props.pageProps} />
+          </Layout>
         </AuthProvider>
       </RecoilRoot>
     </ChakraProvider>

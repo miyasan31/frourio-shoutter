@@ -46,12 +46,13 @@ export const AuthProvider: FC<Props> = (props) => {
     }
   }, []);
 
+  const notLayout =
+    router.pathname === '/signin' ||
+    router.pathname === '/callback' ||
+    router.pathname === '/signup';
+
   useEffect(() => {
-    if (
-      router.pathname === '/signin' ||
-      router.pathname === '/callback' ||
-      router.pathname === '/signup'
-    ) {
+    if (notLayout) {
       setIsLoading(false);
       return;
     }
