@@ -44,7 +44,7 @@ export const Form: FC<Props> = (props) => {
       <TweetFromWrap>
         <IconPhotoWrap>
           <UserIcon
-            src={userInfo.icon}
+            src={userInfo.icon || '/oden.jpg'}
             alt="Picture of the author"
             width={ICON_PHOTO_SIZE}
             height={ICON_PHOTO_SIZE}

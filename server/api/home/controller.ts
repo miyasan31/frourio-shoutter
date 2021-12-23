@@ -8,7 +8,6 @@ export default defineController(
   },
   ({ getFollowingUserTweetList }) => ({
     get: async ({ userInfo }) => {
-      console.info(userInfo);
       const tweetlist = await getFollowingUserTweetList(userInfo.id);
       if (
         tweetlist.followingUser.length === 0 &&

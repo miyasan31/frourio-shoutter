@@ -36,7 +36,7 @@ export const TweetCard: FC<Props> = (props) => {
             <Link href={`/${props.data.userId}`}>
               <a>
                 <UserIcon
-                  src={props.data.user.icon}
+                  src={props.data.user.icon || '/oden.jpg'}
                   alt="Picture of the author"
                   width={ICON_PHOTO_SIZE}
                   height={ICON_PHOTO_SIZE}

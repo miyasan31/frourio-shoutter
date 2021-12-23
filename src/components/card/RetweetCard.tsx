@@ -38,7 +38,7 @@ export const RetweetCard: FC<Props> = (props) => {
             <Link href={`/${props.data.tweet.user.id}`}>
               <a>
                 <UserIcon
-                  src={props.data.tweet.user.icon}
+                  src={props.data.tweet.user.icon || '/oden.jpg'}
                   alt="Picture of the author"
                   width={ICON_PHOTO_SIZE}
                   height={ICON_PHOTO_SIZE}

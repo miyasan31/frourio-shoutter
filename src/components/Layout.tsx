@@ -24,10 +24,12 @@ export const Layout: FC<Props> = (props) => {
     router.back();
   }, []);
 
-  const notLayout =
-    router.pathname === '/signin' ||
-    router.pathname === '/callback' ||
-    router.pathname === '/signup';
+  const notLayout = [
+    '/signin',
+    '/callback',
+    '/signup',
+    '/signup/follow'
+  ].includes(router.pathname);
 
   return (
     <>
@@ -43,7 +45,7 @@ export const Layout: FC<Props> = (props) => {
             <UserName>{userInfo.name}</UserName>
 
             <UserIcon
-              src={userInfo.icon}
+              src={userInfo.icon || '/oden.jpg'}
               alt="Picture of the author"
               width={ICON_PHOTO_SIZE}
               height={ICON_PHOTO_SIZE}

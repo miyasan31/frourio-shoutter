@@ -30,7 +30,7 @@ export const AuthProvider: FC<Props> = (props) => {
         });
 
         // ユーザー情報が存在しなかったらサインアップ画面にリダイレクト
-        if (!result.body.user) {
+        if (!result?.body?.user) {
           router.push('/signup');
         } else {
           // ユーザー情報が存在したらユーザー情報をセット
@@ -40,10 +40,10 @@ export const AuthProvider: FC<Props> = (props) => {
           });
         }
       }
-      setIsLoading(false);
     } catch (e) {
       router.push('/signin');
     }
+    setIsLoading(false);
   }, []);
 
   const notLayout =
