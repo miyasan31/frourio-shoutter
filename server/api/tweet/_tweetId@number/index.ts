@@ -1,3 +1,5 @@
+import { User } from '@prisma/client';
+
 import type { AuthHeader } from '$/types';
 import type { GetTweetDetail } from '$/types/tweet';
 import type { Prisma } from '$prisma/client';
@@ -5,6 +7,7 @@ import type { Prisma } from '$prisma/client';
 export type Methods = {
   get: {
     reqHeaders: AuthHeader;
+    userInfo: User;
 
     resBody: GetTweetDetail;
     status: 200;

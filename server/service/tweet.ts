@@ -1,64 +1,62 @@
 import { PrismaClient } from '@prisma/client';
 import { depend } from 'velona';
 
-import type { GetTweet, GetTweetDetail } from '$/types/tweet';
-import type { Prisma, Tweet } from '$prisma/client';
+import type { GetTweetDetail } from '$/types/tweet';
+import type { Prisma, Tweet, User } from '$prisma/client';
 
 const prisma = new PrismaClient();
 
-const testUserId = 'miyasan_0301';
-
 // not used
-export const getTweetList = depend(
-  {
-    prisma: prisma as unknown as {
-      tweet: { findMany(query: Prisma.TweetFindManyArgs): Promise<GetTweet[]> };
-    }
-  },
-  async ({ prisma }) => {
-    const result = await prisma.tweet.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        // user is liked
-        likes: {
-          where: { userId: testUserId },
-          select: { id: true }
-        },
-        // user is retweeted
-        retweets: {
-          where: { userId: testUserId },
-          select: { id: true }
-        },
-        // tweet -> replies
-        replies: {
-          // sotr by createdAt asc
-          orderBy: { createdAt: 'asc' },
-          include: {
-            // replies -> user
-            user: {
-              include: {
-                // user is followed
-                followers: {
-                  where: { userId: testUserId },
-                  select: { id: true }
-                },
-                // countings on user follow
-                _count: {
-                  select: { followers: true, followings: true }
-                }
-              }
-            }
-          }
-        },
-        // countings on tweet
-        _count: {
-          select: { replies: true, retweets: true, likes: true }
-        }
-      }
-    });
-    return result;
-  }
-);
+// export const getTweetList = depend(
+//   {
+//     prisma: prisma as unknown as {
+//       tweet: { findMany(query: Prisma.TweetFindManyArgs): Promise<GetTweet[]> };
+//     }
+//   },
+//   async ({ prisma }) => {
+//     const result = await prisma.tweet.findMany({
+//       orderBy: { createdAt: 'desc' },
+//       include: {
+//         // user is liked
+//         likes: {
+//           where: { userId: testUserId },
+//           select: { id: true }
+//         },
+//         // user is retweeted
+//         retweets: {
+//           where: { userId: testUserId },
+//           select: { id: true }
+//         },
+//         // tweet -> replies
+//         replies: {
+//           // sotr by createdAt asc
+//           orderBy: { createdAt: 'asc' },
+//           include: {
+//             // replies -> user
+//             user: {
+//               include: {
+//                 // user is followed
+//                 followers: {
+//                   where: { userId: testUserId },
+//                   select: { id: true }
+//                 },
+//                 // countings on user follow
+//                 _count: {
+//                   select: { followers: true, followings: true }
+//                 }
+//               }
+//             }
+//           }
+//         },
+//         // countings on tweet
+//         _count: {
+//           select: { replies: true, retweets: true, likes: true }
+//         }
+//       }
+//     });
+//     return result;
+//   }
+// );
 
 // [userId]/tweet/[tweetId].page.tsx
 export const getTweet = depend(
@@ -69,7 +67,7 @@ export const getTweet = depend(
       };
     }
   },
-  async ({ prisma }, id: Tweet['id']) => {
+  async ({ prisma }, id: Tweet['id'], reqestUserId: User['id']) => {
     const result = await prisma.tweet.findUnique({
       where: {
         id: id
@@ -77,12 +75,12 @@ export const getTweet = depend(
       include: {
         // user is liked
         likes: {
-          where: { userId: testUserId },
+          where: { userId: reqestUserId },
           select: { id: true }
         },
         // user is retweeted
         retweets: {
-          where: { userId: testUserId },
+          where: { userId: reqestUserId },
           select: { id: true }
         },
         // countings on tweet
@@ -94,7 +92,7 @@ export const getTweet = depend(
           include: {
             // user is followed
             followers: {
-              where: { userId: testUserId },
+              where: { userId: reqestUserId },
               select: { id: true }
             },
             // countings on user follow
@@ -113,7 +111,7 @@ export const getTweet = depend(
               include: {
                 // user is followed
                 followers: {
-                  where: { userId: testUserId },
+                  where: { userId: reqestUserId },
                   select: { id: true }
                 },
                 // countings on user follow

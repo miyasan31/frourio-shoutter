@@ -10,15 +10,15 @@ export default defineController(
     deleteTweet
   },
   ({ getTweet, updateTweet, deleteTweet }) => ({
-    get: async ({ params }) => {
-      const tweet = await getTweet(params.tweetId);
+    get: async ({ params, userInfo }) => {
+      const tweet = await getTweet(params.tweetId, userInfo.id);
       if (!tweet) {
         return { status: 404 };
       }
       return { status: 200, body: tweet };
     },
 
-    patch: async ({ body, params }) => {
+    patch: async ({ params, body }) => {
       const tweet = await updateTweet(params.tweetId, body);
       if (!tweet) {
         return { status: 400 };
