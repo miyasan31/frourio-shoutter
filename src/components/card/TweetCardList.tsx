@@ -20,8 +20,8 @@ export const TweetCardList: VFC = () => {
     apiClient.home._requestUserId(userInfo.id),
     {
       headers: { authorization: `Bearer ${token}` },
-      enabled: !!token && !!userInfo.id,
-      refreshInterval: 1000
+      enabled: !!token && !!userInfo.id
+      // refreshInterval: 1000
     }
   );
 

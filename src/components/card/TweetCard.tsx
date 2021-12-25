@@ -26,7 +26,6 @@ export const TweetCard: FC<Props> = (props) => {
     // handlePostFollow,
     // handleDeleteFollow
   } = useTweetAction(props.revalidate);
-  console.info(`${props.data.user.id}/tweet/${props.data.id}`);
 
   return (
     <Link href={`${props.data.user.id}/tweet/${props.data.id}`}>

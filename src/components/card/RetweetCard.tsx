@@ -25,7 +25,7 @@ export const RetweetCard: FC<Props> = (props) => {
     handleDeleteRetweet
     // handlePostFollow,
     // handleDeleteFollow
-  } = useTweetAction();
+  } = useTweetAction(props.revalidate);
 
   return (
     <Link href={`${props.data.tweet.userId}/tweet/${props.data.tweet.id}`}>
