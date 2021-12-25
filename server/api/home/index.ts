@@ -13,6 +13,6 @@ export type Methods = {
       currentUser: GetMyTweet;
       followingUser: GetHome;
     };
-    status: 200;
+    status: 200 | 404;
   };
 };

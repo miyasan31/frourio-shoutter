@@ -15,7 +15,8 @@ export default defineHooks(
       // GET以外は何もしない
       if (request.method !== 'GET') return;
       // paramsがある場合は何もしない
-      if (request.params) return;
+      const obj = request.params as Record<string, string>;
+      if (Object.keys(obj).length) return;
 
       const token = request?.headers.authorization;
       const user = await getUserInfo<RequestUserInfo>(token).then((res) => res);
