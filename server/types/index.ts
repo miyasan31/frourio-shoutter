@@ -26,7 +26,6 @@ export type User = {
   name: string;
   profile: string;
   createdAt: string;
-  updatedAt: string;
   tweet?: Tweet[];
   like?: Like[];
   reply?: Reply[];
