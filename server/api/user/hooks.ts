@@ -3,9 +3,9 @@
 // const cyan = '\u001b[36m';
 // const reset = '\u001b[0m';
 
-export type AdditionalRequest = {
-  userInfo: any;
-};
+// export type AdditionalRequest = {
+//   userInfo: any;
+// };
 
 // export default defineHooks(() => {
 //   return {
