@@ -71,11 +71,13 @@ export const getSignupUserCheck = depend(
 export const getUserTweetList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetTweetList> };
+      user: {
+        findUnique(query: Prisma.UserFindManyArgs): Promise<GetTweetList>;
+      };
     }
   },
-  async ({ prisma }, id: User['id']) => {
-    const result = await prisma.user.findMany({
+  async ({ prisma }, id: User['id'], reqestUserId: User['id']) => {
+    const result = await prisma.user.findUnique({
       where: {
         id: id
       },
@@ -87,12 +89,12 @@ export const getUserTweetList = depend(
           include: {
             // user is liked
             likes: {
-              where: { userId: testUserId },
+              where: { userId: reqestUserId },
               select: { id: true }
             },
             // user is retweeted
             retweets: {
-              where: { userId: testUserId },
+              where: { userId: reqestUserId },
               select: { id: true }
             },
             // countings on tweet
@@ -103,7 +105,7 @@ export const getUserTweetList = depend(
         },
         // user is followed
         followers: {
-          where: { userId: testUserId },
+          where: { userId: reqestUserId },
           select: { id: true }
         },
         // countings on user follow

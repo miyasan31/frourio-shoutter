@@ -16,15 +16,28 @@ export type GetUser =
     })
   | null;
 
-export type GetTweetList = (User & {
+export type GetTweetList = User & {
+  followers: {
+    id: number;
+  }[];
   tweets: (Tweet & {
+    retweets: {
+      id: number;
+    }[];
+    likes: {
+      id: number;
+    }[];
     _count: {
       replies: number;
       retweets: number;
       likes: number;
     };
   })[];
-})[];
+  _count: {
+    followers: number;
+    followings: number;
+  };
+};
 
 export type GetReplyList = (User & {
   replies: Reply[];
