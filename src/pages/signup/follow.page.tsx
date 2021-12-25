@@ -11,15 +11,18 @@ import { useTweetAction } from '~/hooks';
 import { apiClient } from '~/utils';
 
 const FollowPage: NextPage = () => {
-  const { handlePostFollow } = useTweetAction();
-
   const userInfo = useRecoilValue(user);
   const { token } = useGetAccessToken();
-
-  const { data: userList, error } = useAspidaSWR(apiClient.user, {
+  const {
+    data: userList,
+    error,
+    revalidate
+  } = useAspidaSWR(apiClient.user, {
     headers: { authorization: `Bearer ${token}` },
     enabled: !!token && !!userInfo.id
   });
+
+  const { handlePostFollow } = useTweetAction(revalidate);
 
   if (error) return <div>error</div>;
   if (!userList) return <Progress h="100px" />;
