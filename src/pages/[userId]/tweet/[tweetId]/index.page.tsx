@@ -17,21 +17,21 @@ const TweetPage: NextPage = () => {
   const { token } = useGetAccessToken();
 
   const {
-    data: tweetAndReplies,
+    data: tweetAndReplyList,
     error,
     revalidate
   } = useAspidaSWR(
     apiClient.tweet._tweetId(Number(tweetId))._requestUserId(userInfo.id),
     {
       headers: { authorization: `Bearer ${token}` },
-      enabled: !!token && !!tweetId,
-      refreshInterval: 1000
+      enabled: !!token && !!tweetId
+      // refreshInterval: 1000
     }
   );
 
   if (error) return <div>error</div>;
-  if (!tweetAndReplies) return <Progress h="100px" />;
-  const { replies: replyList, ...tweet } = tweetAndReplies;
+  if (!tweetAndReplyList) return <Progress h="100px" />;
+  const { replies: replyList, ...tweet } = tweetAndReplyList;
 
   return (
     <>
