@@ -474,7 +474,7 @@ export const validateUser = (id: string, pass: string) => {
 // }
 
 // headerのtokenを使ってAuth0からユーザー情報を取得する
-export const userInfo = async <T>(token?: string): Promise<T> => {
+export const getUserInfo = async <T>(token?: string): Promise<T> => {
   const options = {
     url: `${FASTIFY_AUTH0_DOMAIN}userinfo`,
     method: 'GET',
