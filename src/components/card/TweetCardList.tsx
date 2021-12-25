@@ -16,11 +16,14 @@ export const TweetCardList: VFC = () => {
   const userInfo = useRecoilValue(user);
   const { token } = useGetAccessToken();
 
-  const { data: homeTweetList, revalidate } = useAspidaSWR(apiClient.home, {
-    headers: { authorization: `Bearer ${token}` },
-    enabled: !!token && !!userInfo.id,
-    refreshInterval: 1000
-  });
+  const { data: homeTweetList, revalidate } = useAspidaSWR(
+    apiClient.home._requestUserId(userInfo.id),
+    {
+      headers: { authorization: `Bearer ${token}` },
+      enabled: !!token && !!userInfo.id,
+      refreshInterval: 1000
+    }
+  );
 
   if (!homeTweetList) return <Progress h="100px" />;
 

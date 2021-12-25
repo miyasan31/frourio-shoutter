@@ -91,7 +91,7 @@ export const RetweetCard: FC<Props> = (props) => {
 
 const RetweetLabel = styled.div`
   padding-top: 0.75rem;
-  margin-left: 5rem;
+  margin-left: 5.25rem;
   font-size: 0.75rem;
 `;
 

@@ -1,11 +1,22 @@
-import { useCallback } from 'react';
+import { MouseEvent, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { user } from '~/atoms';
 import { getToken } from '~/functions';
 import { apiClient } from '~/utils';
 
-export const useTweetAction = () => {
+type TweetEvent = MouseEvent<HTMLButtonElement>;
+
+type UseTweetAction = (revalidate: () => Promise<boolean>) => {
+  handlePostLike: (e: TweetEvent, id: number) => Promise<void>;
+  handleDeleteLike: (e: TweetEvent, id: number) => Promise<void>;
+  handlePostRetweet: (e: TweetEvent, id: number) => Promise<void>;
+  handleDeleteRetweet: (e: TweetEvent, id: number) => Promise<void>;
+  handlePostFollow: (e: TweetEvent, id: string) => Promise<void>;
+  handleDeleteFollow: (e: TweetEvent, id: number) => Promise<void>;
+};
+
+export const useTweetAction: UseTweetAction = (revalidate) => {
   const userInfo = useRecoilValue(user);
 
   const handlePostLike = useCallback(
@@ -19,6 +30,7 @@ export const useTweetAction = () => {
           user: { connect: { id: userInfo.id } }
         }
       });
+      revalidate();
     },
     [userInfo]
   );
@@ -30,6 +42,7 @@ export const useTweetAction = () => {
       apiClient.like._likeId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       });
+      revalidate();
     },
     [userInfo]
   );
@@ -45,6 +58,7 @@ export const useTweetAction = () => {
           user: { connect: { id: userInfo.id } }
         }
       });
+      revalidate();
     },
     [userInfo]
   );
@@ -56,6 +70,7 @@ export const useTweetAction = () => {
       apiClient.retweet._retweetId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       });
+      revalidate();
     },
     [userInfo]
   );
@@ -71,6 +86,7 @@ export const useTweetAction = () => {
           following: { connect: { id: id } }
         }
       });
+      revalidate();
     },
     [userInfo]
   );
@@ -82,6 +98,7 @@ export const useTweetAction = () => {
       apiClient.follow._followId(id).delete({
         headers: { authorization: `Bearer ${token}` }
       });
+      revalidate();
     },
     [userInfo]
   );
