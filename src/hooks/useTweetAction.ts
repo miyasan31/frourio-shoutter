@@ -32,7 +32,7 @@ export const useTweetAction: UseTweetAction = (revalidate) => {
       });
       revalidate();
     },
-    [userInfo]
+    [userInfo, revalidate]
   );
 
   const handleDeleteLike = useCallback(
@@ -44,7 +44,7 @@ export const useTweetAction: UseTweetAction = (revalidate) => {
       });
       revalidate();
     },
-    [userInfo]
+    [userInfo, revalidate]
   );
 
   const handlePostRetweet = useCallback(
@@ -60,7 +60,7 @@ export const useTweetAction: UseTweetAction = (revalidate) => {
       });
       revalidate();
     },
-    [userInfo]
+    [userInfo, revalidate]
   );
 
   const handleDeleteRetweet = useCallback(
@@ -72,7 +72,7 @@ export const useTweetAction: UseTweetAction = (revalidate) => {
       });
       revalidate();
     },
-    [userInfo]
+    [userInfo, revalidate]
   );
 
   const handlePostFollow = useCallback(
@@ -88,7 +88,7 @@ export const useTweetAction: UseTweetAction = (revalidate) => {
       });
       revalidate();
     },
-    [userInfo]
+    [userInfo, revalidate]
   );
 
   const handleDeleteFollow = useCallback(
@@ -100,7 +100,7 @@ export const useTweetAction: UseTweetAction = (revalidate) => {
       });
       revalidate();
     },
-    [userInfo]
+    [userInfo, revalidate]
   );
 
   return {
