@@ -20,6 +20,11 @@ export type GetTweetList = User & {
   followers: {
     id: number;
   }[];
+  _count: {
+    followers: number;
+    followings: number;
+  };
+
   tweets: (Tweet & {
     retweets: {
       id: number;
@@ -33,41 +38,101 @@ export type GetTweetList = User & {
       likes: number;
     };
   })[];
+};
+
+export type GetReplyList = User & {
+  followers: {
+    id: number;
+  }[];
   _count: {
     followers: number;
     followings: number;
   };
+
+  replies: (Reply & {
+    tweet?: Tweet;
+    user: User & {
+      followers: {
+        id: number;
+      }[];
+      _count: {
+        followers: number;
+        followings: number;
+      };
+    };
+  })[];
 };
 
-export type GetReplyList = (User & {
-  replies: Reply[];
-})[];
+export type GetLikeList = User & {
+  followers: {
+    id: number;
+  }[];
+  _count: {
+    followers: number;
+    followings: number;
+  };
 
-export type GetLikeList = (User & {
   likes: (Like & {
     tweet: Tweet & {
+      retweets: {
+        id: number;
+      }[];
+      likes: {
+        id: number;
+      }[];
       _count: {
-        replies: number;
-        retweets: number;
         likes: number;
+        retweets: number;
+        replies: number;
       };
-      user: User;
+      user: User & {
+        followers: {
+          id: number;
+        }[];
+        _count: {
+          followers: number;
+          followings: number;
+        };
+      };
     };
   })[];
-})[];
+};
 
-export type GetRetweetList = (User & {
+export type GetRetweetList = User & {
+  followers: {
+    id: number;
+  }[];
+  _count: {
+    followers: number;
+    followings: number;
+  };
+
   retweets: (Retweet & {
+    user: User;
     tweet: Tweet & {
-      user: User;
+      retweets: {
+        id: number;
+      }[];
+      likes: {
+        id: number;
+      }[];
       _count: {
-        replies: number;
-        retweets: number;
         likes: number;
+        retweets: number;
+        replies: number;
+      };
+      user: User & {
+        followers: {
+          id: number;
+        }[];
+        _count: {
+          followers: number;
+          followings: number;
+        };
       };
     };
   })[];
-})[];
+};
 
 export type GetFollowerList = (User & {
   followers: (Follow & {
