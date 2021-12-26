@@ -1,13 +1,11 @@
 import type { AuthHeader } from '$/types';
-import type { Reply, User } from '$prisma/client';
+import { GetReplyList } from '$/types/user';
 
 export type Methods = {
   get: {
     reqHeaders: AuthHeader;
 
-    resBody: (User & {
-      replies: Reply[];
-    })[];
+    resBody: GetReplyList;
     status: 200;
   };
 };

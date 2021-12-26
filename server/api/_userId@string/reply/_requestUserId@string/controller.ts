@@ -8,11 +8,10 @@ export default defineController(
   },
   ({ getUserReplyList }) => ({
     get: async ({ params }) => {
-      const replylist = await getUserReplyList(params.userId);
-
-      if (replylist.length === 0) {
-        return { status: 404 };
-      }
+      const replylist = await getUserReplyList(
+        params.userId,
+        params.requestUserId
+      );
 
       return { status: 200, body: replylist };
     }
