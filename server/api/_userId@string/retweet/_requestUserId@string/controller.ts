@@ -8,10 +8,10 @@ export default defineController(
   },
   ({ getUserRetweetList }) => ({
     get: async ({ params }) => {
-      const retweetlist = await getUserRetweetList(params.userId);
-      if (retweetlist.length === 0) {
-        return { status: 404 };
-      }
+      const retweetlist = await getUserRetweetList(
+        params.userId,
+        params.requestUserId
+      );
       return { status: 200, body: retweetlist };
     }
   })
