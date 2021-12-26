@@ -1,8 +1,17 @@
 > 未リファクタリング
 
-# frourio tutorial
+# concept
+マークダウンで投稿できる某Twi○ter
 
-# 技術スタック
+# todo
+- マークダウン導入（早急に）
+- バックエンドのバリデーション（controllerレベルでのpipe）
+- コメントへのいいね機能
+- 投稿時間表記を現在時刻からの差分で表示
+
+> 時間があればやります
+
+# stacks
 - frourio
 - aspida
 - Nextjs
@@ -15,18 +24,18 @@
 - Docker
 - Prisma
 
-# 画面
+# pages
 
 ## Auth0認証
 ![](https://i.imgur.com/X544YTi.png)
 
-## ホーム画面
+## ホーム
 ![](https://i.imgur.com/DEBVv2e.png)
 
-## ツイート詳細画面
+## ツイート詳細
 ![](https://i.imgur.com/iAfu8A6.png)
 
-## プロフィール画面
+## プロフィール
 ### ツイート
 ![](https://i.imgur.com/48DIEy9.jpg)
 
