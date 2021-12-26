@@ -8,10 +8,10 @@ export default defineController(
   },
   ({ getUserLikeList }) => ({
     get: async ({ params }) => {
-      const likelist = await getUserLikeList(params.userId);
-      if (likelist.length === 0) {
-        return { status: 404 };
-      }
+      const likelist = await getUserLikeList(
+        params.userId,
+        params.requestUserId
+      );
       return { status: 200, body: likelist };
     }
   })

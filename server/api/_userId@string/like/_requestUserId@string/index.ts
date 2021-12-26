@@ -1,17 +1,11 @@
 import type { AuthHeader } from '$/types';
-import type { Like, Tweet, User } from '$prisma/client';
+import { GetLikeList } from '$/types/user';
 
 export type Methods = {
   get: {
     reqHeaders: AuthHeader;
 
-    resBody: (User & {
-      likes: (Like & {
-        tweet: Tweet & {
-          user: User;
-        };
-      })[];
-    })[];
+    resBody: GetLikeList;
     status: 200;
   };
 };
