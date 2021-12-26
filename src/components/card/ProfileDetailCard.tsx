@@ -2,7 +2,9 @@ import { Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { FC } from 'react';
+
+import { ProfileTab } from '~/components/card';
 
 type Props = {
   data: {
@@ -21,6 +23,7 @@ type Props = {
     };
   };
 };
+
 export const ProfileDetailCard: FC<Props> = (props) => {
   return (
     <ProfileWrap>
@@ -76,7 +79,7 @@ export const ProfileDetailCard: FC<Props> = (props) => {
         </Flex>
       </ProfileBodyWrap>
 
-      {/* <ProfileTab userId={props.id} /> */}
+      <ProfileTab userId={props.data.id} />
     </ProfileWrap>
   );
 };
@@ -103,7 +106,7 @@ const IconWrap = styled.div`
 `;
 
 const ProfileWrap = styled.div`
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc; */
 `;
 
 const ProfileBodyWrap = styled.div`
