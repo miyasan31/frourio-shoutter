@@ -37,6 +37,7 @@ const ProfileTweetPage: NextPage = () => {
   return (
     <div>
       <ProfileDetailCard data={userProfile} />
+
       {tweets.map((t, i) => {
         return (
           <TweetCard
