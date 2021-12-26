@@ -82,6 +82,15 @@ export const getUserTweetList = depend(
         id: id
       },
       include: {
+        // user is followed
+        followers: {
+          where: { userId: reqestUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
+        },
         // user -> tweets
         tweets: {
           // sotr by createdAt desc
@@ -102,15 +111,6 @@ export const getUserTweetList = depend(
               select: { replies: true, retweets: true, likes: true }
             }
           }
-        },
-        // user is followed
-        followers: {
-          where: { userId: reqestUserId },
-          select: { id: true }
-        },
-        // countings on user follow
-        _count: {
-          select: { followers: true, followings: true }
         }
       }
     });
@@ -122,27 +122,35 @@ export const getUserTweetList = depend(
 export const getUserReplyList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetReplyList> };
+      user: {
+        findUnique(query: Prisma.UserFindManyArgs): Promise<GetReplyList>;
+      };
     }
   },
-  async ({ prisma }, id: User['id']) => {
-    const result = await prisma.user.findMany({
+  async ({ prisma }, id: User['id'], reqestUserId: User['id']) => {
+    const result = await prisma.user.findUnique({
       where: {
         id: id
       },
-      // sotr by createdAt desc
-      orderBy: { createdAt: 'desc' },
       include: {
-        // user -> replies
-        replies: true,
         // user is followed
         followers: {
-          where: { userId: testUserId },
+          where: { userId: reqestUserId },
           select: { id: true }
         },
         // countings on user follow
         _count: {
           select: { followers: true, followings: true }
+        },
+
+        // user -> replies
+        replies: {
+          // sotr by createdAt desc
+          orderBy: { createdAt: 'desc' },
+          // reply -> tweet
+          include: {
+            tweet: true
+          }
         }
       }
     });
@@ -154,15 +162,27 @@ export const getUserReplyList = depend(
 export const getUserLikeList = depend(
   {
     prisma: prisma as unknown as {
-      user: { findMany(query: Prisma.UserFindManyArgs): Promise<GetLikeList> };
+      user: {
+        findUnique(query: Prisma.UserFindManyArgs): Promise<GetLikeList>;
+      };
     }
   },
-  async ({ prisma }, id: User['id']) => {
-    const result = await prisma.user.findMany({
+  async ({ prisma }, id: User['id'], reqestUserId: User['id']) => {
+    const result = await prisma.user.findUnique({
       where: {
         id: id
       },
       include: {
+        // user is followed
+        followers: {
+          where: { userId: reqestUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
+        },
+
         // user -> likes
         likes: {
           // sotr by createdAt desc
@@ -176,7 +196,7 @@ export const getUserLikeList = depend(
                   include: {
                     // user is followed
                     followers: {
-                      where: { userId: testUserId },
+                      where: { userId: reqestUserId },
                       select: { id: true }
                     },
                     // countings on user follow
@@ -187,12 +207,12 @@ export const getUserLikeList = depend(
                 },
                 // user is liked
                 likes: {
-                  where: { userId: testUserId },
+                  where: { userId: reqestUserId },
                   select: { id: true }
                 },
                 // user is retweeted
                 retweets: {
-                  where: { userId: testUserId },
+                  where: { userId: reqestUserId },
                   select: { id: true }
                 },
                 // countings on tweet
@@ -202,15 +222,6 @@ export const getUserLikeList = depend(
               }
             }
           }
-        },
-        // user is followed
-        followers: {
-          where: { userId: testUserId },
-          select: { id: true }
-        },
-        // countings on user follow
-        _count: {
-          select: { followers: true, followings: true }
         }
       }
     });
@@ -223,16 +234,26 @@ export const getUserRetweetList = depend(
   {
     prisma: prisma as unknown as {
       user: {
-        findMany(query: Prisma.UserFindManyArgs): Promise<GetRetweetList>;
+        findUnique(query: Prisma.UserFindManyArgs): Promise<GetRetweetList>;
       };
     }
   },
-  async ({ prisma }, id: User['id']) => {
-    const result = await prisma.user.findMany({
+  async ({ prisma }, id: User['id'], reqestUserId: User['id']) => {
+    const result = await prisma.user.findUnique({
       where: {
         id: id
       },
       include: {
+        // user is followed
+        followers: {
+          where: { userId: reqestUserId },
+          select: { id: true }
+        },
+        // countings on user follow
+        _count: {
+          select: { followers: true, followings: true }
+        },
+
         // tweet -> retweets
         retweets: {
           // sotr by createdAt desc
@@ -246,7 +267,7 @@ export const getUserRetweetList = depend(
                   include: {
                     // user is followed
                     followers: {
-                      where: { userId: testUserId },
+                      where: { userId: reqestUserId },
                       select: { id: true }
                     },
                     // countings on user follow
@@ -257,12 +278,12 @@ export const getUserRetweetList = depend(
                 },
                 // user is liked
                 likes: {
-                  where: { userId: testUserId },
+                  where: { userId: reqestUserId },
                   select: { id: true }
                 },
                 // user is retweeted
                 retweets: {
-                  where: { userId: testUserId },
+                  where: { userId: reqestUserId },
                   select: { id: true }
                 },
                 // countings on tweet
@@ -272,15 +293,6 @@ export const getUserRetweetList = depend(
               }
             }
           }
-        },
-        // user is followed
-        followers: {
-          where: { userId: testUserId },
-          select: { id: true }
-        },
-        // countings on user follow
-        _count: {
-          select: { followers: true, followings: true }
         }
       }
     });
